@@ -28,7 +28,9 @@ struct IntroView: View {
 struct ContentView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     var body: some View {
-        NavigationView {
+        ZStack {
+            Color.init(UIColor.systemGray6)
+                .edgesIgnoringSafeArea(.all)
             if viewRouter.currentPage == "intro" {
                 IntroView()
             } else if viewRouter.currentPage == "home" {
