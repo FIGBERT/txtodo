@@ -1,6 +1,6 @@
 # txtodo
 
-Pronounced "text to do," **txtodo** is a simple and minimalist open-source todo app based on Jeff Huang's post, [*My productivity app for the past 12 years has been a single .txt file*][1].
+Pronounced "text to do," **txtodo** is a simple and minimalist open-source todo app made by [FIGBERT][0] and based on Jeff Huang's post, [*My productivity app for the past 12 years has been a single .txt file*][1].
 
 After stumbling on his [post][3] through [Hacker News][4], where it managed to hit #1 on [February 8th][5], I started thnking about how I managed my own productivity. For the past few months, I've been jumping from app to app looking for a way to force myself into be productive.
 
@@ -12,6 +12,7 @@ That solution is **txtodo**. It manages immediate, short-term tasks to help you 
 
 Download it on the App Store and give it a try! ~~not yet though I'm still working on it~~
 
+[0]: https://figbert.com/
 [1]: https://jeffhuang.com/productivity_text_file/
 [2]: https://figbert.com/
 [3]: https://news.ycombinator.com/item?id=22276184
