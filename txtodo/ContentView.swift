@@ -10,17 +10,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Text("txtodo")
-                .font(.system(size: 125, weight: .ultraLight, design: .rounded))
-            Image(uiImage: UIImage(
-                systemName: "arrow.right.circle",
-                withConfiguration: UIImage.SymbolConfiguration(
-                    pointSize: CGFloat.init(75),
-                    weight: .ultraLight,
-                    scale: .large
-                )
-            )!)
+        NavigationView {
+            VStack {
+                Text("txtodo")
+                    .font(.system(size: 125, weight: .ultraLight, design: .rounded))
+                Image(systemName: "arrow.right.circle")
+                    .font(.system(size: 125, weight: .ultraLight, design: .rounded))
+            }
         }
     }
 }
