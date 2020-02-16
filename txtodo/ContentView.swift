@@ -16,7 +16,7 @@ struct ContentView: View {
             Image(uiImage: UIImage(
                 systemName: "arrow.right.circle",
                 withConfiguration: UIImage.SymbolConfiguration(
-                    pointSize: 75,
+                    pointSize: CGFloat.init(75),
                     weight: .ultraLight,
                     scale: .large
                 )
@@ -27,6 +27,11 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView()
+                .environment(\.colorScheme, .light)
+            ContentView()
+                .environment(\.colorScheme, .dark)
+        }
     }
 }
