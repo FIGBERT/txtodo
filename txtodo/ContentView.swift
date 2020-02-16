@@ -9,13 +9,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var viewRouter: ViewRouter
     var body: some View {
         NavigationView {
-            VStack {
-                Text("txtodo")
-                    .font(.system(size: 125, weight: .ultraLight, design: .rounded))
-                Image(systemName: "arrow.right.circle")
-                    .font(.system(size: 125, weight: .ultraLight, design: .rounded))
+            if viewRouter.currentPage == "intro" {
+                VStack {
+                    Text("txtodo")
+                        .font(.system(size: 125, weight: .ultraLight, design: .rounded))
+                    Button(action: {
+                        self.viewRouter.currentPage = "home"
+                    }) {
+                        Image(systemName: "arrow.right.circle")
+                            .font(.system(size: 125, weight: .ultraLight, design: .rounded))
+                            .foregroundColor(Color.init(UIColor.label))
+                    }
+                }
+            } else if viewRouter.currentPage == "home" {
+                Text("temp")
             }
         }
     }
@@ -23,11 +33,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            ContentView()
-                .environment(\.colorScheme, .light)
-            ContentView()
-                .environment(\.colorScheme, .dark)
-        }
+        ContentView().environmentObject(ViewRouter())
     }
 }
