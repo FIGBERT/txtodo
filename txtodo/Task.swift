@@ -27,12 +27,12 @@ struct taskView: View {
             }) {
                 if task_.complete {
                     Image(systemName: "checkmark.square")
-                        .font(.system(size: 25, weight: .light))
                 } else {
                     Image(systemName: "square")
-                        .font(.system(size: 25, weight: .light))
                 }
-            }.foregroundColor(Color.init(UIColor.label))
+            }
+                .font(.system(size: 25, weight: .light))
+                .foregroundColor(Color.init(UIColor.label))
             Spacer()
             Text(task_.text)
                 .font(.system(size: 20, weight: .light))
