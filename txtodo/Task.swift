@@ -17,18 +17,22 @@ struct task: Codable {
 }
 
 struct taskView: View {
-    let task_: task
+    @State var task_: task
     let calendar = Calendar.current
     var body: some View {
         HStack {
             Spacer()
-            if task_.complete {
-                Image(systemName: "checkmark.square")
-                    .font(.system(size: 25, weight: .light))
-            } else {
-                Image(systemName: "square")
-                    .font(.system(size: 25, weight: .light))
-            }
+            Button(action: {
+                self.task_.complete.toggle()
+            }) {
+                if task_.complete {
+                    Image(systemName: "checkmark.square")
+                        .font(.system(size: 25, weight: .light))
+                } else {
+                    Image(systemName: "square")
+                        .font(.system(size: 25, weight: .light))
+                }
+            }.foregroundColor(Color.init(UIColor.label))
             Spacer()
             Text(task_.text)
                 .font(.system(size: 20, weight: .light))
