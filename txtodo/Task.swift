@@ -21,7 +21,6 @@ struct taskView: View {
     let calendar = Calendar.current
     var body: some View {
         HStack {
-            Spacer()
             Button(action: {
                 self.task_.complete.toggle()
             }) {
@@ -51,7 +50,6 @@ struct taskView: View {
                         .font(.system(size: 10, weight: .light))
                 }
             }
-            Spacer()
-        }
+        }.padding(.horizontal, 25)
     }
 }
