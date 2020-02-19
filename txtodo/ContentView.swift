@@ -25,6 +25,28 @@ struct IntroView: View {
     }
 }
 
+struct HomeView: View {
+    @EnvironmentObject var viewRouter: ViewRouter
+    var body: some View {
+        VStack {
+            Group {
+                Text("floating")
+                    .font(.system(size: 25, weight: .medium, design: .rounded))
+                    .underline()
+                taskView(task_: task(complete: false, text: "Complete txtodo", time: Date()))
+            }
+            Group {
+                Text("today")
+                    .font(.system(size: 25, weight: .medium, design: .rounded))
+                    .underline()
+                taskView(task_: task(complete: true, text: "hello", time: Date(), priority: 3))
+                taskView(task_: task(complete: false, text: "world", time: Date(), priority: 2))
+            }
+            Spacer()
+        }
+    }
+}
+
 struct ContentView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     var body: some View {
@@ -34,7 +56,7 @@ struct ContentView: View {
             if viewRouter.currentPage == "intro" {
                 IntroView()
             } else if viewRouter.currentPage == "home" {
-                Text("temp")
+                HomeView()
             }
         }
     }
