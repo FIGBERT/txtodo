@@ -21,6 +21,7 @@ struct taskView: View {
     let calendar = Calendar.current
     var body: some View {
         HStack {
+            Spacer()
             if task_.complete {
                 Image(systemName: "checkmark.square")
                     .font(.system(size: 25, weight: .light))
@@ -46,6 +47,7 @@ struct taskView: View {
                         .font(.system(size: 10, weight: .light))
                 }
             }
+            Spacer()
         }
     }
 }
