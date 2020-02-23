@@ -9,12 +9,20 @@
 import Foundation
 import SwiftUI
 
-struct task: Codable {
+struct task: Codable, Hashable {
     var complete: Bool = false
     var text: String
-    var time: Date!
     var priority: Int!
+}
+
+struct noteTask: Codable, Hashable {
+    var main: task
     var notes: [String]!
+}
+
+struct superTask: Codable, Hashable {
+    var main: task
+    var subTasks: [noteTask]!
 }
 
 struct taskNote: View {
@@ -32,15 +40,15 @@ struct taskNote: View {
     }
 }
 
-struct taskView: View {
-    @State var task_: task
+struct noteTaskView: View {
+    @State var task_: noteTask
     let calendar = Calendar.current
     var body: some View {
         HStack {
             Button(action: {
-                self.task_.complete.toggle()
+                self.task_.main.complete.toggle()
             }) {
-                if task_.complete {
+                if task_.main.complete {
                     Image(systemName: "checkmark.square")
                 } else {
                     Image(systemName: "square")
@@ -49,22 +57,20 @@ struct taskView: View {
                 .font(.system(size: 25, weight: .light))
                 .foregroundColor(Color.init(UIColor.label))
             Spacer()
-            NavigationLink(destination: taskDetails(task_: task_)) {
-                Text(task_.text)
+            NavigationLink(destination: taskNotes(task_: task_)) {
+                Text(task_.main.text)
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.label))
             }
             Spacer()
             VStack {
-                Text("\(calendar.component(.hour, from: task_.time)):\(calendar.component(.minute, from: task_.time))")
-                    .font(.system(size: 10, weight: .light))
-                if task_.priority == 1 {
-                    Text("!")
+                if task_.main.priority == 1 {
+                    Text("  !  ")
                         .font(.system(size: 10, weight: .light))
-                } else if task_.priority == 2 {
-                    Text("! !")
+                } else if task_.main.priority == 2 {
+                    Text(" ! ! ")
                         .font(.system(size: 10, weight: .light))
-                } else if task_.priority == 3 {
+                } else if task_.main.priority == 3 {
                     Text("! ! !")
                         .font(.system(size: 10, weight: .light))
                 }
@@ -73,8 +79,46 @@ struct taskView: View {
     }
 }
 
-struct taskDetails: View {
-    @State var task_: task
+struct superTaskView: View {
+    @State var task_: superTask
+    var body: some View {
+        HStack {
+            Button(action: {
+                self.task_.main.complete.toggle()
+            }) {
+                if task_.main.complete {
+                    Image(systemName: "checkmark.square")
+                } else {
+                    Image(systemName: "square")
+                }
+            }
+                .font(.system(size: 25, weight: .light))
+                .foregroundColor(Color.init(UIColor.label))
+            Spacer()
+            NavigationLink(destination: taskSubtasks(task_: task_)) {
+                Text(task_.main.text)
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.label))
+            }
+            Spacer()
+            VStack {
+                if task_.main.priority == 1 {
+                    Text("  !  ")
+                        .font(.system(size: 10, weight: .light))
+                } else if task_.main.priority == 2 {
+                    Text(" ! ! ")
+                        .font(.system(size: 10, weight: .light))
+                } else if task_.main.priority == 3 {
+                    Text("! ! !")
+                        .font(.system(size: 10, weight: .light))
+                }
+            }
+        }.padding(.horizontal, 25)
+    }
+}
+
+struct taskNotes: View {
+    @State var task_: noteTask
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
@@ -84,7 +128,23 @@ struct taskDetails: View {
             }
                 .padding(.top, 25)
         }
-            .navigationBarTitle(Text(task_.text), displayMode: .inline)
-            .background(Color.init(UIColor.systemGray6).edgesIgnoringSafeArea(.all))
+        .navigationBarTitle(Text(task_.main.text), displayMode: .inline)
+        .background(Color.init(UIColor.systemGray6).edgesIgnoringSafeArea(.all))
+    }
+}
+
+struct taskSubtasks: View {
+    @State var task_: superTask
+    var body: some View {
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack {
+                ForEach(task_.subTasks, id: \.self) {
+                    noteTaskView(task_: $0)
+                }
+            }
+                .padding(.top, 25)
+        }
+        .navigationBarTitle(Text(task_.main.text), displayMode: .inline)
+        .background(Color.init(UIColor.systemGray6).edgesIgnoringSafeArea(.all))
     }
 }

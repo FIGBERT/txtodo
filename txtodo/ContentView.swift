@@ -34,14 +34,76 @@ struct HomeView: View {
                     Text("floating")
                         .font(.system(size: 25, weight: .medium, design: .rounded))
                         .underline()
-                    taskView(task_: task(complete: false, text: "Complete txtodo", time: Date()))
+                    superTaskView(task_: superTask(
+                        main: task(
+                            complete: false,
+                            text: "Complete txtodo",
+                            priority: 2
+                        ),
+                        subTasks: [
+                            noteTask(
+                                main: task(
+                                    complete: true,
+                                    text: "hello",
+                                    priority: 3
+                                ),
+                                notes: [
+                                    "Lorem ipsum dolor sit amet",
+                                    "consectetur adipiscing elit"
+                                ]
+                            ),
+                            noteTask(
+                                main: task(
+                                    complete: false,
+                                    text: "world",
+                                    priority: 1
+                                ),
+                                notes: [
+                                    "Lorem ipsum dolor sit amet",
+                                    "consectetur adipiscing elit"
+                                ]
+                            )
+                        ]
+                    ))
                 }.padding(.bottom, 45)
                 VStack {
                     Text("today")
                         .font(.system(size: 25, weight: .medium, design: .rounded))
                         .underline()
-                    taskView(task_: task(complete: true, text: "hello", time: Date(), notes: ["Lorem ipsum dolor sit amet", "consectetur adipiscing elit", "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua", "Ut enim ad minim veniam", "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat", "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur", "Excepteur sint occaecat cupidatat non proident", "sunt in culpa qui officia deserunt mollit anim id est laborum"]))
-                    taskView(task_: task(complete: false, text: "world", time: Date(), notes: ["Lorem ipsum dolor sit amet", "consectetur adipiscing elit", "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua", "Tempor orci dapibus ultrices in iaculis nunc sed augue", "Dictum at tempor commodo ullamcorper a", "Consectetur libero id faucibus nisl tincidunt eget nullam non nisi", "Urna id volutpat lacus laoreet non", "Arcu odio ut sem nulla pharetra diam sit", "Odio aenean sed adipiscing diam", "Purus sit amet volutpat consequat mauris nunc congue nisi"]))
+                    noteTaskView(task_: noteTask(
+                        main: task(
+                            complete: true,
+                            text: "hello",
+                            priority: 3
+                        ),
+                        notes: [
+                            "Lorem ipsum dolor sit amet",
+                            "consectetur adipiscing elit",
+                            "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+                            "Ut enim ad minim veniam",
+                            "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+                            "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+                            "Excepteur sint occaecat cupidatat non proident",
+                            "sunt in culpa qui officia deserunt mollit anim id est laborum"
+                        ]
+                    ))
+                    noteTaskView(task_: noteTask(
+                        main: task(
+                            complete: false,
+                            text: "world",
+                            priority: 1
+                        ),
+                        notes: [
+                            "Lorem ipsum dolor sit amet",
+                            "consectetur adipiscing elit",
+                            "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+                            "Ut enim ad minim veniam",
+                            "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
+                            "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+                            "Excepteur sint occaecat cupidatat non proident",
+                            "sunt in culpa qui officia deserunt mollit anim id est laborum"
+                        ]
+                    ))
                 }
                 Spacer()
             }
