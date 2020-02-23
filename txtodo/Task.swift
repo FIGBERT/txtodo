@@ -63,17 +63,15 @@ struct noteTaskView: View {
                     .foregroundColor(Color.init(UIColor.label))
             }
             Spacer()
-            VStack {
-                if task_.main.priority == 1 {
-                    Text("  !  ")
-                        .font(.system(size: 10, weight: .light))
-                } else if task_.main.priority == 2 {
-                    Text(" ! ! ")
-                        .font(.system(size: 10, weight: .light))
-                } else if task_.main.priority == 3 {
-                    Text("! ! !")
-                        .font(.system(size: 10, weight: .light))
-                }
+            if task_.main.priority == 1 {
+                Text("  !  ")
+                    .font(.system(size: 10, weight: .light))
+            } else if task_.main.priority == 2 {
+                Text(" ! ! ")
+                    .font(.system(size: 10, weight: .light))
+            } else if task_.main.priority == 3 {
+                Text("! ! !")
+                    .font(.system(size: 10, weight: .light))
             }
         }.padding(.horizontal, 25)
     }
