@@ -29,27 +29,29 @@ struct HomeView: View {
     @EnvironmentObject var globalVars: GlobalVars
     var body: some View {
         NavigationView {
-            VStack {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    Text("floating")
-                        .font(.system(size: 25, weight: .medium, design: .rounded))
-                        .underline()
-                    ForEach(self.globalVars.floatingTasks, id: \.self) {
-                        superTaskView(task_: $0)
+                    VStack {
+                        Text("floating")
+                            .font(.system(size: 25, weight: .medium, design: .rounded))
+                            .underline()
+                        ForEach(self.globalVars.floatingTasks, id: \.self) {
+                            superTaskView(task_: $0)
+                        }
+                    }.padding(.bottom, 45)
+                    VStack {
+                        Text("today")
+                            .font(.system(size: 25, weight: .medium, design: .rounded))
+                            .underline()
+                        ForEach(self.globalVars.dailyTasks, id: \.self) {
+                            noteTaskView(task_: $0)
+                        }
                     }
-                }.padding(.bottom, 45)
-                VStack {
-                    Text("today")
-                        .font(.system(size: 25, weight: .medium, design: .rounded))
-                        .underline()
-                    ForEach(self.globalVars.dailyTasks, id: \.self) {
-                        noteTaskView(task_: $0)
-                    }
+                    Spacer()
                 }
-                Spacer()
             }
-            .background(Color.init(UIColor.systemGray6)
-            .edgesIgnoringSafeArea(.all))
+                .background(Color.init(UIColor.systemGray6)
+                .edgesIgnoringSafeArea(.all))
         }
     }
 }
