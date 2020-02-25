@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3A583EE92402D86400066DAE /* TextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A583EE82402D86400066DAE /* TextFieldAlert.swift */; };
-		3A96BE6623F9014E00E17400 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96BE6523F9014E00E17400 /* ViewRouter.swift */; };
+		3A96BE6623F9014E00E17400 /* GlobalVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96BE6523F9014E00E17400 /* GlobalVars.swift */; };
 		3A96BE6A23F90F3A00E17400 /* DarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96BE6923F90F3A00E17400 /* DarkMode.swift */; };
 		3AAEDB1523FB2A2B00879B8D /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAEDB1423FB2A2B00879B8D /* Task.swift */; };
 		3AE3ECBC23F8C8C900F80147 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE3ECBB23F8C8C900F80147 /* AppDelegate.swift */; };
@@ -22,7 +22,7 @@
 
 /* Begin PBXFileReference section */
 		3A583EE82402D86400066DAE /* TextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldAlert.swift; sourceTree = "<group>"; };
-		3A96BE6523F9014E00E17400 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
+		3A96BE6523F9014E00E17400 /* GlobalVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVars.swift; sourceTree = "<group>"; };
 		3A96BE6923F90F3A00E17400 /* DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkMode.swift; sourceTree = "<group>"; };
 		3AAEDB1423FB2A2B00879B8D /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		3AE3ECB823F8C8C900F80147 /* txtodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = txtodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,7 +72,7 @@
 				3A583EE82402D86400066DAE /* TextFieldAlert.swift */,
 				3AAEDB1423FB2A2B00879B8D /* Task.swift */,
 				3AE3ECC223F8C8C900F80147 /* ContentView.swift */,
-				3A96BE6523F9014E00E17400 /* ViewRouter.swift */,
+				3A96BE6523F9014E00E17400 /* GlobalVars.swift */,
 				3AE3ECC423F8C8CA00F80147 /* Assets.xcassets */,
 				3AE3ECC923F8C8CA00F80147 /* LaunchScreen.storyboard */,
 				3AE3ECCC23F8C8CA00F80147 /* Info.plist */,
@@ -164,7 +164,7 @@
 				3A583EE92402D86400066DAE /* TextFieldAlert.swift in Sources */,
 				3AAEDB1523FB2A2B00879B8D /* Task.swift in Sources */,
 				3A96BE6A23F90F3A00E17400 /* DarkMode.swift in Sources */,
-				3A96BE6623F9014E00E17400 /* ViewRouter.swift in Sources */,
+				3A96BE6623F9014E00E17400 /* GlobalVars.swift in Sources */,
 				3AE3ECBC23F8C8C900F80147 /* AppDelegate.swift in Sources */,
 				3AE3ECC123F8C8C900F80147 /* txtodo.xcdatamodeld in Sources */,
 				3AE3ECC323F8C8C900F80147 /* ContentView.swift in Sources */,

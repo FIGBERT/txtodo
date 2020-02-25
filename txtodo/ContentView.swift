@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct IntroView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var globalVars: GlobalVars
     var body: some View {
         VStack {
             Text("txtodo")
                 .font(.system(size: 125, weight: .ultraLight, design: .rounded))
             Button(action: {
-                self.viewRouter.currentPage = "home"
+                self.globalVars.currentPage = "home"
             }) {
                 Image(systemName: "arrow.right.circle")
                     .font(.system(size: 125, weight: .ultraLight, design: .rounded))
@@ -26,7 +26,7 @@ struct IntroView: View {
 }
 
 struct HomeView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var globalVars: GlobalVars
     var body: some View {
         NavigationView {
             VStack {
@@ -34,76 +34,17 @@ struct HomeView: View {
                     Text("floating")
                         .font(.system(size: 25, weight: .medium, design: .rounded))
                         .underline()
-                    superTaskView(task_: superTask(
-                        main: task(
-                            complete: false,
-                            text: "Complete txtodo",
-                            priority: 2
-                        ),
-                        subTasks: [
-                            noteTask(
-                                main: task(
-                                    complete: true,
-                                    text: "hello",
-                                    priority: 3
-                                ),
-                                notes: [
-                                    "Lorem ipsum dolor sit amet",
-                                    "consectetur adipiscing elit"
-                                ]
-                            ),
-                            noteTask(
-                                main: task(
-                                    complete: false,
-                                    text: "world",
-                                    priority: 1
-                                ),
-                                notes: [
-                                    "Lorem ipsum dolor sit amet",
-                                    "consectetur adipiscing elit"
-                                ]
-                            )
-                        ]
-                    ))
+                    ForEach(self.globalVars.floatingTasks, id: \.self) {
+                        superTaskView(task_: $0)
+                    }
                 }.padding(.bottom, 45)
                 VStack {
                     Text("today")
                         .font(.system(size: 25, weight: .medium, design: .rounded))
                         .underline()
-                    noteTaskView(task_: noteTask(
-                        main: task(
-                            complete: true,
-                            text: "hello",
-                            priority: 3
-                        ),
-                        notes: [
-                            "Lorem ipsum dolor sit amet",
-                            "consectetur adipiscing elit",
-                            "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-                            "Ut enim ad minim veniam",
-                            "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-                            "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
-                            "Excepteur sint occaecat cupidatat non proident",
-                            "sunt in culpa qui officia deserunt mollit anim id est laborum"
-                        ]
-                    ))
-                    noteTaskView(task_: noteTask(
-                        main: task(
-                            complete: false,
-                            text: "world",
-                            priority: 1
-                        ),
-                        notes: [
-                            "Lorem ipsum dolor sit amet",
-                            "consectetur adipiscing elit",
-                            "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-                            "Ut enim ad minim veniam",
-                            "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
-                            "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
-                            "Excepteur sint occaecat cupidatat non proident",
-                            "sunt in culpa qui officia deserunt mollit anim id est laborum"
-                        ]
-                    ))
+                    ForEach(self.globalVars.dailyTasks, id: \.self) {
+                        noteTaskView(task_: $0)
+                    }
                 }
                 Spacer()
             }
@@ -114,7 +55,7 @@ struct HomeView: View {
 }
 
 struct ContentView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var viewRouter: GlobalVars
     var body: some View {
         ZStack {
             Color.init(UIColor.systemGray6)
@@ -130,6 +71,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(ViewRouter())
+        ContentView().environmentObject(GlobalVars())
     }
 }
