@@ -38,6 +38,7 @@ struct HomeView: View {
                         ForEach(self.globalVars.floatingTasks, id: \.self) {
                             superTaskView(task_: $0)
                         }
+                        addTask(createType: "floating")
                     }.padding(.bottom, 45)
                     VStack {
                         Text("today")
@@ -46,7 +47,7 @@ struct HomeView: View {
                         ForEach(self.globalVars.dailyTasks, id: \.self) {
                             noteTaskView(task_: $0)
                         }
-                        addNoteTask()
+                        addTask(createType: "daily")
                     }
                     Spacer()
                 }

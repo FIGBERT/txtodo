@@ -40,8 +40,9 @@ struct taskNote: View {
     }
 }
 
-struct addNoteTask: View {
+struct addTask: View {
     @EnvironmentObject var globalVars: GlobalVars
+    let createType: String
     @State var addingTask: Bool = false
     @State var newTaskText: String = ""
     @State var newTaskPriority: Int = 0
@@ -94,16 +95,25 @@ struct addNoteTask: View {
                         .pickerStyle(SegmentedPickerStyle())
                     Spacer()
                     Button(action: {
-                        print(self.newTaskPriority)
-                        print(self.newTaskText)
-                        self.globalVars.dailyTasks.append(
-                            noteTask(
-                                main: task(
-                                    text: self.newTaskText,
-                                    priority: self.newTaskPriority
+                        if self.createType == "daily" {
+                            self.globalVars.dailyTasks.append(
+                                noteTask(
+                                    main: task(
+                                        text: self.newTaskText,
+                                        priority: self.newTaskPriority
+                                    )
                                 )
                             )
-                        )
+                        } else if self.createType == "floating" {
+                            self.globalVars.floatingTasks.append(
+                                superTask(
+                                    main: task(
+                                        text: self.newTaskText,
+                                        priority: self.newTaskPriority
+                                    )
+                                )
+                            )
+                        }
                         self.newTaskText = ""
                         self.newTaskPriority = 0
                         self.addingTask = false
@@ -180,17 +190,18 @@ struct superTaskView: View {
                     .foregroundColor(Color.init(UIColor.label))
             }
             Spacer()
-            VStack {
-                if task_.main.priority == 1 {
-                    Text("  !  ")
-                        .font(.system(size: 10, weight: .light))
-                } else if task_.main.priority == 2 {
-                    Text(" ! ! ")
-                        .font(.system(size: 10, weight: .light))
-                } else if task_.main.priority == 3 {
-                    Text("! ! !")
-                        .font(.system(size: 10, weight: .light))
-                }
+            if task_.main.priority == 1 {
+                Text("  !  ")
+                    .font(.system(size: 10, weight: .light))
+            } else if task_.main.priority == 2 {
+                Text(" ! ! ")
+                    .font(.system(size: 10, weight: .light))
+            } else if task_.main.priority == 3 {
+                Text("! ! !")
+                    .font(.system(size: 10, weight: .light))
+            } else {
+                Text("     ")
+                    .font(.system(size: 10, weight: .light))
             }
         }.padding(.horizontal, 25)
     }
