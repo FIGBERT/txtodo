@@ -46,6 +46,7 @@ struct HomeView: View {
                         ForEach(self.globalVars.dailyTasks, id: \.self) {
                             noteTaskView(task_: $0)
                         }
+                        addNoteTask()
                     }
                     Spacer()
                 }
