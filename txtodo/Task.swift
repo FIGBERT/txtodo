@@ -12,17 +12,17 @@ import SwiftUI
 struct task: Codable, Hashable {
     var complete: Bool = false
     var text: String
-    var priority: Int!
+    var priority: Int = 0
 }
 
 struct noteTask: Codable, Hashable {
     var main: task
-    var notes: [String]!
+    var notes: [String] = []
 }
 
 struct superTask: Codable, Hashable {
     var main: task
-    var subTasks: [noteTask]!
+    var subTasks: [noteTask] = []
 }
 
 struct taskNote: View {
