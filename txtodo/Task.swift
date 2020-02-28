@@ -212,8 +212,8 @@ struct taskNotes: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
-                ForEach(task_.notes, id: \.self) {
-                    taskNote(note: $0)
+                ForEach(task_.notes.indices, id: \.self) { index in
+                    taskNote(note: self.task_.notes[index])
                 }
             }
                 .padding(.top, 25)
@@ -228,8 +228,8 @@ struct taskSubtasks: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
-                ForEach(task_.subTasks, id: \.self) {
-                    noteTaskView(task_: $0)
+                ForEach(task_.subTasks.indices, id: \.self) { index in
+                    noteTaskView(task_: self.task_.subTasks[index])
                 }
             }
                 .padding(.top, 25)
