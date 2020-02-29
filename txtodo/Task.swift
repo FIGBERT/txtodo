@@ -128,15 +128,73 @@ struct addTask: View {
     }
 }
 
+struct addNote: View {
+    @EnvironmentObject var globalVars: GlobalVars
+    let taskIndex: Int
+    @State var addingNote: Bool = false
+    @State var newNoteText: String = ""
+    var body: some View {
+        Group {
+            if !addingNote {
+                Button(action: {
+                    self.addingNote = true
+                }) {
+                    HStack {
+                        Image(systemName: "minus.square")
+                            .font(.system(size: 20, weight: .light))
+                            .foregroundColor(Color.init(UIColor.systemGray))
+                        Spacer()
+                        Text("create a note")
+                            .font(.system(size: 20, weight: .light))
+                            .foregroundColor(Color.init(UIColor.systemGray))
+                        Spacer()
+                        Image(systemName: "minus.square")
+                            .font(.system(size: 20, weight: .light))
+                            .foregroundColor(Color.init(UIColor.systemGray))
+                    }.padding(.horizontal, 25)
+                }
+            } else {
+                HStack {
+                    Button(action: {
+                        self.newNoteText = ""
+                        self.addingNote = false
+                    }) {
+                        Image(systemName: "multiply.square")
+                            .font(.system(size: 20, weight: .light))
+                            .foregroundColor(Color.init(UIColor.systemGray))
+                    }
+                    Spacer()
+                    TextField("new note", text: $newNoteText)
+                        .font(.system(size: 20, weight: .light))
+                        .foregroundColor(Color.init(UIColor.systemGray))
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .multilineTextAlignment(.center)
+                    Spacer()
+                    Button(action: {
+                        self.globalVars.dailyTasks[self.taskIndex].notes.append(self.newNoteText)
+                        self.newNoteText = ""
+                        self.addingNote = false
+                    }) {
+                        Image(systemName: "plus.square")
+                            .font(.system(size: 20, weight: .light))
+                            .foregroundColor(Color.init(UIColor.systemGray))
+                    }
+                }.padding(.horizontal, 25)
+            }
+        }
+    }
+}
+
 struct noteTaskView: View {
-    @State var task_: noteTask
+    @EnvironmentObject var globalVars: GlobalVars
+    let taskIndex: Int
     let calendar = Calendar.current
     var body: some View {
         HStack {
             Button(action: {
-                self.task_.main.complete.toggle()
+                self.globalVars.dailyTasks[self.taskIndex].main.complete.toggle()
             }) {
-                if task_.main.complete {
+                if globalVars.dailyTasks[taskIndex].main.complete {
                     Image(systemName: "checkmark.square")
                 } else {
                     Image(systemName: "square")
@@ -145,19 +203,19 @@ struct noteTaskView: View {
                 .font(.system(size: 25, weight: .light))
                 .foregroundColor(Color.init(UIColor.label))
             Spacer()
-            NavigationLink(destination: taskNotes(task_: task_)) {
-                Text(task_.main.text)
+            NavigationLink(destination: taskNotes(taskIndex: taskIndex)) {
+                Text(globalVars.dailyTasks[taskIndex].main.text)
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.label))
             }
             Spacer()
-            if task_.main.priority == 1 {
+            if globalVars.dailyTasks[taskIndex].main.priority == 1 {
                 Text("  !  ")
                     .font(.system(size: 10, weight: .light))
-            } else if task_.main.priority == 2 {
+            } else if globalVars.dailyTasks[taskIndex].main.priority == 2 {
                 Text(" ! ! ")
                     .font(.system(size: 10, weight: .light))
-            } else if task_.main.priority == 3 {
+            } else if globalVars.dailyTasks[taskIndex].main.priority == 3 {
                 Text("! ! !")
                     .font(.system(size: 10, weight: .light))
             } else {
@@ -208,17 +266,19 @@ struct superTaskView: View {
 }
 
 struct taskNotes: View {
-    @State var task_: noteTask
+    @EnvironmentObject var globalVars: GlobalVars
+    let taskIndex: Int
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
-                ForEach(task_.notes.indices, id: \.self) { index in
-                    taskNote(note: self.task_.notes[index])
+                ForEach(globalVars.dailyTasks[taskIndex].notes.indices, id: \.self) { index in
+                    taskNote(note: self.globalVars.dailyTasks[self.taskIndex].notes[index])
                 }
+                addNote(taskIndex: taskIndex)
             }
                 .padding(.top, 25)
         }
-        .navigationBarTitle(Text(task_.main.text), displayMode: .inline)
+        .navigationBarTitle(Text(globalVars.dailyTasks[taskIndex].main.text), displayMode: .inline)
         .background(Color.init(UIColor.systemGray6).edgesIgnoringSafeArea(.all))
     }
 }
@@ -229,7 +289,7 @@ struct taskSubtasks: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 ForEach(task_.subTasks.indices, id: \.self) { index in
-                    noteTaskView(task_: self.task_.subTasks[index])
+                    noteTaskView(taskIndex: 0)
                 }
             }
                 .padding(.top, 25)
