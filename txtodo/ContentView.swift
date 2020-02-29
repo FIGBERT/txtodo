@@ -36,7 +36,7 @@ struct HomeView: View {
                             .font(.system(size: 25, weight: .medium, design: .rounded))
                             .underline()
                         ForEach(self.globalVars.floatingTasks.indices, id: \.self) { index in
-                            superTaskView(task_: self.globalVars.floatingTasks[index])
+                            superTaskView(taskIndex: index)
                         }
                         addTask(createType: "floating")
                     }.padding(.bottom, 45)
