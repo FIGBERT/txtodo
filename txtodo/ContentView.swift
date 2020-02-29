@@ -35,8 +35,8 @@ struct HomeView: View {
                         Text("floating")
                             .font(.system(size: 25, weight: .medium, design: .rounded))
                             .underline()
-                        ForEach(self.globalVars.floatingTasks, id: \.self) {
-                            superTaskView(task_: $0)
+                        ForEach(self.globalVars.floatingTasks.indices, id: \.self) { index in
+                            superTaskView(task_: self.globalVars.floatingTasks[index])
                         }
                         addTask(createType: "floating")
                     }.padding(.bottom, 45)
@@ -44,8 +44,8 @@ struct HomeView: View {
                         Text("today")
                             .font(.system(size: 25, weight: .medium, design: .rounded))
                             .underline()
-                        ForEach(self.globalVars.dailyTasks, id: \.self) {
-                            noteTaskView(task_: $0)
+                        ForEach(self.globalVars.dailyTasks.indices, id: \.self) { index in
+                            noteTaskView(task_: self.globalVars.dailyTasks[index])
                         }
                         addTask(createType: "daily")
                     }
