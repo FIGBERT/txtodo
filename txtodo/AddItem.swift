@@ -64,26 +64,28 @@ struct addTask: View {
                         .pickerStyle(SegmentedPickerStyle())
                     Spacer()
                     Button(action: {
-                        if self.createType == "daily" {
-                            self.globalVars.dailyTasks.append(
-                                noteTask(
-                                    main: task(
-                                        text: self.newTaskText,
-                                        priority: self.newTaskPriority
+                        if self.newTaskText != "" {
+                            if self.createType == "daily" {
+                                self.globalVars.dailyTasks.append(
+                                    noteTask(
+                                        main: task(
+                                            text: self.newTaskText,
+                                            priority: self.newTaskPriority
+                                        )
                                     )
                                 )
-                            )
-                        } else if self.createType == "floating" {
-                            self.globalVars.floatingTasks.append(
-                                superTask(
-                                    main: task(
-                                        text: self.newTaskText,
-                                        priority: self.newTaskPriority
+                            } else if self.createType == "floating" {
+                                self.globalVars.floatingTasks.append(
+                                    superTask(
+                                        main: task(
+                                            text: self.newTaskText,
+                                            priority: self.newTaskPriority
+                                        )
                                     )
                                 )
-                            )
+                            }
+                            self.newTaskText = ""
                         }
-                        self.newTaskText = ""
                         self.newTaskPriority = 0
                         self.addingTask = false
                     }) {
@@ -152,15 +154,17 @@ struct addSubTask: View {
                         .pickerStyle(SegmentedPickerStyle())
                     Spacer()
                     Button(action: {
-                        self.globalVars.floatingTasks[self.superIndex].subTasks.append(
-                            noteTask(
-                                main: task(
-                                    text: self.newTaskText,
-                                    priority: self.newTaskPriority
+                        if self.newTaskText != "" {
+                            self.globalVars.floatingTasks[self.superIndex].subTasks.append(
+                                noteTask(
+                                    main: task(
+                                        text: self.newTaskText,
+                                        priority: self.newTaskPriority
+                                    )
                                 )
                             )
-                        )
-                        self.newTaskText = ""
+                            self.newTaskText = ""
+                        }
                         self.newTaskPriority = 0
                         self.addingTask = false
                     }) {
@@ -217,8 +221,10 @@ struct addNote: View {
                         .multilineTextAlignment(.center)
                     Spacer()
                     Button(action: {
-                        self.globalVars.dailyTasks[self.taskIndex].notes.append(self.newNoteText)
-                        self.newNoteText = ""
+                        if self.newNoteText != "" {
+                            self.globalVars.dailyTasks[self.taskIndex].notes.append(self.newNoteText)
+                            self.newNoteText = ""
+                        }
                         self.addingNote = false
                     }) {
                         Image(systemName: "plus.square")
@@ -275,8 +281,10 @@ struct addSubNote: View {
                         .multilineTextAlignment(.center)
                     Spacer()
                     Button(action: {
-                        self.globalVars.floatingTasks[self.superIndex].subTasks[self.subIndex].notes.append(self.newNoteText)
-                        self.newNoteText = ""
+                        if self.newNoteText != "" {
+                            self.globalVars.floatingTasks[self.superIndex].subTasks[self.subIndex].notes.append(self.newNoteText)
+                            self.newNoteText = ""
+                        }
                         self.addingNote = false
                     }) {
                         Image(systemName: "plus.square")
