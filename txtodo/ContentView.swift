@@ -45,7 +45,7 @@ struct HomeView: View {
                             .font(.system(size: 25, weight: .medium, design: .rounded))
                             .underline()
                         ForEach(self.globalVars.dailyTasks.indices, id: \.self) { index in
-                            noteTaskView(task_: self.globalVars.dailyTasks[index])
+                            noteTaskView(taskIndex: index)
                         }
                         addTask(createType: "daily")
                     }
