@@ -11,6 +11,8 @@ import SwiftUI
 
 struct superTaskView: View {
     @EnvironmentObject var globalVars: GlobalVars
+    @State var editing: Bool = false
+    @State var navigate: Bool = false
     let taskIndex: Int
     var body: some View {
         HStack {
@@ -26,24 +28,43 @@ struct superTaskView: View {
                 .font(.system(size: 25, weight: .light))
                 .foregroundColor(Color.init(UIColor.label))
             Spacer()
-            NavigationLink(destination: taskSubtasks(taskIndex: taskIndex)) {
-                Text(globalVars.floatingTasks[taskIndex].main.text)
-                    .font(.system(size: 20, weight: .light))
-                    .foregroundColor(Color.init(UIColor.label))
-            }
-            Spacer()
-            if globalVars.floatingTasks[taskIndex].main.priority == 1 {
-                Text("  !  ")
-                    .font(.system(size: 10, weight: .light))
-            } else if globalVars.floatingTasks[taskIndex].main.priority == 2 {
-                Text(" ! ! ")
-                    .font(.system(size: 10, weight: .light))
-            } else if globalVars.floatingTasks[taskIndex].main.priority == 3 {
-                Text("! ! !")
-                    .font(.system(size: 10, weight: .light))
+            if !editing {
+                HStack(alignment: .top) {
+                    Text(globalVars.floatingTasks[taskIndex].main.text)
+                        .font(.system(size: 20, weight: .light))
+                        .foregroundColor(Color.init(UIColor.label))
+                    NavigationLink(destination: taskSubtasks(taskIndex: taskIndex), isActive: $navigate) {
+                        EmptyView()
+                    }
+                }
+                    .onTapGesture(count: 2) {
+                        self.editing = true
+                    }
+                    .onTapGesture(count: 1) {
+                        self.navigate = true
+                    }
+                Spacer()
+                if globalVars.floatingTasks[taskIndex].main.priority == 1 {
+                    Text("  !  ")
+                        .font(.system(size: 10, weight: .light))
+                } else if globalVars.floatingTasks[taskIndex].main.priority == 2 {
+                    Text(" ! ! ")
+                        .font(.system(size: 10, weight: .light))
+                } else if globalVars.floatingTasks[taskIndex].main.priority == 3 {
+                    Text("! ! !")
+                        .font(.system(size: 10, weight: .light))
+                } else {
+                    Text("     ")
+                        .font(.system(size: 10, weight: .light))
+                }
             } else {
-                Text("     ")
-                    .font(.system(size: 10, weight: .light))
+                TextField("edit task", text: $globalVars.floatingTasks[self.taskIndex].main.text) {
+                    self.editing = false
+                }
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .multilineTextAlignment(.center)
             }
         }.padding(.horizontal, 25)
     }
@@ -51,6 +72,8 @@ struct superTaskView: View {
 
 struct subTaskView: View {
     @EnvironmentObject var globalVars: GlobalVars
+    @State var editing: Bool = false
+    @State var navigate: Bool = false
     let superIndex: Int
     let subIndex: Int
     var body: some View {
@@ -67,24 +90,44 @@ struct subTaskView: View {
                 .font(.system(size: 25, weight: .light))
                 .foregroundColor(Color.init(UIColor.label))
             Spacer()
-            NavigationLink(destination: subTaskNotes(superIndex: superIndex, subIndex: subIndex)) {
-                Text(globalVars.floatingTasks[self.superIndex].subTasks[subIndex].main.text)
-                    .font(.system(size: 20, weight: .light))
-                    .foregroundColor(Color.init(UIColor.label))
-            }
-            Spacer()
-            if globalVars.floatingTasks[self.superIndex].subTasks[subIndex].main.priority == 1 {
-                Text("  !  ")
-                    .font(.system(size: 10, weight: .light))
-            } else if globalVars.floatingTasks[self.superIndex].subTasks[subIndex].main.priority == 2 {
-                Text(" ! ! ")
-                    .font(.system(size: 10, weight: .light))
-            } else if globalVars.floatingTasks[self.superIndex].subTasks[subIndex].main.priority == 3 {
-                Text("! ! !")
-                    .font(.system(size: 10, weight: .light))
+            if !editing {
+                HStack(alignment: .top) {
+                    Text(globalVars.floatingTasks[self.superIndex].subTasks[subIndex].main.text)
+                        .font(.system(size: 20, weight: .light))
+                        .foregroundColor(Color.init(UIColor.label))
+                    NavigationLink(destination: subTaskNotes(superIndex: superIndex, subIndex: subIndex), isActive: $navigate) {
+                        EmptyView()
+                    }
+                }
+                    .onTapGesture(count: 2) {
+                        self.editing = true
+                    }
+                    .onTapGesture(count: 1) {
+                        self.navigate = true
+                        print("here")
+                    }
+                Spacer()
+                if globalVars.floatingTasks[self.superIndex].subTasks[subIndex].main.priority == 1 {
+                    Text("  !  ")
+                        .font(.system(size: 10, weight: .light))
+                } else if globalVars.floatingTasks[self.superIndex].subTasks[subIndex].main.priority == 2 {
+                    Text(" ! ! ")
+                        .font(.system(size: 10, weight: .light))
+                } else if globalVars.floatingTasks[self.superIndex].subTasks[subIndex].main.priority == 3 {
+                    Text("! ! !")
+                        .font(.system(size: 10, weight: .light))
+                } else {
+                    Text("     ")
+                        .font(.system(size: 10, weight: .light))
+                }
             } else {
-                Text("     ")
-                    .font(.system(size: 10, weight: .light))
+                TextField("edit task", text: $globalVars.floatingTasks[self.superIndex].subTasks[self.subIndex].main.text) {
+                    self.editing = false
+                }
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .multilineTextAlignment(.center)
             }
         }.padding(.horizontal, 25)
     }
