@@ -190,7 +190,7 @@ struct addNote: View {
                     self.addingNote = true
                 }) {
                     HStack {
-                        Image(systemName: "minus.square")
+                        Image(systemName: "plus.square")
                             .font(.system(size: 20, weight: .light))
                             .foregroundColor(Color.init(UIColor.systemGray))
                         Spacer()
@@ -198,7 +198,7 @@ struct addNote: View {
                             .font(.system(size: 20, weight: .light))
                             .foregroundColor(Color.init(UIColor.systemGray))
                         Spacer()
-                        Image(systemName: "minus.square")
+                        Image(systemName: "plus.square")
                             .font(.system(size: 20, weight: .light))
                             .foregroundColor(Color.init(UIColor.systemGray))
                     }.padding(.horizontal, 25)
@@ -250,7 +250,7 @@ struct addSubNote: View {
                     self.addingNote = true
                 }) {
                     HStack {
-                        Image(systemName: "minus.square")
+                        Image(systemName: "plus.square")
                             .font(.system(size: 20, weight: .light))
                             .foregroundColor(Color.init(UIColor.systemGray))
                         Spacer()
@@ -258,7 +258,7 @@ struct addSubNote: View {
                             .font(.system(size: 20, weight: .light))
                             .foregroundColor(Color.init(UIColor.systemGray))
                         Spacer()
-                        Image(systemName: "minus.square")
+                        Image(systemName: "plus.square")
                             .font(.system(size: 20, weight: .light))
                             .foregroundColor(Color.init(UIColor.systemGray))
                     }.padding(.horizontal, 25)
