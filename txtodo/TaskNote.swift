@@ -12,6 +12,8 @@ import SwiftUI
 struct dailyTaskNote: View {
     @EnvironmentObject var globalVars: GlobalVars
     @State var editing: Bool = false
+    @State var confirmingDelete: Bool = false
+    @State var removed: Bool = false
     let taskIndex: Int
     let noteIndex: Int
     let center = NotificationCenter.default
@@ -21,10 +23,16 @@ struct dailyTaskNote: View {
                 .font(.system(size: 20, weight: .light))
                 .foregroundColor(Color.init(UIColor.label))
                 .padding(.trailing, 20)
-            if !editing {
+            if removed {
+                Text("error")
+                    .font(.system(size: 20, weight: .light))
+            } else if !editing {
                 Text(self.globalVars.dailyTasks[self.taskIndex].notes[noteIndex])
                     .onTapGesture(count: 2) {
                         self.editing = true
+                    }
+                    .onLongPressGesture {
+                        self.confirmingDelete = true
                     }
                     .font(.system(size: 20, weight: .light))
             } else {
@@ -37,13 +45,27 @@ struct dailyTaskNote: View {
                     .multilineTextAlignment(.center)
             }
             Spacer()
-        }.padding(.horizontal, 25)
+        }
+            .padding(.horizontal, 25)
+            .alert(isPresented: $confirmingDelete) {
+                Alert(
+                    title: Text("confirm delete"),
+                    message: Text("the task will be gone forever, with no option to restore"),
+                    primaryButton: .destructive(Text("delete")) {
+                        self.globalVars.dailyTasks[self.taskIndex].notes.remove(at: self.noteIndex)
+                        self.removed = true
+                    },
+                    secondaryButton: .cancel(Text("cancel"))
+                )
+            }
     }
 }
 
 struct subTaskNote: View {
     @EnvironmentObject var globalVars: GlobalVars
     @State var editing: Bool = false
+    @State var confirmingDelete: Bool = false
+    @State var removed: Bool = false
     let superIndex: Int
     let subIndex: Int
     let noteIndex: Int
@@ -53,10 +75,16 @@ struct subTaskNote: View {
                 .font(.system(size: 20, weight: .light))
                 .foregroundColor(Color.init(UIColor.label))
                 .padding(.trailing, 20)
-            if !editing {
+            if removed {
+                Text("error")
+                    .font(.system(size: 20, weight: .light))
+            } else if !editing {
                 Text(self.globalVars.floatingTasks[superIndex].subTasks[subIndex].notes[noteIndex])
                     .onTapGesture(count: 2) {
                         self.editing = true
+                    }
+                    .onLongPressGesture {
+                        self.confirmingDelete = true
                     }
                     .font(.system(size: 20, weight: .light))
             } else {
@@ -69,7 +97,19 @@ struct subTaskNote: View {
                     .multilineTextAlignment(.center)
             }
             Spacer()
-        }.padding(.horizontal, 25)
+        }
+            .padding(.horizontal, 25)
+            .alert(isPresented: $confirmingDelete) {
+                Alert(
+                    title: Text("confirm delete"),
+                    message: Text("the task will be gone forever, with no option to restore"),
+                    primaryButton: .destructive(Text("delete")) {
+                        self.globalVars.floatingTasks[self.superIndex].subTasks[self.subIndex].notes.remove(at: self.noteIndex)
+                        self.removed = true
+                    },
+                    secondaryButton: .cancel(Text("cancel"))
+                )
+            }
     }
 }
 
