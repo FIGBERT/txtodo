@@ -11,10 +11,10 @@ import SwiftUI
 
 struct addTask: View {
     @EnvironmentObject var globalVars: GlobalVars
-    let createType: String
     @State var addingTask: Bool = false
     @State var newTaskText: String = ""
     @State var newTaskPriority: Int = 0
+    let createType: String
     var body: some View {
         Group {
             if !addingTask {
@@ -101,10 +101,10 @@ struct addTask: View {
 
 struct addSubTask: View {
     @EnvironmentObject var globalVars: GlobalVars
-    let superIndex: Int
     @State var addingTask: Bool = false
     @State var newTaskText: String = ""
     @State var newTaskPriority: Int = 0
+    let superIndex: Int
     var body: some View {
         Group {
             if !addingTask {
@@ -180,9 +180,9 @@ struct addSubTask: View {
 
 struct addNote: View {
     @EnvironmentObject var globalVars: GlobalVars
-    let taskIndex: Int
     @State var addingNote: Bool = false
     @State var newNoteText: String = ""
+    let taskIndex: Int
     var body: some View {
         Group {
             if !addingNote {
@@ -239,10 +239,10 @@ struct addNote: View {
 
 struct addSubNote: View {
     @EnvironmentObject var globalVars: GlobalVars
-    let superIndex: Int
-    let subIndex: Int
     @State var addingNote: Bool = false
     @State var newNoteText: String = ""
+    let superIndex: Int
+    let subIndex: Int
     var body: some View {
         Group {
             if !addingNote {

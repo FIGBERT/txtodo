@@ -16,7 +16,6 @@ struct dailyTaskNote: View {
     @State var removed: Bool = false
     let taskIndex: Int
     let noteIndex: Int
-    let center = NotificationCenter.default
     var body: some View {
         HStack {
             Image(systemName: "minus")
