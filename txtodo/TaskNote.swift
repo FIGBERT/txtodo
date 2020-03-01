@@ -49,7 +49,7 @@ struct dailyTaskNote: View {
             .alert(isPresented: $confirmingDelete) {
                 Alert(
                     title: Text("confirm delete"),
-                    message: Text("the task will be gone forever, with no option to restore"),
+                    message: Text("the note will be gone forever, with no option to restore"),
                     primaryButton: .destructive(Text("delete")) {
                         self.globalVars.dailyTasks[self.taskIndex].notes.remove(at: self.noteIndex)
                         self.removed = true
@@ -101,7 +101,7 @@ struct subTaskNote: View {
             .alert(isPresented: $confirmingDelete) {
                 Alert(
                     title: Text("confirm delete"),
-                    message: Text("the task will be gone forever, with no option to restore"),
+                    message: Text("the note will be gone forever, with no option to restore"),
                     primaryButton: .destructive(Text("delete")) {
                         self.globalVars.floatingTasks[self.superIndex].subTasks[self.subIndex].notes.remove(at: self.noteIndex)
                         self.removed = true
