@@ -23,7 +23,7 @@ struct dailyTaskNote: View {
                 .padding(.trailing, 20)
             if !editing {
                 Text(self.globalVars.dailyTasks[self.taskIndex].notes[noteIndex])
-                    .onLongPressGesture {
+                    .onTapGesture(count: 2) {
                         self.editing = true
                     }
                     .font(.system(size: 20, weight: .light))
@@ -55,7 +55,7 @@ struct subTaskNote: View {
                 .padding(.trailing, 20)
             if !editing {
                 Text(self.globalVars.floatingTasks[superIndex].subTasks[subIndex].notes[noteIndex])
-                    .onLongPressGesture {
+                    .onTapGesture(count: 2) {
                         self.editing = true
                     }
                     .font(.system(size: 20, weight: .light))
