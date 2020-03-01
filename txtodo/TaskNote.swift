@@ -9,16 +9,65 @@
 import Foundation
 import SwiftUI
 
-struct taskNote: View {
-    @State var note: String
+struct dailyTaskNote: View {
+    @EnvironmentObject var globalVars: GlobalVars
+    @State var editing: Bool = false
+    let taskIndex: Int
+    let noteIndex: Int
+    let center = NotificationCenter.default
     var body: some View {
         HStack {
             Image(systemName: "minus")
                 .font(.system(size: 20, weight: .light))
                 .foregroundColor(Color.init(UIColor.label))
                 .padding(.trailing, 20)
-            Text(note)
+            if !editing {
+                Text(self.globalVars.dailyTasks[self.taskIndex].notes[noteIndex])
+                    .onLongPressGesture {
+                        self.editing = true
+                    }
+                    .font(.system(size: 20, weight: .light))
+            } else {
+                TextField("editing note", text: $globalVars.dailyTasks[self.taskIndex].notes[noteIndex]) {
+                    self.editing = false
+                }
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .multilineTextAlignment(.center)
+            }
+            Spacer()
+        }.padding(.horizontal, 25)
+    }
+}
+
+struct subTaskNote: View {
+    @EnvironmentObject var globalVars: GlobalVars
+    @State var editing: Bool = false
+    let superIndex: Int
+    let subIndex: Int
+    let noteIndex: Int
+    var body: some View {
+        HStack {
+            Image(systemName: "minus")
                 .font(.system(size: 20, weight: .light))
+                .foregroundColor(Color.init(UIColor.label))
+                .padding(.trailing, 20)
+            if !editing {
+                Text(self.globalVars.floatingTasks[superIndex].subTasks[subIndex].notes[noteIndex])
+                    .onLongPressGesture {
+                        self.editing = true
+                    }
+                    .font(.system(size: 20, weight: .light))
+            } else {
+                TextField("editing note", text: $globalVars.floatingTasks[superIndex].subTasks[subIndex].notes[noteIndex]) {
+                    self.editing = false
+                }
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .multilineTextAlignment(.center)
+            }
             Spacer()
         }.padding(.horizontal, 25)
     }
@@ -31,7 +80,7 @@ struct taskNotes: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 ForEach(globalVars.dailyTasks[taskIndex].notes.indices, id: \.self) { index in
-                    taskNote(note: self.globalVars.dailyTasks[self.taskIndex].notes[index])
+                    dailyTaskNote(taskIndex: self.taskIndex, noteIndex: index)
                 }
                 addNote(taskIndex: taskIndex)
             }
@@ -50,7 +99,7 @@ struct subTaskNotes: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 ForEach(globalVars.floatingTasks[superIndex].subTasks[subIndex].notes.indices, id: \.self) { index in
-                    taskNote(note: self.globalVars.floatingTasks[self.superIndex].subTasks[self.subIndex].notes[index])
+                    subTaskNote(superIndex: self.superIndex, subIndex: self.subIndex, noteIndex: index)
                 }
                 addSubNote(superIndex: superIndex, subIndex: subIndex)
             }
