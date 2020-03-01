@@ -14,7 +14,6 @@ struct dailyTaskView: View {
     @State var editing: Bool = false
     @State var navigate: Bool = false
     let taskIndex: Int
-    let calendar = Calendar.current
     var body: some View {
         HStack {
             Button(action: {
