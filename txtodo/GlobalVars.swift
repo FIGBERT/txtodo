@@ -10,7 +10,6 @@ import Foundation
 import SwiftUI
 
 class GlobalVars: ObservableObject {
-    @Published var currentPage: String = "intro"
     @Published var floatingTasks: [superTask] = []
     @Published var dailyTasks: [noteTask] = []
 }
