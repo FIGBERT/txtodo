@@ -43,20 +43,6 @@ struct dailyTaskView: View {
                     .onTapGesture(count: 1) {
                         self.navigate = true
                     }
-                Spacer()
-                if globalVars.dailyTasks[taskIndex].main.priority == 1 {
-                    Text("  !  ")
-                        .font(.system(size: 10, weight: .light))
-                } else if globalVars.dailyTasks[taskIndex].main.priority == 2 {
-                    Text(" ! ! ")
-                        .font(.system(size: 10, weight: .light))
-                } else if globalVars.dailyTasks[taskIndex].main.priority == 3 {
-                    Text("! ! !")
-                        .font(.system(size: 10, weight: .light))
-                } else {
-                    Text("     ")
-                        .font(.system(size: 10, weight: .light))
-                }
             } else {
                 TextField("edit task", text: $globalVars.dailyTasks[self.taskIndex].main.text) {
                     self.editing = false
@@ -65,6 +51,20 @@ struct dailyTaskView: View {
                     .foregroundColor(Color.init(UIColor.systemGray))
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .multilineTextAlignment(.center)
+            }
+            Spacer()
+            if globalVars.dailyTasks[taskIndex].main.priority == 1 {
+                Text("  !  ")
+                    .font(.system(size: 10, weight: .light))
+            } else if globalVars.dailyTasks[taskIndex].main.priority == 2 {
+                Text(" ! ! ")
+                    .font(.system(size: 10, weight: .light))
+            } else if globalVars.dailyTasks[taskIndex].main.priority == 3 {
+                Text("! ! !")
+                    .font(.system(size: 10, weight: .light))
+            } else {
+                Text("     ")
+                    .font(.system(size: 10, weight: .light))
             }
         }.padding(.horizontal, 25)
     }
