@@ -12,38 +12,63 @@ import SwiftUI
 struct superTaskView: View {
     @EnvironmentObject var globalVars: GlobalVars
     @State var editing: Bool = false
-    @State var navigate: Bool = false
+    @State var viewingNotes: Bool = false
+    @State var confirmingDelete: Bool = false
+    @State var deleted: Bool = false
     let taskIndex: Int
     var body: some View {
         HStack {
-            Button(action: {
-                self.globalVars.floatingTasks[self.taskIndex].main.complete.toggle()
-            }) {
-                if globalVars.floatingTasks[taskIndex].main.complete {
-                    Image(systemName: "checkmark.square")
-                } else {
-                    Image(systemName: "square")
-                }
-            }
-                .font(.system(size: 25, weight: .light))
-                .foregroundColor(Color.init(UIColor.label))
-            Spacer()
-            if !editing {
-                HStack(alignment: .top) {
-                    Text(globalVars.floatingTasks[taskIndex].main.text)
-                        .font(.system(size: 20, weight: .light))
-                        .foregroundColor(Color.init(UIColor.label))
-                    NavigationLink(destination: taskSubtasks(taskIndex: taskIndex), isActive: $navigate) {
-                        EmptyView()
+            if !deleted {
+                Button(action: {
+                    self.globalVars.floatingTasks[self.taskIndex].main.complete.toggle()
+                }) {
+                    if globalVars.floatingTasks[taskIndex].main.complete {
+                        Image(systemName: "checkmark.square")
+                            .font(.system(size: 25, weight: .light))
+                            .foregroundColor(Color.init(UIColor.label))
+                    } else {
+                        Image(systemName: "square")
+                            .font(.system(size: 25, weight: .light))
+                            .foregroundColor(Color.init(UIColor.label))
                     }
                 }
+            } else {
+                Image(systemName: "square")
+                    .font(.system(size: 25, weight: .light))
+                    .foregroundColor(Color.init(UIColor.label))
+            }
+            Spacer()
+            if deleted {
+                Text("deleting...")
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.label))
+            } else if !editing {
+                Text(globalVars.floatingTasks[taskIndex].main.text)
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.label))
                     .onTapGesture(count: 2) {
                         self.editing = true
                     }
-                    .onTapGesture(count: 1) {
-                        self.navigate = true
+                    .onLongPressGesture {
+                        self.confirmingDelete = true
                     }
-                Spacer()
+                    .onTapGesture(count: 1) {
+                        self.viewingNotes = true
+                    }
+                    .sheet(isPresented: $viewingNotes, content: {
+                        taskSubtasks(taskIndex: self.taskIndex)
+                            .environmentObject(self.globalVars)
+                    })
+            } else {
+                TextField("edit task", text: $globalVars.floatingTasks[self.taskIndex].main.text) {
+                    self.editing = false
+                }
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .multilineTextAlignment(.center)
+            }
+            Spacer()
+            if !deleted {
                 if globalVars.floatingTasks[taskIndex].main.priority == 1 {
                     Text("  !  ")
                         .font(.system(size: 10, weight: .light))
@@ -58,55 +83,87 @@ struct superTaskView: View {
                         .font(.system(size: 10, weight: .light))
                 }
             } else {
-                TextField("edit task", text: $globalVars.floatingTasks[self.taskIndex].main.text) {
-                    self.editing = false
-                }
-                    .font(.system(size: 20, weight: .light))
-                    .foregroundColor(Color.init(UIColor.systemGray))
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .multilineTextAlignment(.center)
+                Text("     ")
+                    .font(.system(size: 10, weight: .light))
             }
-        }.padding(.horizontal, 25)
+        }
+            .padding(.horizontal, 25)
+            .alert(isPresented: $confirmingDelete) {
+                Alert(
+                    title: Text("confirm delete"),
+                    message: Text("the task will be gone forever, with no option to restore"),
+                    primaryButton: .destructive(Text("delete")) {
+                        self.globalVars.floatingTasks.remove(at: self.taskIndex)
+                        self.deleted = true
+                    },
+                    secondaryButton: .cancel(Text("cancel"))
+                )
+            }
     }
 }
 
 struct subTaskView: View {
     @EnvironmentObject var globalVars: GlobalVars
     @State var editing: Bool = false
-    @State var navigate: Bool = false
+    @State var viewingNotes: Bool = false
+    @State var confirmingDelete: Bool = false
+    @State var deleted: Bool = false
     let superIndex: Int
     let subIndex: Int
     var body: some View {
         HStack {
-            Button(action: {
-                self.globalVars.floatingTasks[self.superIndex].subTasks[self.subIndex].main.complete.toggle()
-            }) {
-                if globalVars.floatingTasks[superIndex].subTasks[subIndex].main.complete {
-                    Image(systemName: "checkmark.square")
-                } else {
-                    Image(systemName: "square")
-                }
-            }
-                .font(.system(size: 25, weight: .light))
-                .foregroundColor(Color.init(UIColor.label))
-            Spacer()
-            if !editing {
-                HStack(alignment: .top) {
-                    Text(globalVars.floatingTasks[self.superIndex].subTasks[subIndex].main.text)
-                        .font(.system(size: 20, weight: .light))
-                        .foregroundColor(Color.init(UIColor.label))
-                    NavigationLink(destination: subTaskNotes(superIndex: superIndex, subIndex: subIndex), isActive: $navigate) {
-                        EmptyView()
+            if !deleted {
+                Button(action: {
+                    self.globalVars.floatingTasks[self.superIndex].subTasks[self.subIndex].main.complete.toggle()
+                }) {
+                    if globalVars.floatingTasks[superIndex].subTasks[subIndex].main.complete {
+                        Image(systemName: "checkmark.square")
+                            .font(.system(size: 25, weight: .light))
+                            .foregroundColor(Color.init(UIColor.label))
+                    } else {
+                        Image(systemName: "square")
+                            .font(.system(size: 25, weight: .light))
+                            .foregroundColor(Color.init(UIColor.label))
                     }
                 }
+            } else {
+                Image(systemName: "square")
+                    .font(.system(size: 25, weight: .light))
+                    .foregroundColor(Color.init(UIColor.label))
+            }
+            Spacer()
+            if deleted {
+                Text("deleting...")
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.label))
+            } else if !editing {
+                Text(globalVars.floatingTasks[self.superIndex].subTasks[subIndex].main.text)
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.label))
                     .onTapGesture(count: 2) {
                         self.editing = true
                     }
+                    .onLongPressGesture {
+                        self.confirmingDelete = true
+                    }
                     .onTapGesture(count: 1) {
-                        self.navigate = true
+                        self.viewingNotes = true
                         print("here")
                     }
-                Spacer()
+                    .sheet(isPresented: $viewingNotes, content: {
+                        subTaskNotes(superIndex: self.superIndex, subIndex: self.subIndex)
+                            .environmentObject(self.globalVars)
+                    })
+            } else {
+                TextField("edit task", text: $globalVars.floatingTasks[self.superIndex].subTasks[self.subIndex].main.text) {
+                    self.editing = false
+                }
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .multilineTextAlignment(.center)
+            }
+            Spacer()
+            if !deleted {
                 if globalVars.floatingTasks[self.superIndex].subTasks[subIndex].main.priority == 1 {
                     Text("  !  ")
                         .font(.system(size: 10, weight: .light))
@@ -121,15 +178,22 @@ struct subTaskView: View {
                         .font(.system(size: 10, weight: .light))
                 }
             } else {
-                TextField("edit task", text: $globalVars.floatingTasks[self.superIndex].subTasks[self.subIndex].main.text) {
-                    self.editing = false
-                }
-                    .font(.system(size: 20, weight: .light))
-                    .foregroundColor(Color.init(UIColor.systemGray))
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .multilineTextAlignment(.center)
+                Text("     ")
+                    .font(.system(size: 10, weight: .light))
             }
-        }.padding(.horizontal, 25)
+        }
+            .padding(.horizontal, 25)
+            .alert(isPresented: $confirmingDelete) {
+                Alert(
+                    title: Text("confirm delete"),
+                    message: Text("the task will be gone forever, with no option to restore"),
+                    primaryButton: .destructive(Text("delete")) {
+                        self.globalVars.floatingTasks[self.superIndex].subTasks.remove(at: self.subIndex)
+                        self.deleted = true
+                    },
+                    secondaryButton: .cancel(Text("cancel"))
+                )
+            }
     }
 }
 
@@ -139,6 +203,9 @@ struct taskSubtasks: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
+                Text(globalVars.floatingTasks[taskIndex].main.text)
+                    .font(.system(size: 25, weight: .medium, design: .rounded))
+                    .underline()
                 ForEach(globalVars.floatingTasks[taskIndex].subTasks.indices, id: \.self) { index in
                     subTaskView(superIndex: self.taskIndex, subIndex: index)
                 }

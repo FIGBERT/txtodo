@@ -14,33 +14,31 @@ struct ContentView: View {
         ZStack {
             Color.init(UIColor.systemGray6)
                 .edgesIgnoringSafeArea(.all)
-            NavigationView {
-                ScrollView(.vertical, showsIndicators: false) {
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack {
                     VStack {
-                        VStack {
-                            Text("floating")
-                                .font(.system(size: 25, weight: .medium, design: .rounded))
-                                .underline()
-                            ForEach(self.globalVars.floatingTasks.indices, id: \.self) { index in
-                                superTaskView(taskIndex: index)
-                            }
-                            addTask(createType: "floating")
-                        }.padding(.bottom, 45)
-                        VStack {
-                            Text("today")
-                                .font(.system(size: 25, weight: .medium, design: .rounded))
-                                .underline()
-                            ForEach(self.globalVars.dailyTasks.indices, id: \.self) { index in
-                                dailyTaskView(taskIndex: index)
-                            }
-                            addTask(createType: "daily")
+                        Text("floating")
+                            .font(.system(size: 25, weight: .medium, design: .rounded))
+                            .underline()
+                        ForEach(self.globalVars.floatingTasks.indices, id: \.self) { index in
+                            superTaskView(taskIndex: index)
                         }
-                        Spacer()
+                        addTask(createType: "floating")
+                    }.padding(.bottom, 45)
+                    VStack {
+                        Text("today")
+                            .font(.system(size: 25, weight: .medium, design: .rounded))
+                            .underline()
+                        ForEach(self.globalVars.dailyTasks.indices, id: \.self) { index in
+                            dailyTaskView(taskIndex: index)
+                        }
+                        addTask(createType: "daily")
                     }
+                    Spacer()
                 }
-                    .background(Color.init(UIColor.systemGray6)
-                    .edgesIgnoringSafeArea(.all))
             }
+                .background(Color.init(UIColor.systemGray6)
+                .edgesIgnoringSafeArea(.all))
         }
     }
 }
