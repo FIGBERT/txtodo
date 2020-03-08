@@ -24,7 +24,9 @@ struct ContentView: View {
                             superTaskView(taskIndex: index)
                         }
                         addTask(createType: "floating")
-                    }.padding(.bottom, 45)
+                    }
+                        .padding(.top, 60)
+                        .padding(.bottom, 45)
                     VStack {
                         Text("today")
                             .font(.system(size: 25, weight: .medium, design: .rounded))
