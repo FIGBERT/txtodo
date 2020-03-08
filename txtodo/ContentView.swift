@@ -22,7 +22,9 @@ struct ContentView: View {
                     ForEach(self.globalVars.floatingTasks.indices, id: \.self) { index in
                         superTaskView(taskIndex: index)
                     }
-                    addTask(createType: "floating")
+                    if globalVars.floatingTasks.count < 3 {
+                        addTask(createType: "floating")
+                    }
                 }
                     .padding(.top, 60)
                     .padding(.bottom, 45)
