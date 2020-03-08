@@ -50,7 +50,6 @@ struct addTask: View {
                     TextField("new task", text: $newTaskText)
                         .font(.system(size: 20, weight: .light))
                         .foregroundColor(Color.init(UIColor.systemGray))
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .multilineTextAlignment(.center)
                     Picker(
                         selection: $newTaskPriority,
@@ -64,6 +63,7 @@ struct addTask: View {
                         .pickerStyle(SegmentedPickerStyle())
                     Spacer()
                     Button(action: {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         if self.newTaskText != "" {
                             if self.createType == "daily" {
                                 self.globalVars.dailyTasks.append(
@@ -140,7 +140,6 @@ struct addSubTask: View {
                     TextField("new task", text: $newTaskText)
                         .font(.system(size: 20, weight: .light))
                         .foregroundColor(Color.init(UIColor.systemGray))
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .multilineTextAlignment(.center)
                     Picker(
                         selection: $newTaskPriority,
@@ -154,6 +153,7 @@ struct addSubTask: View {
                         .pickerStyle(SegmentedPickerStyle())
                     Spacer()
                     Button(action: {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         if self.newTaskText != "" {
                             self.globalVars.floatingTasks[self.superIndex].subTasks.append(
                                 noteTask(
@@ -277,10 +277,10 @@ struct addSubNote: View {
                     TextField("new note", text: $newNoteText)
                         .font(.system(size: 20, weight: .light))
                         .foregroundColor(Color.init(UIColor.systemGray))
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .multilineTextAlignment(.center)
                     Spacer()
                     Button(action: {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         if self.newNoteText != "" {
                             self.globalVars.floatingTasks[self.superIndex].subTasks[self.subIndex].notes.append(self.newNoteText)
                             self.newNoteText = ""
