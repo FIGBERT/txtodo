@@ -118,6 +118,9 @@ struct taskNotes: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
+                Text(globalVars.dailyTasks[taskIndex].main.text)
+                    .font(.system(size: 25, weight: .medium, design: .rounded))
+                    .underline()
                 ForEach(globalVars.dailyTasks[taskIndex].notes.indices, id: \.self) { index in
                     dailyTaskNote(taskIndex: self.taskIndex, noteIndex: index)
                 }
