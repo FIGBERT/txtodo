@@ -47,7 +47,7 @@ struct addTask: View {
                             .foregroundColor(Color.init(UIColor.systemGray))
                     }
                     Spacer()
-                    TextField("new task", text: $newTaskText)
+                    TextField("tap here", text: $newTaskText)
                         .font(.system(size: 20, weight: .light))
                         .foregroundColor(Color.init(UIColor.systemGray))
                         .multilineTextAlignment(.center)
@@ -137,7 +137,7 @@ struct addSubTask: View {
                             .foregroundColor(Color.init(UIColor.systemGray))
                     }
                     Spacer()
-                    TextField("new task", text: $newTaskText)
+                    TextField("tap here", text: $newTaskText)
                         .font(.system(size: 20, weight: .light))
                         .foregroundColor(Color.init(UIColor.systemGray))
                         .multilineTextAlignment(.center)
@@ -214,7 +214,7 @@ struct addNote: View {
                             .foregroundColor(Color.init(UIColor.systemGray))
                     }
                     Spacer()
-                    TextField("new note", text: $newNoteText)
+                    TextField("tap here", text: $newNoteText)
                         .font(.system(size: 20, weight: .light))
                         .foregroundColor(Color.init(UIColor.systemGray))
                         .multilineTextAlignment(.center)
@@ -274,7 +274,7 @@ struct addSubNote: View {
                             .foregroundColor(Color.init(UIColor.systemGray))
                     }
                     Spacer()
-                    TextField("new note", text: $newNoteText)
+                    TextField("tap here", text: $newNoteText)
                         .font(.system(size: 20, weight: .light))
                         .foregroundColor(Color.init(UIColor.systemGray))
                         .multilineTextAlignment(.center)
