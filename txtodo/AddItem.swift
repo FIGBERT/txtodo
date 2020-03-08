@@ -217,10 +217,10 @@ struct addNote: View {
                     TextField("new note", text: $newNoteText)
                         .font(.system(size: 20, weight: .light))
                         .foregroundColor(Color.init(UIColor.systemGray))
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .multilineTextAlignment(.center)
                     Spacer()
                     Button(action: {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         if self.newNoteText != "" {
                             self.globalVars.dailyTasks[self.taskIndex].notes.append(self.newNoteText)
                             self.newNoteText = ""

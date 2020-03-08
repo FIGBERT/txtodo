@@ -12,7 +12,7 @@ import SwiftUI
 struct dailyTaskView: View {
     @EnvironmentObject var globalVars: GlobalVars
     @State var editing: Bool = false
-    @State var navigate: Bool = false
+    @State var viewingNotes: Bool = false
     let taskIndex: Int
     var body: some View {
         HStack {
@@ -29,20 +29,19 @@ struct dailyTaskView: View {
                 .foregroundColor(Color.init(UIColor.label))
             Spacer()
             if !editing {
-                HStack(alignment: .top) {
-                    Text(globalVars.dailyTasks[taskIndex].main.text)
-                        .font(.system(size: 20, weight: .light))
-                        .foregroundColor(Color.init(UIColor.label))
-                    NavigationLink(destination: taskNotes(taskIndex: taskIndex), isActive: $navigate) {
-                        EmptyView()
-                    }
-                }
+                Text(globalVars.dailyTasks[taskIndex].main.text)
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.label))
                     .onTapGesture(count: 2) {
                         self.editing = true
                     }
                     .onTapGesture(count: 1) {
-                        self.navigate = true
+                        self.viewingNotes = true
                     }
+                    .sheet(isPresented: $viewingNotes, content: {
+                        taskNotes(taskIndex: self.taskIndex)
+                            .environmentObject(self.globalVars)
+                    })
             } else {
                 TextField("edit task", text: $globalVars.dailyTasks[self.taskIndex].main.text) {
                     self.editing = false
