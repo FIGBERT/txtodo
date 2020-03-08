@@ -16,28 +16,26 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    VStack {
-                        Text("floating")
-                            .font(.system(size: 25, weight: .medium, design: .rounded))
-                            .underline()
-                        ForEach(self.globalVars.floatingTasks.indices, id: \.self) { index in
-                            superTaskView(taskIndex: index)
-                        }
-                        addTask(createType: "floating")
+                    Text("floating")
+                        .font(.system(size: 25, weight: .medium, design: .rounded))
+                        .underline()
+                    ForEach(self.globalVars.floatingTasks.indices, id: \.self) { index in
+                        superTaskView(taskIndex: index)
                     }
-                        .padding(.top, 60)
-                        .padding(.bottom, 45)
-                    VStack {
-                        Text("today")
-                            .font(.system(size: 25, weight: .medium, design: .rounded))
-                            .underline()
-                        ForEach(self.globalVars.dailyTasks.indices, id: \.self) { index in
-                            dailyTaskView(taskIndex: index)
-                        }
-                        addTask(createType: "daily")
-                    }
-                    Spacer()
+                    addTask(createType: "floating")
                 }
+                    .padding(.top, 60)
+                    .padding(.bottom, 45)
+                VStack {
+                    Text("today")
+                        .font(.system(size: 25, weight: .medium, design: .rounded))
+                        .underline()
+                    ForEach(self.globalVars.dailyTasks.indices, id: \.self) { index in
+                        dailyTaskView(taskIndex: index)
+                    }
+                    addTask(createType: "daily")
+                }
+                Spacer()
             }
                 .background(Color.init(UIColor.systemGray6)
                 .edgesIgnoringSafeArea(.all))
