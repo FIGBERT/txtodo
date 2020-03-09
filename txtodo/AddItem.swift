@@ -51,6 +51,7 @@ struct addTask: View {
                         .font(.system(size: 20, weight: .light))
                         .foregroundColor(Color.init(UIColor.systemGray))
                         .multilineTextAlignment(.center)
+                        .autocapitalization(.none)
                     Picker(
                         selection: $newTaskPriority,
                         label: Text("task priority"),
@@ -141,6 +142,7 @@ struct addSubTask: View {
                         .font(.system(size: 20, weight: .light))
                         .foregroundColor(Color.init(UIColor.systemGray))
                         .multilineTextAlignment(.center)
+                        .autocapitalization(.none)
                     Picker(
                         selection: $newTaskPriority,
                         label: Text("task priority"),
@@ -218,6 +220,7 @@ struct addNote: View {
                         .font(.system(size: 20, weight: .light))
                         .foregroundColor(Color.init(UIColor.systemGray))
                         .multilineTextAlignment(.center)
+                        .autocapitalization(.none)
                     Spacer()
                     Button(action: {
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -278,6 +281,7 @@ struct addSubNote: View {
                         .font(.system(size: 20, weight: .light))
                         .foregroundColor(Color.init(UIColor.systemGray))
                         .multilineTextAlignment(.center)
+                        .autocapitalization(.none)
                     Spacer()
                     Button(action: {
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
