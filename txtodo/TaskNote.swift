@@ -27,19 +27,20 @@ struct dailyTaskNote: View {
                     .font(.system(size: 20, weight: .light))
             } else if !editing {
                 Text(self.globalVars.dailyTasks[self.taskIndex].notes[noteIndex])
+                    .font(.system(size: 20, weight: .light))
                     .onTapGesture(count: 2) {
                         self.editing = true
                     }
                     .onLongPressGesture {
                         self.confirmingDelete = true
                     }
-                    .font(.system(size: 20, weight: .light))
             } else {
                 TextField("editing note", text: $globalVars.dailyTasks[self.taskIndex].notes[noteIndex]) {
                     self.editing = false
                 }
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.systemGray))
+                    .autocapitalization(.none)
             }
             Spacer()
         }
@@ -77,19 +78,20 @@ struct subTaskNote: View {
                     .font(.system(size: 20, weight: .light))
             } else if !editing {
                 Text(self.globalVars.floatingTasks[superIndex].subTasks[subIndex].notes[noteIndex])
+                    .font(.system(size: 20, weight: .light))
                     .onTapGesture(count: 2) {
                         self.editing = true
                     }
                     .onLongPressGesture {
                         self.confirmingDelete = true
                     }
-                    .font(.system(size: 20, weight: .light))
             } else {
                 TextField("editing note", text: $globalVars.floatingTasks[superIndex].subTasks[subIndex].notes[noteIndex]) {
                     self.editing = false
                 }
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.systemGray))
+                    .autocapitalization(.none)
             }
             Spacer()
         }

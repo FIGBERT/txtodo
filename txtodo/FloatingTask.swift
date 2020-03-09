@@ -42,10 +42,12 @@ struct superTaskView: View {
                 Text("deleting...")
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.label))
+                    .multilineTextAlignment(.center)
             } else if !editing {
                 Text(globalVars.floatingTasks[taskIndex].main.text)
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.label))
+                    .multilineTextAlignment(.center)
                     .onTapGesture(count: 2) {
                         self.editing = true
                     }
@@ -66,6 +68,7 @@ struct superTaskView: View {
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.systemGray))
                     .multilineTextAlignment(.center)
+                    .autocapitalization(.none)
             }
             Spacer()
             if !deleted {
@@ -136,10 +139,12 @@ struct subTaskView: View {
                 Text("deleting...")
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.label))
+                    .multilineTextAlignment(.center)
             } else if !editing {
                 Text(globalVars.floatingTasks[self.superIndex].subTasks[subIndex].main.text)
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.label))
+                    .multilineTextAlignment(.center)
                     .onTapGesture(count: 2) {
                         self.editing = true
                     }
@@ -161,6 +166,7 @@ struct subTaskView: View {
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.systemGray))
                     .multilineTextAlignment(.center)
+                    .autocapitalization(.none)
             }
             Spacer()
             if !deleted {
