@@ -124,7 +124,6 @@ struct taskNotes: View {
             }
                 .padding(.top, 25)
         }
-        .navigationBarTitle(Text(globalVars.dailyTasks[taskIndex].main.text), displayMode: .inline)
         .background(Color.init(UIColor.systemGray6).edgesIgnoringSafeArea(.all))
     }
 }
@@ -146,7 +145,6 @@ struct subTaskNotes: View {
             }
                 .padding(.top, 25)
         }
-        .navigationBarTitle(Text(globalVars.floatingTasks[superIndex].subTasks[subIndex].main.text), displayMode: .inline)
         .background(Color.init(UIColor.systemGray6).edgesIgnoringSafeArea(.all))
     }
 }
