@@ -65,7 +65,6 @@ struct dailyTaskView: View {
                 }
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.systemGray))
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .multilineTextAlignment(.center)
             }
             Spacer()
