@@ -10,7 +10,10 @@ import Foundation
 import SwiftUI
 
 struct dailyTaskView: View {
-    @EnvironmentObject var globalVars: GlobalVars
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @ObservedObject var task: NoteTask
+    @State var name: String
+    @State var completed: Bool
     @State var editing: Bool = false
     @State var viewingNotes: Bool = false
     @State var confirmingDelete: Bool = false
@@ -20,9 +23,13 @@ struct dailyTaskView: View {
         HStack {
             if !deleted {
                 Button(action: {
-                    self.globalVars.dailyTasks[self.taskIndex].main.complete.toggle()
+                    self.completed.toggle()
+                    self.managedObjectContext.performAndWait {
+                        self.task.completed = self.completed
+                        try? self.managedObjectContext.save()
+                    }
                 }) {
-                    if globalVars.dailyTasks[taskIndex].main.complete {
+                    if task.completed {
                         Image(systemName: "checkmark.square")
                             .font(.system(size: 25, weight: .light))
                             .foregroundColor(Color.init(UIColor.label))
@@ -44,7 +51,7 @@ struct dailyTaskView: View {
                     .foregroundColor(Color.init(UIColor.label))
                     .multilineTextAlignment(.center)
             } else if !editing {
-                Text(globalVars.dailyTasks[taskIndex].main.text)
+                Text(task.name)
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.label))
                     .multilineTextAlignment(.center)
@@ -58,12 +65,15 @@ struct dailyTaskView: View {
                         self.viewingNotes = true
                     }
                     .sheet(isPresented: $viewingNotes, content: {
-                        taskNotes(taskIndex: self.taskIndex)
-                            .environmentObject(self.globalVars)
+                        taskNotes(task: self.task).environment(\.managedObjectContext, self.managedObjectContext)
                     })
             } else {
-                TextField("edit task", text: $globalVars.dailyTasks[self.taskIndex].main.text) {
+                TextField("edit task", text: $name) {
                     self.editing = false
+                    self.managedObjectContext.performAndWait {
+                        self.task.name = self.name
+                        try? self.managedObjectContext.save()
+                    }
                 }
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.systemGray))
@@ -72,13 +82,13 @@ struct dailyTaskView: View {
             }
             Spacer()
             if !deleted {
-                if globalVars.dailyTasks[taskIndex].main.priority == 1 {
+                if Int(task.priority) == 1 {
                     Text("  !  ")
                         .font(.system(size: 10, weight: .light))
-                } else if globalVars.dailyTasks[taskIndex].main.priority == 2 {
+                } else if Int(task.priority) == 2 {
                     Text(" ! ! ")
                         .font(.system(size: 10, weight: .light))
-                } else if globalVars.dailyTasks[taskIndex].main.priority == 3 {
+                } else if Int(task.priority) == 3 {
                     Text("! ! !")
                         .font(.system(size: 10, weight: .light))
                 } else {
@@ -93,11 +103,10 @@ struct dailyTaskView: View {
             .padding(.horizontal, 25)
             .alert(isPresented: $confirmingDelete) {
                 Alert(
-                    title: Text("confirm delete"),
+                    title: Text("confirm delete"), 
                     message: Text("the task will be gone forever, with no option to restore"),
                     primaryButton: .destructive(Text("delete")) {
-                        self.globalVars.dailyTasks.remove(at: self.taskIndex)
-                        self.deleted = true
+                        self.managedObjectContext.delete(self.task)
                     },
                     secondaryButton: .cancel(Text("cancel"))
                 )

@@ -10,11 +10,10 @@ import Foundation
 import SwiftUI
 
 struct addTask: View {
-    @EnvironmentObject var globalVars: GlobalVars
+    @Environment(\.managedObjectContext) var managedObjectContext
     @State var addingTask: Bool = false
     @State var newTaskText: String = ""
     @State var newTaskPriority: Int = 0
-    let createType: String
     var body: some View {
         Group {
             if !addingTask {
@@ -65,28 +64,19 @@ struct addTask: View {
                     Spacer()
                     Button(action: {
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                        if self.newTaskText != "" {
-                            if self.createType == "daily" {
-                                self.globalVars.dailyTasks.append(
-                                    noteTask(
-                                        main: task(
-                                            text: self.newTaskText,
-                                            priority: self.newTaskPriority
-                                        )
-                                    )
-                                )
-                            } else if self.createType == "floating" {
-                                self.globalVars.floatingTasks.append(
-                                    superTask(
-                                        main: task(
-                                            text: self.newTaskText,
-                                            priority: self.newTaskPriority
-                                        )
-                                    )
-                                )
-                            }
-                            self.newTaskText = ""
+                        guard self.newTaskText != "" else {return}
+                        let newDailyTask = NoteTask(context: self.managedObjectContext)
+                        newDailyTask.completed = false
+                        newDailyTask.name = self.newTaskText
+                        newDailyTask.priority = Int16(self.newTaskPriority)
+                        newDailyTask.notes = [String]()
+                        newDailyTask.id = UUID()
+                        do {
+                            try self.managedObjectContext.save()
+                        } catch {
+                            print(error.localizedDescription)
                         }
+                        self.newTaskText = ""
                         self.newTaskPriority = 0
                         self.addingTask = false
                     }) {
@@ -181,10 +171,10 @@ struct addSubTask: View {
 }
 
 struct addNote: View {
-    @EnvironmentObject var globalVars: GlobalVars
+    @Environment(\.managedObjectContext) var managedObjectContext
     @State var addingNote: Bool = false
     @State var newNoteText: String = ""
-    let taskIndex: Int
+    @ObservedObject var task: NoteTask
     var body: some View {
         Group {
             if !addingNote {
@@ -208,6 +198,7 @@ struct addNote: View {
             } else {
                 HStack {
                     Button(action: {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         self.newNoteText = ""
                         self.addingNote = false
                     }) {
@@ -224,10 +215,12 @@ struct addNote: View {
                     Spacer()
                     Button(action: {
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                        if self.newNoteText != "" {
-                            self.globalVars.dailyTasks[self.taskIndex].notes.append(self.newNoteText)
-                            self.newNoteText = ""
+                        guard self.newNoteText != "" else {return}
+                        self.managedObjectContext.performAndWait {
+                            self.task.notes.append(self.newNoteText)
+                            try? self.managedObjectContext.save()
                         }
+                        self.newNoteText = ""
                         self.addingNote = false
                     }) {
                         Image(systemName: "plus.square")

@@ -10,12 +10,14 @@ import Foundation
 import SwiftUI
 
 struct dailyTaskNote: View {
-    @EnvironmentObject var globalVars: GlobalVars
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @ObservedObject var task: NoteTask
+    @State var notes: [String]
+    @State var note: String
+    @State var index: Int
     @State var editing: Bool = false
     @State var confirmingDelete: Bool = false
     @State var removed: Bool = false
-    let taskIndex: Int
-    let noteIndex: Int
     var body: some View {
         HStack {
             Image(systemName: "minus")
@@ -26,7 +28,7 @@ struct dailyTaskNote: View {
                 Text("error")
                     .font(.system(size: 20, weight: .light))
             } else if !editing {
-                Text(self.globalVars.dailyTasks[self.taskIndex].notes[noteIndex])
+                Text(note)
                     .font(.system(size: 20, weight: .light))
                     .onTapGesture(count: 2) {
                         self.editing = true
@@ -35,8 +37,12 @@ struct dailyTaskNote: View {
                         self.confirmingDelete = true
                     }
             } else {
-                TextField("editing note", text: $globalVars.dailyTasks[self.taskIndex].notes[noteIndex]) {
+                TextField("editing note", text: $note) {
                     self.editing = false
+                    self.managedObjectContext.performAndWait {
+                        self.task.notes[self.index] = self.note
+                        try? self.managedObjectContext.save()
+                    }
                 }
                     .font(.system(size: 20, weight: .light))
                     .foregroundColor(Color.init(UIColor.systemGray))
@@ -50,7 +56,10 @@ struct dailyTaskNote: View {
                     title: Text("confirm delete"),
                     message: Text("the note will be gone forever, with no option to restore"),
                     primaryButton: .destructive(Text("delete")) {
-                        self.globalVars.dailyTasks[self.taskIndex].notes.remove(at: self.noteIndex)
+                        self.managedObjectContext.performAndWait {
+                            self.task.notes.remove(at: self.index)
+                            try? self.managedObjectContext.save()
+                        }
                         self.removed = true
                     },
                     secondaryButton: .cancel(Text("cancel"))
@@ -111,18 +120,25 @@ struct subTaskNote: View {
 }
 
 struct taskNotes: View {
-    @EnvironmentObject var globalVars: GlobalVars
-    let taskIndex: Int
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @ObservedObject var task: NoteTask
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
-                Text(globalVars.dailyTasks[taskIndex].main.text)
+                Text(task.name)
                     .font(.system(size: 25, weight: .medium, design: .rounded))
                     .underline()
-                ForEach(globalVars.dailyTasks[taskIndex].notes.indices, id: \.self) { index in
-                    dailyTaskNote(taskIndex: self.taskIndex, noteIndex: index)
+                ForEach(Array(task.notes.enumerated()), id: \.element) { index, note in
+                    dailyTaskNote(
+                        task: self.task,
+                        notes: self.task.notes,
+                        note: note,
+                        index: index
+                    )
                 }
-                addNote(taskIndex: taskIndex)
+                addNote(
+                    task: task
+                )
             }
                 .padding(.top, 25)
         }

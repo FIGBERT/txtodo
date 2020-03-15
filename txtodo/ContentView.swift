@@ -9,6 +9,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @FetchRequest(
+        entity: NoteTask.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \NoteTask.id, ascending: true)
+        ]
+    ) var dailyTasks: FetchedResults<NoteTask>
     @EnvironmentObject var globalVars: GlobalVars
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -19,9 +26,6 @@ struct ContentView: View {
                 ForEach(self.globalVars.floatingTasks.indices, id: \.self) { index in
                     superTaskView(taskIndex: index)
                 }
-                if globalVars.floatingTasks.count < 3 {
-                    addTask(createType: "floating")
-                }
             }
                 .padding(.top, 60)
                 .padding(.bottom, 45)
@@ -29,10 +33,15 @@ struct ContentView: View {
                 Text("today")
                     .font(.system(size: 25, weight: .medium, design: .rounded))
                     .underline()
-                ForEach(self.globalVars.dailyTasks.indices, id: \.self) { index in
-                    dailyTaskView(taskIndex: index)
+                ForEach(Array(self.dailyTasks.enumerated()), id: \.element) { index, dailyTask in
+                    dailyTaskView(
+                        task: dailyTask,
+                        name: dailyTask.name,
+                        completed: dailyTask.completed,
+                        taskIndex: index
+                    ).environment(\.managedObjectContext, self.managedObjectContext)
                 }
-                addTask(createType: "daily")
+                addTask().environment(\.managedObjectContext, self.managedObjectContext)
             }
             Spacer()
         }
