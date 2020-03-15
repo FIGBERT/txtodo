@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A167A2F241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A167A2D241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift */; };
+		3A167A30241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A167A2E241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift */; };
 		3A96BE6623F9014E00E17400 /* GlobalVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96BE6523F9014E00E17400 /* GlobalVars.swift */; };
 		3A96BE6A23F90F3A00E17400 /* DarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96BE6923F90F3A00E17400 /* DarkMode.swift */; };
 		3A9A4563240A36B500A77520 /* AddItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A4562240A36B500A77520 /* AddItem.swift */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A167A2D241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteTask+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3A167A2E241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3A96BE6523F9014E00E17400 /* GlobalVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVars.swift; sourceTree = "<group>"; };
 		3A96BE6923F90F3A00E17400 /* DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkMode.swift; sourceTree = "<group>"; };
 		3A9A4562240A36B500A77520 /* AddItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItem.swift; sourceTree = "<group>"; };
@@ -53,6 +57,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A167A28241C8C2B00E942D6 /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				3AE3ECBF23F8C8C900F80147 /* txtodo.xcdatamodeld */,
+				3A167A2D241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift */,
+				3A167A2E241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift */,
+			);
+			path = "Data Models";
+			sourceTree = "<group>";
+		};
 		3AE3ECAF23F8C8C900F80147 = {
 			isa = PBXGroup;
 			children = (
@@ -85,7 +99,7 @@
 				3AE3ECC423F8C8CA00F80147 /* Assets.xcassets */,
 				3AE3ECC923F8C8CA00F80147 /* LaunchScreen.storyboard */,
 				3AE3ECCC23F8C8CA00F80147 /* Info.plist */,
-				3AE3ECBF23F8C8C900F80147 /* txtodo.xcdatamodeld */,
+				3A167A28241C8C2B00E942D6 /* Data Models */,
 				3AE3ECC623F8C8CA00F80147 /* Preview Content */,
 			);
 			path = txtodo;
@@ -177,7 +191,9 @@
 				3A96BE6623F9014E00E17400 /* GlobalVars.swift in Sources */,
 				3AE3ECBC23F8C8C900F80147 /* AppDelegate.swift in Sources */,
 				3AE3ECC123F8C8C900F80147 /* txtodo.xcdatamodeld in Sources */,
+				3A167A30241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift in Sources */,
 				3A9A4563240A36B500A77520 /* AddItem.swift in Sources */,
+				3A167A2F241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift in Sources */,
 				3AE3ECC323F8C8C900F80147 /* ContentView.swift in Sources */,
 				3AED8871240A111F008803AB /* FloatingTask.swift in Sources */,
 				3AE3ECBE23F8C8C900F80147 /* SceneDelegate.swift in Sources */,
