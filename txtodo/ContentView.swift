@@ -16,19 +16,8 @@ struct ContentView: View {
             NSSortDescriptor(keyPath: \NoteTask.id, ascending: true)
         ]
     ) var dailyTasks: FetchedResults<NoteTask>
-    @EnvironmentObject var globalVars: GlobalVars
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack {
-                Text("floating")
-                    .font(.system(size: 25, weight: .medium, design: .rounded))
-                    .underline()
-                ForEach(self.globalVars.floatingTasks.indices, id: \.self) { index in
-                    superTaskView(taskIndex: index)
-                }
-            }
-                .padding(.top, 60)
-                .padding(.bottom, 45)
             VStack {
                 Text("today")
                     .font(.system(size: 25, weight: .medium, design: .rounded))
@@ -39,10 +28,12 @@ struct ContentView: View {
                         name: dailyTask.name,
                         completed: dailyTask.completed,
                         taskIndex: index
-                    ).environment(\.managedObjectContext, self.managedObjectContext)
+                    )
+                        .environment(\.managedObjectContext, self.managedObjectContext)
                 }
                 addTask().environment(\.managedObjectContext, self.managedObjectContext)
             }
+                .padding(.top, 45)
             Spacer()
         }
             .background(Color.init(UIColor.systemGray6)
@@ -52,6 +43,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(GlobalVars())
+        ContentView()
     }
 }

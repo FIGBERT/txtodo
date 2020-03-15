@@ -9,11 +9,9 @@
 /* Begin PBXBuildFile section */
 		3A167A2F241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A167A2D241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift */; };
 		3A167A30241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A167A2E241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift */; };
-		3A96BE6623F9014E00E17400 /* GlobalVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96BE6523F9014E00E17400 /* GlobalVars.swift */; };
 		3A96BE6A23F90F3A00E17400 /* DarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96BE6923F90F3A00E17400 /* DarkMode.swift */; };
 		3A9A4563240A36B500A77520 /* AddItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A4562240A36B500A77520 /* AddItem.swift */; };
 		3A9A4565240A37B000A77520 /* TaskNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A4564240A37B000A77520 /* TaskNote.swift */; };
-		3AAEDB1523FB2A2B00879B8D /* BaseTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AAEDB1423FB2A2B00879B8D /* BaseTask.swift */; };
 		3AE3ECBC23F8C8C900F80147 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE3ECBB23F8C8C900F80147 /* AppDelegate.swift */; };
 		3AE3ECBE23F8C8C900F80147 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE3ECBD23F8C8C900F80147 /* SceneDelegate.swift */; };
 		3AE3ECC123F8C8C900F80147 /* txtodo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AE3ECBF23F8C8C900F80147 /* txtodo.xcdatamodeld */; };
@@ -22,17 +20,14 @@
 		3AE3ECC823F8C8CA00F80147 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE3ECC723F8C8CA00F80147 /* Preview Assets.xcassets */; };
 		3AE3ECCB23F8C8CA00F80147 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AE3ECC923F8C8CA00F80147 /* LaunchScreen.storyboard */; };
 		3AED886F240A110B008803AB /* DailyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED886E240A110B008803AB /* DailyTask.swift */; };
-		3AED8871240A111F008803AB /* FloatingTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED8870240A111F008803AB /* FloatingTask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3A167A2D241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteTask+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3A167A2E241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		3A96BE6523F9014E00E17400 /* GlobalVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVars.swift; sourceTree = "<group>"; };
 		3A96BE6923F90F3A00E17400 /* DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkMode.swift; sourceTree = "<group>"; };
 		3A9A4562240A36B500A77520 /* AddItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItem.swift; sourceTree = "<group>"; };
 		3A9A4564240A37B000A77520 /* TaskNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNote.swift; sourceTree = "<group>"; };
-		3AAEDB1423FB2A2B00879B8D /* BaseTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTask.swift; sourceTree = "<group>"; };
 		3AE3ECB823F8C8C900F80147 /* txtodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = txtodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE3ECBB23F8C8C900F80147 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AE3ECBD23F8C8C900F80147 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,7 +38,6 @@
 		3AE3ECCA23F8C8CA00F80147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3AE3ECCC23F8C8CA00F80147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AED886E240A110B008803AB /* DailyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTask.swift; sourceTree = "<group>"; };
-		3AED8870240A111F008803AB /* FloatingTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,10 +83,7 @@
 				3AE3ECBB23F8C8C900F80147 /* AppDelegate.swift */,
 				3AE3ECBD23F8C8C900F80147 /* SceneDelegate.swift */,
 				3AE3ECC223F8C8C900F80147 /* ContentView.swift */,
-				3A96BE6523F9014E00E17400 /* GlobalVars.swift */,
-				3AAEDB1423FB2A2B00879B8D /* BaseTask.swift */,
 				3AED886E240A110B008803AB /* DailyTask.swift */,
-				3AED8870240A111F008803AB /* FloatingTask.swift */,
 				3A9A4564240A37B000A77520 /* TaskNote.swift */,
 				3A9A4562240A36B500A77520 /* AddItem.swift */,
 				3A96BE6923F90F3A00E17400 /* DarkMode.swift */,
@@ -184,18 +175,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AAEDB1523FB2A2B00879B8D /* BaseTask.swift in Sources */,
 				3A96BE6A23F90F3A00E17400 /* DarkMode.swift in Sources */,
 				3AED886F240A110B008803AB /* DailyTask.swift in Sources */,
 				3A9A4565240A37B000A77520 /* TaskNote.swift in Sources */,
-				3A96BE6623F9014E00E17400 /* GlobalVars.swift in Sources */,
 				3AE3ECBC23F8C8C900F80147 /* AppDelegate.swift in Sources */,
 				3AE3ECC123F8C8C900F80147 /* txtodo.xcdatamodeld in Sources */,
 				3A167A30241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift in Sources */,
 				3A9A4563240A36B500A77520 /* AddItem.swift in Sources */,
 				3A167A2F241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift in Sources */,
 				3AE3ECC323F8C8C900F80147 /* ContentView.swift in Sources */,
-				3AED8871240A111F008803AB /* FloatingTask.swift in Sources */,
 				3AE3ECBE23F8C8C900F80147 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
