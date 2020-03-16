@@ -13,7 +13,8 @@ struct ContentView: View {
     @FetchRequest(
         entity: NoteTask.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \NoteTask.id, ascending: true)
+            NSSortDescriptor(keyPath: \NoteTask.completed, ascending: false),
+            NSSortDescriptor(keyPath: \NoteTask.priority, ascending: false)
         ]
     ) var dailyTasks: FetchedResults<NoteTask>
     let currentDay = Calendar.current.component(.day, from: Date.init())
