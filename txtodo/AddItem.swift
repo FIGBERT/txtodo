@@ -71,6 +71,7 @@ struct addTask: View {
                         newDailyTask.priority = Int16(self.newTaskPriority)
                         newDailyTask.notes = [String]()
                         newDailyTask.id = UUID()
+                        newDailyTask.creationDate = Date.init()
                         do {
                             try self.managedObjectContext.save()
                         } catch {

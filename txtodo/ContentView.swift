@@ -16,6 +16,7 @@ struct ContentView: View {
             NSSortDescriptor(keyPath: \NoteTask.id, ascending: true)
         ]
     ) var dailyTasks: FetchedResults<NoteTask>
+    let currentDay = Calendar.current.component(.day, from: Date.init())
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
@@ -23,12 +24,23 @@ struct ContentView: View {
                     .font(.system(size: 25, weight: .medium, design: .rounded))
                     .underline()
                 ForEach(self.dailyTasks, id: \.id) { task in
-                    dailyTaskView(
-                        task: task,
-                        name: task.name,
-                        completed: task.completed
-                    )
-                        .environment(\.managedObjectContext, self.managedObjectContext)
+                    Group {
+                        if Calendar.current.component(.day, from: task.creationDate) == self.currentDay {
+                            dailyTaskView(
+                                task: task,
+                                name: task.name,
+                                completed: task.completed
+                            )
+                                .environment(\.managedObjectContext, self.managedObjectContext)
+                        } else {
+                            EmptyView().onAppear(perform: {
+                                self.managedObjectContext.performAndWait {
+                                    self.managedObjectContext.delete(task)
+                                    try? self.managedObjectContext.save()
+                                }
+                            })
+                        }
+                    }
                 }
                 addTask().environment(\.managedObjectContext, self.managedObjectContext)
             }
