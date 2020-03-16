@@ -28,8 +28,9 @@ struct ContentView: View {
                         if Calendar.current.component(.day, from: task.creationDate) == self.currentDay {
                             dailyTaskView(
                                 task: task,
+                                completed: task.completed,
                                 name: task.name,
-                                completed: task.completed
+                                priority: Int(task.priority)
                             )
                                 .environment(\.managedObjectContext, self.managedObjectContext)
                         } else {

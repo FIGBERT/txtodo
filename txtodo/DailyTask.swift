@@ -12,8 +12,9 @@ import SwiftUI
 struct dailyTaskView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @ObservedObject var task: NoteTask
-    @State var name: String
     @State var completed: Bool
+    @State var name: String
+    @State var priority: Int
     @State var editing: Bool = false
     @State var viewingNotes: Bool = false
     @State var confirmingDelete: Bool = false
@@ -71,6 +72,7 @@ struct dailyTaskView: View {
                     self.editing = false
                     self.managedObjectContext.performAndWait {
                         self.task.name = self.name
+                        self.task.priority = Int16(self.priority)
                         try? self.managedObjectContext.save()
                     }
                 }
@@ -80,7 +82,10 @@ struct dailyTaskView: View {
                     .autocapitalization(.none)
             }
             Spacer()
-            if !deleted {
+            if deleted {
+                Text("     ")
+                    .font(.system(size: 10, weight: .light))
+            } else if !editing {
                 if Int(task.priority) == 1 {
                     Text("  !  ")
                         .font(.system(size: 10, weight: .light))
@@ -95,8 +100,16 @@ struct dailyTaskView: View {
                         .font(.system(size: 10, weight: .light))
                 }
             } else {
-                Text("     ")
-                    .font(.system(size: 10, weight: .light))
+                Picker(
+                    selection: $priority,
+                    label: Text("task priority"),
+                    content: {
+                        Text("0").tag(0)
+                        Text("1").tag(1)
+                        Text("2").tag(2)
+                        Text("3").tag(3)
+                })
+                    .pickerStyle(SegmentedPickerStyle())
             }
         }
             .padding(.horizontal, 25)
