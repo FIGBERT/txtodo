@@ -22,5 +22,6 @@ extension NoteTask {
     @NSManaged public var name: String
     @NSManaged public var notes: Array<String>
     @NSManaged public var id: UUID
+    @NSManaged public var creationDate: Date
 
 }
