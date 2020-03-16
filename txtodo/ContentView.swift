@@ -22,7 +22,7 @@ struct ContentView: View {
                 Text("today")
                     .font(.system(size: 25, weight: .medium, design: .rounded))
                     .underline()
-                ForEach(self.dailyTasks, id: \.self) { task in
+                ForEach(self.dailyTasks, id: \.id) { task in
                     dailyTaskView(
                         task: task,
                         name: task.name,
