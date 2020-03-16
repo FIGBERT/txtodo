@@ -105,7 +105,10 @@ struct dailyTaskView: View {
                     title: Text("confirm delete"), 
                     message: Text("the task will be gone forever, with no option to restore"),
                     primaryButton: .destructive(Text("delete")) {
-                        self.managedObjectContext.delete(self.task)
+                        self.managedObjectContext.performAndWait {
+                            self.managedObjectContext.delete(self.task)
+                            try? self.managedObjectContext.save()
+                        }
                     },
                     secondaryButton: .cancel(Text("cancel"))
                 )
