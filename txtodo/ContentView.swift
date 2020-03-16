@@ -14,7 +14,9 @@ struct ContentView: View {
         entity: NoteTask.entity(),
         sortDescriptors: [
             NSSortDescriptor(keyPath: \NoteTask.completed, ascending: false),
-            NSSortDescriptor(keyPath: \NoteTask.priority, ascending: false)
+            NSSortDescriptor(keyPath: \NoteTask.priority, ascending: false),
+            NSSortDescriptor(keyPath: \NoteTask.name, ascending: false),
+            NSSortDescriptor(keyPath: \NoteTask.creationDate, ascending: false)
         ]
     ) var dailyTasks: FetchedResults<NoteTask>
     let currentDay = Calendar.current.component(.day, from: Date.init())
