@@ -15,7 +15,7 @@ struct ContentView: View {
         sortDescriptors: [
             NSSortDescriptor(keyPath: \NoteTask.completed, ascending: false),
             NSSortDescriptor(keyPath: \NoteTask.priority, ascending: false),
-            NSSortDescriptor(keyPath: \NoteTask.name, ascending: false),
+            NSSortDescriptor(keyPath: \NoteTask.name, ascending: true),
             NSSortDescriptor(keyPath: \NoteTask.creationDate, ascending: false)
         ]
     ) var dailyTasks: FetchedResults<NoteTask>
