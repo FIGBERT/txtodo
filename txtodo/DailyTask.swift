@@ -18,7 +18,6 @@ struct dailyTaskView: View {
     @State var viewingNotes: Bool = false
     @State var confirmingDelete: Bool = false
     @State var deleted: Bool = false
-    let taskIndex: Int
     var body: some View {
         HStack {
             if !deleted {

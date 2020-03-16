@@ -22,12 +22,11 @@ struct ContentView: View {
                 Text("today")
                     .font(.system(size: 25, weight: .medium, design: .rounded))
                     .underline()
-                ForEach(Array(self.dailyTasks.enumerated()), id: \.element) { index, dailyTask in
+                ForEach(self.dailyTasks, id: \.self) { task in
                     dailyTaskView(
-                        task: dailyTask,
-                        name: dailyTask.name,
-                        completed: dailyTask.completed,
-                        taskIndex: index
+                        task: task,
+                        name: task.name,
+                        completed: task.completed
                     )
                         .environment(\.managedObjectContext, self.managedObjectContext)
                 }
