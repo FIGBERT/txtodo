@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3A167A2F241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A167A2D241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift */; };
 		3A167A30241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A167A2E241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift */; };
+		3A4C59F32420787E004A475C /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4C59F22420787E004A475C /* Onboarding.swift */; };
+		3A830FC724215B7600DC4766 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A830FC624215B7600DC4766 /* HomeScreen.swift */; };
 		3A96BE6A23F90F3A00E17400 /* DarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96BE6923F90F3A00E17400 /* DarkMode.swift */; };
 		3A9A4563240A36B500A77520 /* AddItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A4562240A36B500A77520 /* AddItem.swift */; };
 		3A9A4565240A37B000A77520 /* TaskNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A4564240A37B000A77520 /* TaskNote.swift */; };
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		3A167A2D241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteTask+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3A167A2E241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3A4C59F22420787E004A475C /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		3A830FC624215B7600DC4766 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		3A96BE6923F90F3A00E17400 /* DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkMode.swift; sourceTree = "<group>"; };
 		3A9A4562240A36B500A77520 /* AddItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItem.swift; sourceTree = "<group>"; };
 		3A9A4564240A37B000A77520 /* TaskNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNote.swift; sourceTree = "<group>"; };
@@ -83,9 +87,11 @@
 				3AE3ECBB23F8C8C900F80147 /* AppDelegate.swift */,
 				3AE3ECBD23F8C8C900F80147 /* SceneDelegate.swift */,
 				3AE3ECC223F8C8C900F80147 /* ContentView.swift */,
+				3A830FC624215B7600DC4766 /* HomeScreen.swift */,
 				3AED886E240A110B008803AB /* DailyTask.swift */,
 				3A9A4564240A37B000A77520 /* TaskNote.swift */,
 				3A9A4562240A36B500A77520 /* AddItem.swift */,
+				3A4C59F22420787E004A475C /* Onboarding.swift */,
 				3A96BE6923F90F3A00E17400 /* DarkMode.swift */,
 				3AE3ECC423F8C8CA00F80147 /* Assets.xcassets */,
 				3AE3ECC923F8C8CA00F80147 /* LaunchScreen.storyboard */,
@@ -180,8 +186,10 @@
 				3A9A4565240A37B000A77520 /* TaskNote.swift in Sources */,
 				3AE3ECBC23F8C8C900F80147 /* AppDelegate.swift in Sources */,
 				3AE3ECC123F8C8C900F80147 /* txtodo.xcdatamodeld in Sources */,
+				3A4C59F32420787E004A475C /* Onboarding.swift in Sources */,
 				3A167A30241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift in Sources */,
 				3A9A4563240A36B500A77520 /* AddItem.swift in Sources */,
+				3A830FC724215B7600DC4766 /* HomeScreen.swift in Sources */,
 				3A167A2F241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift in Sources */,
 				3AE3ECC323F8C8C900F80147 /* ContentView.swift in Sources */,
 				3AE3ECBE23F8C8C900F80147 /* SceneDelegate.swift in Sources */,
