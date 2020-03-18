@@ -39,6 +39,8 @@ struct Onboarding: View {
                 } else if page == 3 {
                     TaskOverview()
                 } else if page == 4 {
+                    NoteOverview()
+                } else if page == 5 {
                     Support()
                 }
             }
@@ -145,6 +147,22 @@ struct TaskOverview: View {
                 .foregroundColor(Color.init(UIColor.label))
                 .padding(35)
             TaskDemo()
+            Spacer()
+            Spacer()
+            Swipe()
+        }
+    }
+}
+
+struct NoteOverview: View {
+    var body: some View {
+        VStack {
+            Spacer()
+            Text("changing a note")
+                .font(.system(size: 25, weight: .medium))
+                .foregroundColor(Color.init(UIColor.label))
+                .padding(35)
+            NoteDemo()
             Spacer()
             Spacer()
             Swipe()
@@ -377,6 +395,51 @@ struct TaskDemo: View {
             }
                 .padding(.horizontal, 15)
         }
+    }
+}
+
+struct NoteDemo: View {
+    @State private var editing: Bool = false
+    @State private var note: String = "lorem ipsum dolor sit amet"
+    var body: some View {
+        VStack {
+            HStack {
+                Image(systemName: "minus")
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.label))
+                    .padding(.trailing, 20)
+                if !editing {
+                    Text(note)
+                        .font(.system(size: 20, weight: .light))
+                        .onTapGesture(count: 2) {
+                            self.editing = true
+                        }
+                } else {
+                    TextField("editing note", text: $note) {
+                        self.editing = false
+                    }
+                        .font(.system(size: 20, weight: .light))
+                        .foregroundColor(Color.init(UIColor.systemGray))
+                        .autocapitalization(.none)
+                }
+                Spacer()
+            }
+            HStack {
+                Spacer()
+                Image(systemName: "arrow.up")
+                    .font(.system(size: 12, weight: .light))
+                    .foregroundColor(Color.init(UIColor.systemGray))
+                Spacer()
+            }
+            HStack {
+                Spacer()
+                Text(editing ? "press return to confirm your changes" : "double tap to edit, long press to confirm delete")
+                    .font(.system(size: 12, weight: .light))
+                    .foregroundColor(Color.init(UIColor.systemGray))
+                Spacer()
+            }
+        }
+            .padding()
     }
 }
 
