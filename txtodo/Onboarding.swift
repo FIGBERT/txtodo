@@ -88,24 +88,79 @@ struct Intro: View {
 }
 
 struct RequestNotifications: View {
+    @State private var hour: Int = 7
+    @State private var minute: Int = 30
     var body: some View {
         VStack {
             Spacer()
+            Text("customize notifications")
+                .font(.system(size: 25, weight: .medium))
+                .foregroundColor(Color.init(UIColor.label))
+                .padding(35)
+            HStack {
+                Picker(
+                    selection: $hour,
+                    label: Text("hour"),
+                    content: {
+                        Text("05").tag(5)
+                        Text("06").tag(6)
+                        Text("07").tag(7)
+                        Text("08").tag(8)
+                        Text("09").tag(9)
+                    }
+                )
+                    .frame(width: 50, height: 125)
+                Text(":")
+                    .padding(.horizontal, 50)
+                Picker(
+                    selection: $minute,
+                    label: Text("minutes"),
+                    content: {
+                        Text("00").tag(0)
+                        Text("10").tag(10)
+                        Text("15").tag(15)
+                        Text("30").tag(30)
+                        Text("45").tag(45)
+                        Text("50").tag(50)
+                    }
+                )
+                    .frame(width: 50, height: 125)
+            }
             Button(action: {
                 UNUserNotificationCenter.current().requestAuthorization(
                     options: [.alert, .badge, .sound]
                 ) { success, error in
                     if success {
-                        print("All set!")
+                        let content = UNMutableNotificationContent()
+                        content.title = "open txtodo"
+                        content.subtitle = "take some time to plan your day"
+                        content.sound = UNNotificationSound.default
+                        var time = DateComponents()
+                        time.hour = self.hour
+                        time.minute = self.minute
+                        let trigger = UNCalendarNotificationTrigger(
+                            dateMatching: time,
+                            repeats: true
+                        )
+                        let request = UNNotificationRequest(
+                            identifier: UUID().uuidString,
+                            content: content,
+                            trigger: trigger
+                        )
+                        UNUserNotificationCenter.current().add(request)
                     } else if let error = error {
                         print(error.localizedDescription)
                     }
                 }
             }) {
-                Text("allow notifications")
-                    .font(.system(size: 25, weight: .medium))
+                Text("set notifications")
+                    .font(.system(size: 20, weight: .medium))
                     .foregroundColor(Color.init(UIColor.label))
-                    .padding()
+                    .padding(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.init(UIColor.label), lineWidth: 2)
+                    )
             }
             Text("txtodo uses notifications to remind users to set the day's tasks in the morning")
                 .font(.system(size: 20, weight: .light))
@@ -464,6 +519,6 @@ struct Swipe: View {
 
 struct Onboarding_Previews: PreviewProvider {
     static var previews: some View {
-        Onboarding()
+        RequestNotifications()
     }
 }
