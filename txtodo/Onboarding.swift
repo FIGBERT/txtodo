@@ -51,7 +51,7 @@ struct Onboarding: View {
                         .onChanged({ self.offset = $0.translation })
                         .onEnded({
                             if $0.translation.width < -100 {
-                                if self.page != 4 {
+                                if self.page != 5 {
                                     self.page += 1
                                 } else {
                                     self.onboarding.showOnboarding = false
@@ -519,6 +519,6 @@ struct Swipe: View {
 
 struct Onboarding_Previews: PreviewProvider {
     static var previews: some View {
-        RequestNotifications()
+        Onboarding()
     }
 }
