@@ -10,6 +10,7 @@ import SwiftUI
 
 struct HomeScreen: View {
     @Environment(\.managedObjectContext) var managedObjectContext
+    @EnvironmentObject var globalVars: GlobalVars
     @FetchRequest(
         entity: NoteTask.entity(),
         sortDescriptors: [
@@ -21,38 +22,42 @@ struct HomeScreen: View {
     ) var dailyTasks: FetchedResults<NoteTask>
     let currentDay = Calendar.current.component(.day, from: Date.init())
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack {
-                Text("today")
-                    .font(.system(size: 25, weight: .medium, design: .rounded))
-                    .underline()
-                ForEach(self.dailyTasks, id: \.id) { task in
-                    Group {
-                        if Calendar.current.component(.day, from: task.creationDate) == self.currentDay {
-                            dailyTaskView(
-                                task: task,
-                                completed: task.completed,
-                                name: task.name,
-                                priority: Int(task.priority)
-                            )
-                                .environment(\.managedObjectContext, self.managedObjectContext)
-                        } else {
-                            EmptyView().onAppear(perform: {
-                                self.managedObjectContext.performAndWait {
-                                    self.managedObjectContext.delete(task)
-                                    try? self.managedObjectContext.save()
-                                }
-                            })
+        ZStack(alignment: .bottomTrailing) {
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack {
+                    Text("today")
+                        .font(.system(size: 25, weight: .medium, design: .rounded))
+                        .underline()
+                    ForEach(self.dailyTasks, id: \.id) { task in
+                        Group {
+                            if Calendar.current.component(.day, from: task.creationDate) == self.currentDay {
+                                dailyTaskView(
+                                    task: task,
+                                    completed: task.completed,
+                                    name: task.name,
+                                    priority: Int(task.priority)
+                                )
+                                    .environment(\.managedObjectContext, self.managedObjectContext)
+                            } else {
+                                EmptyView().onAppear(perform: {
+                                    self.managedObjectContext.performAndWait {
+                                        self.managedObjectContext.delete(task)
+                                        try? self.managedObjectContext.save()
+                                    }
+                                })
+                            }
                         }
                     }
+                    addTask().environment(\.managedObjectContext, self.managedObjectContext)
                 }
-                addTask().environment(\.managedObjectContext, self.managedObjectContext)
+                    .padding(.top, 45)
+                Spacer()
             }
-                .padding(.top, 45)
-            Spacer()
+                .background(Color.init(UIColor.systemGray6)
+                .edgesIgnoringSafeArea(.all))
+            Menu()
+                .padding(25)
         }
-            .background(Color.init(UIColor.systemGray6)
-            .edgesIgnoringSafeArea(.all))
     }
 }
 

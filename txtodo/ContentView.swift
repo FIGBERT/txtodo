@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var onboarding: OnboardingRouter
+    @EnvironmentObject var onboarding: GlobalVars
     var body: some View {
         Group {
             if !onboarding.showOnboarding {
@@ -23,6 +23,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(OnboardingRouter())
+        ContentView().environmentObject(GlobalVars())
     }
 }

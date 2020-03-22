@@ -9,20 +9,8 @@
 import SwiftUI
 import UserNotifications
 
-class OnboardingRouter: ObservableObject {
-    @Published var showOnboarding: Bool
-    init() {
-        if !UserDefaults.standard.bool(forKey: "didLaunchBefore") {
-            UserDefaults.standard.set(true, forKey: "didLaunchBefore")
-            showOnboarding = true
-        } else {
-            showOnboarding = false
-        }
-    }
-}
-
 struct Onboarding: View {
-    @EnvironmentObject var onboarding: OnboardingRouter
+    @EnvironmentObject var globalVars: GlobalVars
     @State private var page: Int = 0
     @State private var offset: CGSize = .zero
     var body: some View {
@@ -54,7 +42,7 @@ struct Onboarding: View {
                                 if self.page != 5 {
                                     self.page += 1
                                 } else {
-                                    self.onboarding.showOnboarding = false
+                                    self.globalVars.showOnboarding = false
                                 }
                             } else if $0.translation.width > 100 {
                                 if self.page > 0 {
@@ -88,8 +76,7 @@ struct Intro: View {
 }
 
 struct RequestNotifications: View {
-    @State private var hour: Int = 7
-    @State private var minute: Int = 30
+    @EnvironmentObject var globalVars: GlobalVars
     var body: some View {
         VStack {
             Spacer()
@@ -99,7 +86,7 @@ struct RequestNotifications: View {
                 .padding(35)
             HStack {
                 Picker(
-                    selection: $hour,
+                    selection: $globalVars.notificationHour,
                     label: Text("hour"),
                     content: {
                         Text("05").tag(5)
@@ -110,10 +97,11 @@ struct RequestNotifications: View {
                     }
                 )
                     .frame(width: 50, height: 125)
+                    .labelsHidden()
                 Text(":")
                     .padding(.horizontal, 50)
                 Picker(
-                    selection: $minute,
+                    selection: $globalVars.notificationMinute,
                     label: Text("minutes"),
                     content: {
                         Text("00").tag(0)
@@ -125,33 +113,10 @@ struct RequestNotifications: View {
                     }
                 )
                     .frame(width: 50, height: 125)
+                    .labelsHidden()
             }
             Button(action: {
-                UNUserNotificationCenter.current().requestAuthorization(
-                    options: [.alert, .badge, .sound]
-                ) { success, error in
-                    if success {
-                        let content = UNMutableNotificationContent()
-                        content.title = "open txtodo"
-                        content.subtitle = "take some time to plan your day"
-                        content.sound = UNNotificationSound.default
-                        var time = DateComponents()
-                        time.hour = self.hour
-                        time.minute = self.minute
-                        let trigger = UNCalendarNotificationTrigger(
-                            dateMatching: time,
-                            repeats: true
-                        )
-                        let request = UNNotificationRequest(
-                            identifier: UUID().uuidString,
-                            content: content,
-                            trigger: trigger
-                        )
-                        UNUserNotificationCenter.current().add(request)
-                    } else if let error = error {
-                        print(error.localizedDescription)
-                    }
-                }
+                self.globalVars.enableNotifications(onboarding: true)
             }) {
                 Text("set notifications")
                     .font(.system(size: 20, weight: .medium))
