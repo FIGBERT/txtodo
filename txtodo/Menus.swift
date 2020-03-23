@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import MessageUI
 
 struct Menu: View {
     @EnvironmentObject var globalVars: GlobalVars
