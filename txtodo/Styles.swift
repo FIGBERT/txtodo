@@ -8,6 +8,15 @@
 
 import SwiftUI
 
+struct Header: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 25, weight: .medium, design: .rounded))
+            .foregroundColor(Color.init(UIColor.label))
+            .multilineTextAlignment(.center)
+    }
+}
+
 struct MainText: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -26,11 +35,21 @@ struct MainNote: ViewModifier {
     }
 }
 
-struct MainImage: ViewModifier {
+struct EditMain: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.system(size: 25, weight: .light))
-            .foregroundColor(Color.init(UIColor.label))
+            .font(.system(size: 20, weight: .light, design: .rounded))
+            .foregroundColor(Color.init(UIColor.systemGray))
+            .multilineTextAlignment(.center)
+    }
+}
+
+struct EditNote: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 20, weight: .light, design: .rounded))
+            .foregroundColor(Color.init(UIColor.systemGray))
+            .multilineTextAlignment(.leading)
     }
 }
 
@@ -51,6 +70,14 @@ struct Annotation: ViewModifier {
     }
 }
 
+struct MainImage: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 25, weight: .light))
+            .foregroundColor(Color.init(UIColor.label))
+    }
+}
+
 struct SmallImage: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -59,24 +86,21 @@ struct SmallImage: ViewModifier {
     }
 }
 
-struct Header: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .font(.system(size: 25, weight: .medium, design: .rounded))
-            .foregroundColor(Color.init(UIColor.label))
-            .multilineTextAlignment(.center)
-    }
-}
-
 extension View {
+    func headerStyle() -> some View {
+        self.modifier(Header())
+    }
     func mainTextStyle() -> some View {
         self.modifier(MainText())
     }
     func mainNoteStyle() -> some View {
         self.modifier(MainNote())
     }
-    func mainImageStyle() -> some View {
-        self.modifier(MainImage())
+    func editMainTextStyle() -> some View {
+        self.modifier(EditMain())
+    }
+    func editNoteStyle() -> some View {
+        self.modifier(EditNote())
     }
     func smallTextStyle() -> some View {
         self.modifier(SmallText())
@@ -84,10 +108,10 @@ extension View {
     func annotateStyle() -> some View {
         self.modifier(Annotation())
     }
+    func mainImageStyle() -> some View {
+        self.modifier(MainImage())
+    }
     func smallImageStyle() -> some View {
         self.modifier(SmallImage())
-    }
-    func headerStyle() -> some View {
-        self.modifier(Header())
     }
 }

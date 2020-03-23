@@ -44,7 +44,7 @@ struct dailyTaskNote: View {
                         try? self.managedObjectContext.save()
                     }
                 }
-                    .mainNoteStyle()
+                    .editNoteStyle()
                     .autocapitalization(.none)
             }
             Spacer()
