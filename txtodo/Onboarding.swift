@@ -64,11 +64,9 @@ struct Intro: View {
                 .font(.system(size: 125, weight: .ultraLight, design: .rounded))
                 .foregroundColor(Color.init(UIColor.label))
             Text("a minimalist open-source todo app")
-                .font(.system(size: 20, weight: .light))
-                .foregroundColor(Color.init(UIColor.label))
+                .mainTextStyle()
             Text("made by FIGBERT")
-                .font(.system(size: 20, weight: .light))
-                .foregroundColor(Color.init(UIColor.systemGray))
+                .smallTextStyle()
             Spacer()
             Swipe()
         }
@@ -81,8 +79,8 @@ struct RequestNotifications: View {
         VStack {
             Spacer()
             Text("customize notifications")
-                .font(.system(size: 25, weight: .medium))
-                .foregroundColor(Color.init(UIColor.label))
+                .underline()
+                .headerStyle()
                 .padding(35)
             HStack {
                 Picker(
@@ -119,8 +117,7 @@ struct RequestNotifications: View {
                 self.globalVars.enableNotifications(onboarding: true)
             }) {
                 Text("set notifications")
-                    .font(.system(size: 20, weight: .medium))
-                    .foregroundColor(Color.init(UIColor.label))
+                    .mainTextStyle()
                     .padding(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
@@ -128,8 +125,7 @@ struct RequestNotifications: View {
                     )
             }
             Text("txtodo uses notifications to remind users to set the day's tasks in the morning")
-                .font(.system(size: 20, weight: .light))
-                .multilineTextAlignment(.center)
+                .smallTextStyle()
                 .padding(25)
             Text("notifications are NOT REQUIRED. you can always change your mind in the application's settings menu")
                 .font(.system(size: 15, weight: .light))
@@ -147,8 +143,8 @@ struct AddTaskOverview: View {
         VStack {
             Spacer()
             Text("adding a task")
-                .font(.system(size: 25, weight: .medium))
-                .foregroundColor(Color.init(UIColor.label))
+                .underline()
+                .headerStyle()
                 .padding(35)
             AddTaskDemo()
             Spacer()
@@ -163,8 +159,8 @@ struct TaskOverview: View {
         VStack {
             Spacer()
             Text("changing a task")
-                .font(.system(size: 25, weight: .medium))
-                .foregroundColor(Color.init(UIColor.label))
+                .underline()
+                .headerStyle()
                 .padding(35)
             TaskDemo()
             Spacer()
@@ -179,8 +175,8 @@ struct NoteOverview: View {
         VStack {
             Spacer()
             Text("changing a note")
-                .font(.system(size: 25, weight: .medium))
-                .foregroundColor(Color.init(UIColor.label))
+                .underline()
+                .headerStyle()
                 .padding(35)
             NoteDemo()
             Spacer()
@@ -198,8 +194,7 @@ struct Support: View {
                 .font(.system(size: 35, weight: .ultraLight, design: .rounded))
                 .foregroundColor(Color.init(UIColor.label))
             Text("more projects available on")
-                .font(.system(size: 20, weight: .light))
-                .foregroundColor(Color.init(UIColor.label))
+                .mainTextStyle()
             Text("figbert.com")
                 .font(.system(size: 20, weight: .light))
                 .foregroundColor(Color.init(UIColor.link))
@@ -231,16 +226,13 @@ struct AddTaskDemo: View {
                     }
                     HStack {
                         Image(systemName: "plus.square")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .smallImageStyle()
                         Spacer()
                         Text("create a task")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .smallTextStyle()
                         Spacer()
                         Image(systemName: "plus.square")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .smallImageStyle()
                     }
                         .padding(.horizontal, 25)
                         .onTapGesture {
@@ -251,44 +243,35 @@ struct AddTaskDemo: View {
                 VStack {
                     HStack {
                         Text("tap to cancel")
-                            .font(.system(size: 12, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .annotateStyle()
                         Spacer()
                         Text("tap to edit text")
-                            .font(.system(size: 12, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .annotateStyle()
                         Spacer()
                         Text("tap to edit priority")
-                            .font(.system(size: 12, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .annotateStyle()
                         Spacer()
                         Text("tap to add")
-                            .font(.system(size: 12, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .annotateStyle()
                     }
                         .padding(.horizontal, 25)
                     HStack {
                         Image(systemName: "arrow.down")
-                            .font(.system(size: 12, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .annotateStyle()
                         Spacer()
                         Image(systemName: "arrow.down")
-                            .font(.system(size: 12, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .annotateStyle()
                         Spacer()
                         Image(systemName: "arrow.down")
-                            .font(.system(size: 12, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .annotateStyle()
                         Spacer()
                         Image(systemName: "arrow.down")
-                            .font(.system(size: 12, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .annotateStyle()
                     }
                         .padding(.horizontal, 25)
                     HStack {
                         Image(systemName: "multiply.square")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .smallImageStyle()
                             .onTapGesture {
                                 self.text = ""
                                 self.priority = 0
@@ -296,9 +279,7 @@ struct AddTaskDemo: View {
                             }
                         Spacer()
                         TextField("tap here", text: $text)
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
-                            .multilineTextAlignment(.center)
+                            .smallTextStyle()
                             .autocapitalization(.none)
                         Picker(
                             selection: $priority,
@@ -312,8 +293,7 @@ struct AddTaskDemo: View {
                             .pickerStyle(SegmentedPickerStyle())
                         Spacer()
                         Image(systemName: "plus.square")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .smallImageStyle()
                             .onTapGesture {
                                 self.text = ""
                                 self.priority = 0
@@ -338,17 +318,14 @@ struct TaskDemo: View {
         Group {
             HStack {
                 Image(systemName: complete ? "checkmark.square" : "square")
-                    .font(.system(size: 25, weight: .light))
-                    .foregroundColor(Color.init(UIColor.label))
+                    .mainImageStyle()
                     .onTapGesture {
                         self.complete.toggle()
                     }
                 Spacer()
                 if !editing {
                     Text(text)
-                        .font(.system(size: 20, weight: .light))
-                        .foregroundColor(Color.init(UIColor.label))
-                        .multilineTextAlignment(.center)
+                        .mainTextStyle()
                         .onTapGesture(count: 2) {
                             self.editing = true
                         }
@@ -356,9 +333,7 @@ struct TaskDemo: View {
                     TextField("editing", text: $text) {
                         self.editing = false
                     }
-                        .font(.system(size: 20, weight: .light))
-                        .foregroundColor(Color.init(UIColor.systemGray))
-                        .multilineTextAlignment(.center)
+                        .smallTextStyle()
                 }
                 Spacer()
                 if !editing {
@@ -391,26 +366,21 @@ struct TaskDemo: View {
                 .padding(.horizontal, 25)
             HStack {
                 Image(systemName: "arrow.up")
-                    .font(.system(size: 12, weight: .light))
-                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .annotateStyle()
                 Spacer()
                 Image(systemName: "arrow.up")
-                    .font(.system(size: 12, weight: .light))
-                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .annotateStyle()
                 Spacer()
                 Image(systemName: "arrow.up")
-                    .font(.system(size: 12, weight: .light))
-                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .annotateStyle()
             }
                 .padding(.horizontal, 30)
             HStack {
                 Text("tap to toggle")
-                    .font(.system(size: 12, weight: .light))
-                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .annotateStyle()
                 Spacer()
                 Text(editing ? textTwo : textOne)
-                    .font(.system(size: 12, weight: .light))
-                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .annotateStyle()
                     .multilineTextAlignment(.center)
             }
                 .padding(.horizontal, 15)
@@ -430,7 +400,7 @@ struct NoteDemo: View {
                     .padding(.trailing, 20)
                 if !editing {
                     Text(note)
-                        .font(.system(size: 20, weight: .light))
+                        .mainNoteStyle()
                         .onTapGesture(count: 2) {
                             self.editing = true
                         }
@@ -438,8 +408,7 @@ struct NoteDemo: View {
                     TextField("editing note", text: $note) {
                         self.editing = false
                     }
-                        .font(.system(size: 20, weight: .light))
-                        .foregroundColor(Color.init(UIColor.systemGray))
+                        .smallTextStyle()
                         .autocapitalization(.none)
                 }
                 Spacer()
@@ -447,15 +416,13 @@ struct NoteDemo: View {
             HStack {
                 Spacer()
                 Image(systemName: "arrow.up")
-                    .font(.system(size: 12, weight: .light))
-                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .annotateStyle()
                 Spacer()
             }
             HStack {
                 Spacer()
                 Text(editing ? "press return to confirm your changes" : "double tap to edit, long press to confirm delete")
-                    .font(.system(size: 12, weight: .light))
-                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .annotateStyle()
                 Spacer()
             }
         }
@@ -468,8 +435,8 @@ struct Swipe: View {
         HStack {
             Spacer()
             Image(systemName: "hand.point.right")
-            .font(.system(size: 15, weight: .light))
-            .foregroundColor(Color.init(UIColor.systemGray))
+                .font(.system(size: 15, weight: .light))
+                .foregroundColor(Color.init(UIColor.systemGray))
             Text("swipe")
                 .font(.system(size: 15, weight: .light))
                 .foregroundColor(Color.init(UIColor.systemGray))

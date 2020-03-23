@@ -26,10 +26,10 @@ struct dailyTaskNote: View {
                 .padding(.trailing, 20)
             if removed {
                 Text("error")
-                    .font(.system(size: 20, weight: .light))
+                    .mainNoteStyle()
             } else if !editing {
                 Text(note)
-                    .font(.system(size: 20, weight: .light))
+                    .mainNoteStyle()
                     .onTapGesture(count: 2) {
                         self.editing = true
                     }
@@ -44,8 +44,7 @@ struct dailyTaskNote: View {
                         try? self.managedObjectContext.save()
                     }
                 }
-                    .font(.system(size: 20, weight: .light))
-                    .foregroundColor(Color.init(UIColor.systemGray))
+                    .mainNoteStyle()
                     .autocapitalization(.none)
             }
             Spacer()
@@ -75,8 +74,8 @@ struct taskNotes: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 Text(task.name)
-                    .font(.system(size: 25, weight: .medium, design: .rounded))
                     .underline()
+                    .headerStyle()
                 ForEach(Array(task.notes.enumerated()), id: \.element) { index, note in
                     dailyTaskNote(
                         task: self.task,

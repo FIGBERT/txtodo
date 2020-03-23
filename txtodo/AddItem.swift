@@ -22,16 +22,13 @@ struct addTask: View {
                 }) {
                     HStack {
                         Image(systemName: "plus.square")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .smallImageStyle()
                         Spacer()
                         Text("create a task")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .smallImageStyle()
                         Spacer()
                         Image(systemName: "plus.square")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .smallImageStyle()
                     }.padding(.horizontal, 25)
                 }
             } else {
@@ -42,14 +39,11 @@ struct addTask: View {
                         self.addingTask = false
                     }) {
                         Image(systemName: "multiply.square")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .smallImageStyle()
                     }
                     Spacer()
                     TextField("tap here", text: $newTaskText)
-                        .font(.system(size: 20, weight: .light))
-                        .foregroundColor(Color.init(UIColor.systemGray))
-                        .multilineTextAlignment(.center)
+                        .smallTextStyle()
                         .autocapitalization(.none)
                     Picker(
                         selection: $newTaskPriority,
@@ -104,16 +98,13 @@ struct addNote: View {
                 }) {
                     HStack {
                         Image(systemName: "plus.square")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .smallImageStyle()
                         Spacer()
                         Text("create a note")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .smallImageStyle()
                         Spacer()
                         Image(systemName: "plus.square")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .smallImageStyle()
                     }.padding(.horizontal, 25)
                 }
             } else {
@@ -124,14 +115,11 @@ struct addNote: View {
                         self.addingNote = false
                     }) {
                         Image(systemName: "multiply.square")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                            .smallImageStyle()
                     }
                     Spacer()
                     TextField("tap here", text: $newNoteText)
-                        .font(.system(size: 20, weight: .light))
-                        .foregroundColor(Color.init(UIColor.systemGray))
-                        .multilineTextAlignment(.center)
+                        .smallTextStyle()
                         .autocapitalization(.none)
                     Spacer()
                     Button(action: {
