@@ -69,7 +69,7 @@ struct dailyTaskView: View {
                         try? self.managedObjectContext.save()
                     }
                 }
-                    .mainTextStyle()
+                    .editMainTextStyle()
                     .autocapitalization(.none)
             }
             Spacer()
