@@ -71,8 +71,8 @@ struct Settings: View {
     var body: some View {
         VStack {
             Text("settings")
-                .font(.system(size: 25, weight: .medium, design: .rounded))
                 .underline()
+                .headerStyle()
                 .padding(.top, 25)
             Form {
                 Section {
@@ -154,23 +154,17 @@ struct About: View {
     var body: some View {
         VStack {
             Text("about")
-                .font(.system(size: 25, weight: .medium, design: .rounded))
                 .underline()
+                .headerStyle()
                 .padding(.bottom, 25)
             Text("Pronounced \"text to do,\" txtodo is a simple and minimalist open-source todo app made by FIGBERT and inspired by Jeff Huang.")
-                .font(.system(size: 20, weight: .light))
-                .foregroundColor(Color.init(UIColor.label))
-                .multilineTextAlignment(.center)
+                .mainTextStyle()
                 .padding(.bottom, 10)
             Text("After reading a post of his, I started thinking about how I managed my own productivity. I wanted to make a solution that could force me into being productive.")
-                .font(.system(size: 20, weight: .light))
-                .foregroundColor(Color.init(UIColor.label))
-                .multilineTextAlignment(.center)
+                .mainTextStyle()
                 .padding(.bottom, 10)
             Text("That solution is txtodo. It manages immediate, short-term tasks to help you get things done.")
-                .font(.system(size: 20, weight: .light))
-                .foregroundColor(Color.init(UIColor.label))
-                .multilineTextAlignment(.center)
+                .mainTextStyle()
                 .padding(.bottom, 50)
             Button(action: {
                 self.website = true

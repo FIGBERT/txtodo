@@ -31,30 +31,23 @@ struct dailyTaskView: View {
                 }) {
                     if task.completed {
                         Image(systemName: "checkmark.square")
-                            .font(.system(size: 25, weight: .light))
-                            .foregroundColor(Color.init(UIColor.label))
+                            .mainImageStyle()
                     } else {
                         Image(systemName: "square")
-                            .font(.system(size: 25, weight: .light))
-                            .foregroundColor(Color.init(UIColor.label))
+                            .mainImageStyle()
                     }
                 }
             } else {
                 Image(systemName: "square")
-                    .font(.system(size: 25, weight: .light))
-                    .foregroundColor(Color.init(UIColor.label))
+                    .mainImageStyle()
             }
             Spacer()
             if deleted {
                 Text("deleting...")
-                    .font(.system(size: 20, weight: .light))
-                    .foregroundColor(Color.init(UIColor.label))
-                    .multilineTextAlignment(.center)
+                    .mainTextStyle()
             } else if !editing {
                 Text(task.name)
-                    .font(.system(size: 20, weight: .light))
-                    .foregroundColor(Color.init(UIColor.label))
-                    .multilineTextAlignment(.center)
+                    .mainTextStyle()
                     .onTapGesture(count: 2) {
                         self.editing = true
                     }
@@ -76,9 +69,7 @@ struct dailyTaskView: View {
                         try? self.managedObjectContext.save()
                     }
                 }
-                    .font(.system(size: 20, weight: .light))
-                    .foregroundColor(Color.init(UIColor.systemGray))
-                    .multilineTextAlignment(.center)
+                    .mainTextStyle()
                     .autocapitalization(.none)
             }
             Spacer()

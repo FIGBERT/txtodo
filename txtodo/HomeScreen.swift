@@ -26,8 +26,8 @@ struct HomeScreen: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
                     Text("today")
-                        .font(.system(size: 25, weight: .medium, design: .rounded))
                         .underline()
+                        .headerStyle()
                     ForEach(self.dailyTasks, id: \.id) { task in
                         Group {
                             if Calendar.current.component(.day, from: task.creationDate) == self.currentDay {
