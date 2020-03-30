@@ -6,224 +6,175 @@
 //  Copyright © 2020 FIGBERT Industries. All rights reserved.
 //
 
+import Foundation
+import UIKit
 import SwiftUI
 import UserNotifications
 
 struct Onboarding: View {
     @EnvironmentObject var globalVars: GlobalVars
-    @State private var page: Int = 0
-    @State private var offset: CGSize = .zero
+    @State var currentPage = 0
+    let subviews = [
+        UIHostingController(rootView: Introduction()),
+        UIHostingController(rootView: AddTaskDemo()),
+        UIHostingController(rootView: TaskDemo()),
+        UIHostingController(rootView: AddNoteDemo()),
+        UIHostingController(rootView: NoteDemo()),
+        UIHostingController(rootView: RequestNotifications()),
+        UIHostingController(rootView: ThankYou())
+    ]
+    let titles = ["welcome to txtodo", "create a task", "edit a task", "create a note", "edit a note", "customize notifications", "thanks for downloading"]
+    let captions = [
+        "txtodo is a minimalist, open-source productivity app made by FIGBERT. It lists daily tasks that expire at midnight to help you get things done without overthinking them.",
+        "tap on the button above to create a new task, and edit the text and priority. try out the live demo above.",
+        "double tap a task to edit the task, and press return to confirm your changes. try out the live demo above.",
+        "tap on the button above to create a new note. notes provide extra details about tasks, and they're accessed by tapping once on a task. try out the live demo above.",
+        "double tap a note to edit the text, and press return to confirm your changes. try out the live demo above.",
+        "txtodo uses notifications to remind users to set the day's tasks in the morning, but they are not required. notifications are scheduled at 8:30am by default. notifications can be modified from the settings menu.",
+        "more projects are available at figbert.com"
+    ]
     var body: some View {
         ZStack {
             Color.init(UIColor.systemGray6)
                 .edgesIgnoringSafeArea(.all)
-            VStack {
-                if page == 0 {
-                    Intro()
-                } else if page == 1 {
-                    RequestNotifications()
-                } else if page == 2 {
-                    AddTaskOverview()
-                } else if page == 3 {
-                    TaskOverview()
-                } else if page == 4 {
-                    NoteOverview()
-                } else if page == 5 {
-                    Support()
+            VStack(alignment: .leading) {
+                Spacer()
+                PageViewController(currentPage: $currentPage, viewControllers: subviews)
+                    .frame(height: 200)
+                Spacer()
+                Group {
+                    Text(titles[currentPage])
+                        .headerStyle()
+                    Text(captions[currentPage])
+                        .font(.system(size: 20, weight: .light))
+                        .foregroundColor(Color.init(UIColor.systemGray))
+                }
+                HStack {
+                    PageControl(numberOfPages: subviews.count, currentPageIndex: $currentPage)
+                    Spacer()
+                    Button(action: {
+                        if self.currentPage + 1 == self.subviews.count {
+                            self.currentPage = 0
+                        } else {
+                            self.currentPage += 1
+                        }
+                    }) {
+                        Image(systemName: currentPage != subviews.count - 1 ? "arrow.right.circle" : "arrow.counterclockwise.circle")
+                            .font(.system(size: 30, weight: .light))
+                            .foregroundColor(Color.init(UIColor.label))
+                    }
+                    if currentPage == subviews.count - 1 {
+                        Button(action: {
+                            self.globalVars.showOnboarding = false
+                        }) {
+                            Image(systemName: "xmark.circle")
+                                .font(.system(size: 30, weight: .light))
+                                .foregroundColor(Color.init(UIColor.label))
+                        }
+                    }
                 }
             }
-                .animation(.interactiveSpring())
-                .offset(x: offset.width)
-                .gesture(
-                    DragGesture()
-                        .onChanged({ self.offset = $0.translation })
-                        .onEnded({
-                            if $0.translation.width < -100 {
-                                if self.page != 5 {
-                                    self.page += 1
-                                } else {
-                                    self.globalVars.showOnboarding = false
-                                }
-                            } else if $0.translation.width > 100 {
-                                if self.page > 0 {
-                                    self.page -= 1
-                                }
-                            }
-                            self.offset = .zero
-                        })
-                )
+                .padding()
         }
     }
 }
 
-struct Intro: View {
+struct PageViewController: UIViewControllerRepresentable {
+    @Binding var currentPage: Int
+    var viewControllers: [UIViewController]
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    func makeUIViewController(context: Context) -> UIPageViewController {
+        let pageViewController = UIPageViewController(
+            transitionStyle: .scroll,
+            navigationOrientation: .horizontal
+        )
+        pageViewController.dataSource = context.coordinator
+        pageViewController.delegate = context.coordinator
+        return pageViewController
+    }
+    func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
+        pageViewController.setViewControllers(
+            [viewControllers[currentPage]], direction: .forward, animated: true
+        )
+    }
+    class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+        var parent: PageViewController
+        init(_ pageViewController: PageViewController) {
+            self.parent = pageViewController
+        }
+        func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+            guard let index = parent.viewControllers.firstIndex(of: viewController) else {
+                 return nil
+            }
+            if index == 0 {
+                return parent.viewControllers.last
+            }
+            return parent.viewControllers[index - 1]
+            
+        }
+        func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+            guard let index = parent.viewControllers.firstIndex(of: viewController) else {
+                return nil
+            }
+            if index + 1 == parent.viewControllers.count {
+                return parent.viewControllers.first
+            }
+            return parent.viewControllers[index + 1]
+        }
+        func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+            if completed,
+                let visibleViewController = pageViewController.viewControllers?.first,
+                let index = parent.viewControllers.firstIndex(of: visibleViewController)
+            {
+                parent.currentPage = index
+            }
+        }
+    }
+}
+
+struct PageControl: UIViewRepresentable {
+    let numberOfPages: Int
+    @Binding var currentPageIndex: Int
+    func makeUIView(context: Context) -> UIPageControl {
+       let control = UIPageControl()
+       control.numberOfPages = numberOfPages
+       control.currentPageIndicatorTintColor = UIColor.label
+       control.pageIndicatorTintColor = UIColor.systemGray
+       return control
+    }
+    func updateUIView(_ uiView: UIPageControl, context: Context) {
+        uiView.currentPage = currentPageIndex
+    }
+}
+
+struct Introduction: View {
     var body: some View {
-        VStack {
-            Spacer()
+        ZStack {
+            Color.init(UIColor.systemGray6)
+                .edgesIgnoringSafeArea(.all)
             Text("txtodo")
                 .font(.system(size: 125, weight: .ultraLight, design: .rounded))
                 .foregroundColor(Color.init(UIColor.label))
-            Text("a minimalist open-source todo app")
-                .mainTextStyle()
-            Text("made by FIGBERT")
-                .smallTextStyle()
-            Spacer()
-            Swipe()
-        }
-    }
-}
-
-struct RequestNotifications: View {
-    @EnvironmentObject var globalVars: GlobalVars
-    var body: some View {
-        VStack {
-            Spacer()
-            Text("customize notifications")
-                .underline()
-                .headerStyle()
-                .padding(35)
-            HStack {
-                Picker(
-                    selection: $globalVars.notificationHour,
-                    label: Text("hour"),
-                    content: {
-                        Text("05").tag(5)
-                        Text("06").tag(6)
-                        Text("07").tag(7)
-                        Text("08").tag(8)
-                        Text("09").tag(9)
-                    }
-                )
-                    .frame(width: 50, height: 125)
-                    .labelsHidden()
-                Text(":")
-                    .padding(.horizontal, 50)
-                Picker(
-                    selection: $globalVars.notificationMinute,
-                    label: Text("minutes"),
-                    content: {
-                        Text("00").tag(0)
-                        Text("10").tag(10)
-                        Text("15").tag(15)
-                        Text("30").tag(30)
-                        Text("45").tag(45)
-                        Text("50").tag(50)
-                    }
-                )
-                    .frame(width: 50, height: 125)
-                    .labelsHidden()
-            }
-            Button(action: {
-                self.globalVars.enableNotifications(onboarding: true)
-            }) {
-                Text("set notifications")
-                    .mainTextStyle()
-                    .padding(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.init(UIColor.label), lineWidth: 2)
-                    )
-            }
-            Text("txtodo uses notifications to remind users to set the day's tasks in the morning")
-                .smallTextStyle()
-                .padding(25)
-            Text("notifications are NOT REQUIRED. you can always change your mind in the application's settings menu")
-                .font(.system(size: 15, weight: .light))
-                .foregroundColor(Color.init(UIColor.systemGray))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 25)
-            Spacer()
-            Swipe()
-        }
-    }
-}
-
-struct AddTaskOverview: View {
-    var body: some View {
-        VStack {
-            Spacer()
-            Text("adding a task")
-                .underline()
-                .headerStyle()
-                .padding(35)
-            AddTaskDemo()
-            Spacer()
-            Spacer()
-            Swipe()
-        }
-    }
-}
-
-struct TaskOverview: View {
-    var body: some View {
-        VStack {
-            Spacer()
-            Text("changing a task")
-                .underline()
-                .headerStyle()
-                .padding(35)
-            TaskDemo()
-            Spacer()
-            Spacer()
-            Swipe()
-        }
-    }
-}
-
-struct NoteOverview: View {
-    var body: some View {
-        VStack {
-            Spacer()
-            Text("changing a note")
-                .underline()
-                .headerStyle()
-                .padding(35)
-            NoteDemo()
-            Spacer()
-            Spacer()
-            Swipe()
-        }
-    }
-}
-
-struct Support: View {
-    var body: some View {
-        VStack {
-            Spacer()
-            Text("thanks for downloading")
-                .font(.system(size: 35, weight: .ultraLight, design: .rounded))
-                .foregroundColor(Color.init(UIColor.label))
-            Text("more projects available on")
-                .mainTextStyle()
-            Text("figbert.com")
-                .font(.system(size: 20, weight: .light))
-                .foregroundColor(Color.init(UIColor.link))
-                .onTapGesture {
-                    guard let url = URL(string: "https://figbert.com") else { return }
-                    UIApplication.shared.open(url)
-                }
-            Spacer()
-            Swipe()
         }
     }
 }
 
 struct AddTaskDemo: View {
-    @State var addingTask: Bool = false
-    @State var text: String = ""
-    @State var priority: Int = 0
+    @State private var addingTask: Bool = false
+    @State private var text: String = ""
+    @State private var priority: Int = 0
+    @State private var task: [taskStruct] = []
     var body: some View {
-        Group {
-            if !addingTask {
-                VStack {
-                    VStack {
-                        Text("tap once to begin creating a task")
-                            .font(.system(size: 12, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
-                        Image(systemName: "arrow.down")
-                            .font(.system(size: 12, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
-                    }
+        ZStack {
+            Color.init(UIColor.systemGray6)
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+                ForEach(self.task, id: \.id) {
+                    taskView(text: $0.text, priority: $0.priority)
+                }
+                if !addingTask {
                     HStack {
                         Image(systemName: "plus.square")
                             .smallImageStyle()
@@ -238,37 +189,7 @@ struct AddTaskDemo: View {
                         .onTapGesture {
                             self.addingTask = true
                         }
-                }
-            } else {
-                VStack {
-                    HStack {
-                        Text("tap to cancel")
-                            .annotateStyle()
-                        Spacer()
-                        Text("tap to edit text")
-                            .annotateStyle()
-                        Spacer()
-                        Text("tap to edit priority")
-                            .annotateStyle()
-                        Spacer()
-                        Text("tap to add")
-                            .annotateStyle()
-                    }
-                        .padding(.horizontal, 25)
-                    HStack {
-                        Image(systemName: "arrow.down")
-                            .annotateStyle()
-                        Spacer()
-                        Image(systemName: "arrow.down")
-                            .annotateStyle()
-                        Spacer()
-                        Image(systemName: "arrow.down")
-                            .annotateStyle()
-                        Spacer()
-                        Image(systemName: "arrow.down")
-                            .annotateStyle()
-                    }
-                        .padding(.horizontal, 25)
+                } else {
                     HStack {
                         Image(systemName: "multiply.square")
                             .smallImageStyle()
@@ -295,6 +216,11 @@ struct AddTaskDemo: View {
                         Image(systemName: "plus.square")
                             .smallImageStyle()
                             .onTapGesture {
+                                if self.task.isEmpty == true {
+                                    self.task.append(taskStruct(text: self.text, priority: self.priority))
+                                } else {
+                                    self.task[0] = taskStruct(text: self.text, priority: self.priority)
+                                }
                                 self.text = ""
                                 self.priority = 0
                                 self.addingTask = false
@@ -305,17 +231,17 @@ struct AddTaskDemo: View {
             }
         }
     }
-}
-
-struct TaskDemo: View {
-    @State var complete: Bool = false
-    @State var text: String = "lorem ipsum"
-    @State var priority: Int = 3
-    @State var editing: Bool = false
-    let textOne: String = "single tap to open notes, double tap to edit, long press to confirm delete"
-    let textTwo: String = "press return to confirm your changes"
-    var body: some View {
-        Group {
+    struct taskStruct {
+        let id: UUID = UUID()
+        var text: String
+        var priority: Int
+    }
+    struct taskView: View {
+        @State private var complete: Bool = false
+        @State var text: String = "lorem ipsum"
+        @State var priority: Int = 3
+        @State private var editing: Bool = false
+        var body: some View {
             HStack {
                 Image(systemName: complete ? "checkmark.square" : "square")
                     .mainImageStyle()
@@ -364,35 +290,137 @@ struct TaskDemo: View {
                 }
             }
                 .padding(.horizontal, 25)
-            HStack {
-                Image(systemName: "arrow.up")
-                    .annotateStyle()
-                Spacer()
-                Image(systemName: "arrow.up")
-                    .annotateStyle()
-                Spacer()
-                Image(systemName: "arrow.up")
-                    .annotateStyle()
-            }
-                .padding(.horizontal, 30)
-            HStack {
-                Text("tap to toggle")
-                    .annotateStyle()
-                Spacer()
-                Text(editing ? textTwo : textOne)
-                    .annotateStyle()
-                    .multilineTextAlignment(.center)
-            }
-                .padding(.horizontal, 15)
         }
     }
 }
 
-struct NoteDemo: View {
+struct TaskDemo: View {
+    @State private var complete: Bool = false
+    @State private var text: String = "lorem ipsum"
+    @State private var priority: Int = 3
     @State private var editing: Bool = false
-    @State private var note: String = "lorem ipsum dolor sit amet"
     var body: some View {
-        VStack {
+        ZStack {
+            Color.init(UIColor.systemGray6)
+                .edgesIgnoringSafeArea(.all)
+            HStack {
+                Image(systemName: complete ? "checkmark.square" : "square")
+                    .mainImageStyle()
+                    .onTapGesture {
+                        self.complete.toggle()
+                    }
+                Spacer()
+                if !editing {
+                    Text(text)
+                        .mainTextStyle()
+                        .onTapGesture(count: 2) {
+                            self.editing = true
+                        }
+                } else {
+                    TextField("editing", text: $text) {
+                        self.editing = false
+                    }
+                        .smallTextStyle()
+                }
+                Spacer()
+                if !editing {
+                    if priority == 1 {
+                        Text("  !  ")
+                            .font(.system(size: 10, weight: .light))
+                    } else if priority == 2 {
+                        Text(" ! ! ")
+                            .font(.system(size: 10, weight: .light))
+                    } else if priority == 3 {
+                        Text("! ! !")
+                            .font(.system(size: 10, weight: .light))
+                    } else {
+                        Text("     ")
+                            .font(.system(size: 10, weight: .light))
+                    }
+                } else {
+                    Picker(
+                        selection: $priority,
+                        label: Text("task priority"),
+                        content: {
+                            Text("0").tag(0)
+                            Text("1").tag(1)
+                            Text("2").tag(2)
+                            Text("3").tag(3)
+                    })
+                        .pickerStyle(SegmentedPickerStyle())
+                }
+            }
+                .padding(.horizontal, 25)
+        }
+    }
+}
+
+struct AddNoteDemo: View {
+    @State private var addingNote: Bool = false
+    @State private var newNoteText: String = ""
+    @State private var note: [String] = []
+    var body: some View {
+        ZStack {
+            Color.init(UIColor.systemGray6)
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+                ForEach(self.note, id: \.self) {
+                    noteView(note: $0)
+                }
+                if !addingNote {
+                    Button(action: {
+                        self.addingNote = true
+                    }) {
+                        HStack {
+                            Image(systemName: "plus.square")
+                                .smallImageStyle()
+                            Spacer()
+                            Text("create a note")
+                                .smallImageStyle()
+                            Spacer()
+                            Image(systemName: "plus.square")
+                                .smallImageStyle()
+                        }.padding(.horizontal, 25)
+                    }
+                } else {
+                    HStack {
+                        Button(action: {
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                            self.newNoteText = ""
+                            self.addingNote = false
+                        }) {
+                            Image(systemName: "multiply.square")
+                                .smallImageStyle()
+                        }
+                        Spacer()
+                        TextField("tap here", text: $newNoteText)
+                            .smallTextStyle()
+                            .autocapitalization(.none)
+                        Spacer()
+                        Button(action: {
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                            if self.note.isEmpty == true {
+                                self.note.append(self.newNoteText)
+                            } else {
+                                self.note[0] = self.newNoteText
+                            }
+                            self.newNoteText = ""
+                            self.addingNote = false
+                        }) {
+                            Image(systemName: "plus.square")
+                                .font(.system(size: 20, weight: .light))
+                                .foregroundColor(Color.init(UIColor.systemGray))
+                        }
+                    }
+                        .padding(.horizontal, 25)
+                }
+            }
+        }
+    }
+    struct noteView: View {
+        @State private var editing: Bool = false
+        @State var note: String = "lorem ipsum dolor sit amet"
+        var body: some View {
             HStack {
                 Image(systemName: "minus")
                     .font(.system(size: 20, weight: .light))
@@ -408,44 +436,91 @@ struct NoteDemo: View {
                     TextField("editing note", text: $note) {
                         self.editing = false
                     }
-                        .smallTextStyle()
+                        .font(.system(size: 20, weight: .light))
+                        .foregroundColor(Color.init(UIColor.systemGray))
                         .autocapitalization(.none)
                 }
                 Spacer()
             }
-            HStack {
-                Spacer()
-                Image(systemName: "arrow.up")
-                    .annotateStyle()
-                Spacer()
-            }
-            HStack {
-                Spacer()
-                Text(editing ? "press return to confirm your changes" : "double tap to edit, long press to confirm delete")
-                    .annotateStyle()
-                Spacer()
-            }
+                .padding(.horizontal, 25)
         }
-            .padding()
     }
 }
 
-struct Swipe: View {
+struct NoteDemo: View {
+    @State private var editing: Bool = false
+    @State private var note: String = "lorem ipsum dolor sit amet"
     var body: some View {
-        HStack {
-            Spacer()
-            Image(systemName: "hand.point.right")
-                .font(.system(size: 15, weight: .light))
-                .foregroundColor(Color.init(UIColor.systemGray))
-            Text("swipe")
-                .font(.system(size: 15, weight: .light))
-                .foregroundColor(Color.init(UIColor.systemGray))
-            Image(systemName: "hand.point.right")
-                .font(.system(size: 15, weight: .light))
-                .foregroundColor(Color.init(UIColor.systemGray))
-            Spacer()
+        ZStack {
+            Color.init(UIColor.systemGray6)
+                .edgesIgnoringSafeArea(.all)
+            HStack {
+                Image(systemName: "minus")
+                    .font(.system(size: 20, weight: .light))
+                    .foregroundColor(Color.init(UIColor.label))
+                    .padding(.trailing, 20)
+                if !editing {
+                    Text(note)
+                        .mainNoteStyle()
+                        .onTapGesture(count: 2) {
+                            self.editing = true
+                        }
+                } else {
+                    TextField("editing note", text: $note) {
+                        self.editing = false
+                    }
+                        .font(.system(size: 20, weight: .light))
+                        .foregroundColor(Color.init(UIColor.systemGray))
+                        .autocapitalization(.none)
+                }
+                Spacer()
+            }
+                .padding(.horizontal, 25)
         }
-            .padding()
+    }
+}
+
+struct RequestNotifications: View {
+    @EnvironmentObject var globalVars: GlobalVars
+    var body: some View {
+        ZStack {
+            Color.init(UIColor.systemGray6)
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+                Button(action: {
+                    self.globalVars.notificationHour = 8
+                    self.globalVars.notificationMinute = 30
+                    self.globalVars.enableNotifications(onboarding: true)
+                }) {
+                    Text("set notifications to 8:30am")
+                        .font(.system(size: 20, weight: .light, design: .rounded))
+                        .multilineTextAlignment(.center)
+                        .padding(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.init(UIColor.link), lineWidth: 1)
+                        )
+                }
+            }
+        }
+    }
+}
+
+struct ThankYou: View {
+    var body: some View {
+        ZStack {
+            Color.init(UIColor.systemGray6)
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+                Text("txtodo")
+                    .font(.system(size: 125, weight: .ultraLight, design: .rounded))
+                    .foregroundColor(Color.init(UIColor.label))
+                Text("a minimalist open-source todo app")
+                    .mainTextStyle()
+                Text("made by FIGBERT")
+                    .smallTextStyle()
+            }
+        }
     }
 }
 
