@@ -164,7 +164,7 @@ struct Introduction: View {
 struct AddTaskDemo: View {
     @State private var addingTask: Bool = false
     @State private var text: String = ""
-    @State private var priority: Int = 0
+    @State private var priority: Int = 1
     @State private var task: [taskStruct] = []
     var body: some View {
         ZStack {
@@ -206,10 +206,9 @@ struct AddTaskDemo: View {
                             selection: $priority,
                             label: Text("task priority"),
                             content: {
-                                Text("0").tag(0)
-                                Text("1").tag(1)
-                                Text("2").tag(2)
-                                Text("3").tag(3)
+                                Text("!").tag(1)
+                                Text("!!").tag(2)
+                                Text("!!!").tag(3)
                         })
                             .pickerStyle(SegmentedPickerStyle())
                         Spacer()
@@ -238,8 +237,8 @@ struct AddTaskDemo: View {
     }
     struct taskView: View {
         @State private var complete: Bool = false
-        @State var text: String = "lorem ipsum"
-        @State var priority: Int = 3
+        @State var text: String
+        @State var priority: Int
         @State private var editing: Bool = false
         var body: some View {
             HStack {
@@ -281,10 +280,9 @@ struct AddTaskDemo: View {
                         selection: $priority,
                         label: Text("task priority"),
                         content: {
-                            Text("0").tag(0)
-                            Text("1").tag(1)
-                            Text("2").tag(2)
-                            Text("3").tag(3)
+                            Text("!").tag(1)
+                            Text("!!").tag(2)
+                            Text("!!!").tag(3)
                     })
                         .pickerStyle(SegmentedPickerStyle())
                 }
@@ -342,10 +340,9 @@ struct TaskDemo: View {
                         selection: $priority,
                         label: Text("task priority"),
                         content: {
-                            Text("0").tag(0)
-                            Text("1").tag(1)
-                            Text("2").tag(2)
-                            Text("3").tag(3)
+                            Text("!").tag(1)
+                            Text("!!").tag(2)
+                            Text("!!!").tag(3)
                     })
                         .pickerStyle(SegmentedPickerStyle())
                 }
