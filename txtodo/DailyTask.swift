@@ -83,11 +83,8 @@ struct dailyTaskView: View {
                 } else if Int(task.priority) == 2 {
                     Text(" ! ! ")
                         .font(.system(size: 10, weight: .light))
-                } else if Int(task.priority) == 3 {
-                    Text("! ! !")
-                        .font(.system(size: 10, weight: .light))
                 } else {
-                    Text("     ")
+                    Text("! ! !")
                         .font(.system(size: 10, weight: .light))
                 }
             } else {
@@ -95,10 +92,9 @@ struct dailyTaskView: View {
                     selection: $priority,
                     label: Text("task priority"),
                     content: {
-                        Text("0").tag(0)
-                        Text("1").tag(1)
-                        Text("2").tag(2)
-                        Text("3").tag(3)
+                        Text("!").tag(1)
+                        Text("!!").tag(2)
+                        Text("!!!").tag(3)
                 })
                     .pickerStyle(SegmentedPickerStyle())
             }

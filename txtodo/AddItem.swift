@@ -49,10 +49,9 @@ struct addTask: View {
                         selection: $newTaskPriority,
                         label: Text("task priority"),
                         content: {
-                            Text("0").tag(0)
-                            Text("1").tag(1)
-                            Text("2").tag(2)
-                            Text("3").tag(3)
+                            Text("!").tag(1)
+                            Text("!!").tag(2)
+                            Text("!!!").tag(3)
                     })
                         .pickerStyle(SegmentedPickerStyle())
                     Spacer()
