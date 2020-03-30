@@ -33,7 +33,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zqi-Jm-uot" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="u17-uO-n6p"/>
                             <constraint firstItem="zqi-Jm-uot" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="xHd-dR-3fJ"/>
