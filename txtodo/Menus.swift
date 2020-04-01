@@ -69,9 +69,7 @@ struct Settings: View {
     @State private var changingTime: Bool = false
     var body: some View {
         VStack {
-            Text("settings")
-                .underline()
-                .headerStyle()
+            Header(text: "settings", underline: true)
                 .padding(.top, 25)
             Form {
                 Section {
@@ -150,25 +148,25 @@ struct Settings: View {
 struct About: View {
     @State private var website: Bool = false
     @State private var post: Bool = false
+    let content: [String] = [
+        "Pronounced \"text to do,\" txtodo is a simple and minimalist open-source todo app made by FIGBERT and inspired by Jeff Huang.",
+        "After reading a post of his, I started thinking about how I managed my own productivity. I wanted to make a solution that could force me into being productive.",
+        "That solution is txtodo. It manages immediate, short-term tasks to help you get things done."
+    ]
     var body: some View {
         VStack {
-            Text("about")
-                .underline()
-                .headerStyle()
+            Header(text: "about", underline: true)
                 .padding(.bottom, 25)
-            Text("Pronounced \"text to do,\" txtodo is a simple and minimalist open-source todo app made by FIGBERT and inspired by Jeff Huang.")
-                .mainTextStyle()
+            BodyText(text: content[0], color: .label, alignment: .center, strikethrough: false)
                 .padding(.bottom, 10)
-            Text("After reading a post of his, I started thinking about how I managed my own productivity. I wanted to make a solution that could force me into being productive.")
-                .mainTextStyle()
+            BodyText(text: content[1], color: .label, alignment: .center, strikethrough: false)
                 .padding(.bottom, 10)
-            Text("That solution is txtodo. It manages immediate, short-term tasks to help you get things done.")
-                .mainTextStyle()
+            BodyText(text: content[2], color: .label, alignment: .center, strikethrough: false)
                 .padding(.bottom, 50)
             Button(action: {
                 self.website = true
             }) {
-                Text("visit txtodo.app")
+                BodyText(text: "visit txtodo.app", color: .link, alignment: .center, strikethrough: false)
             }
                 .padding(.bottom, 10)
                 .sheet(
@@ -180,7 +178,7 @@ struct About: View {
             Button(action: {
                 self.post = true
             }) {
-                Text("view the inspiration")
+                BodyText(text: "view the inspiration", color: .link, alignment: .center, strikethrough: false)
             }
                 .padding(.bottom, 10)
                 .sheet(

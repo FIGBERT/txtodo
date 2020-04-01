@@ -21,15 +21,13 @@ struct addTask: View {
                     self.addingTask = true
                 }) {
                     HStack {
-                        Image(systemName: "plus.square")
-                            .smallImageStyle()
+                        MainImage(name: "plus.square", color: .systemGray3)
                         Spacer()
-                        Text("create a task")
-                            .smallImageStyle()
+                        BodyText(text: "create a task", color: .systemGray3, alignment: .center, strikethrough: false)
                         Spacer()
-                        Image(systemName: "plus.square")
-                            .smallImageStyle()
-                    }.padding(.horizontal, 25)
+                        MainImage(name: "plus.square", color: .systemGray3)
+                    }
+                        .padding(.horizontal, 25)
                 }
             } else {
                 HStack {
@@ -38,13 +36,10 @@ struct addTask: View {
                         self.newTaskPriority = 0
                         self.addingTask = false
                     }) {
-                        Image(systemName: "multiply.square")
-                            .smallImageStyle()
+                        MainImage(name: "multiply.square", color: .systemGray3)
                     }
                     Spacer()
-                    TextField("tap here", text: $newTaskText)
-                        .smallTextStyle()
-                        .autocapitalization(.none)
+                    EditingField(placeholder: "tap here", text: $newTaskText, alignment: .center, onEnd: { })
                     Picker(
                         selection: $newTaskPriority,
                         label: Text("task priority"),
@@ -74,9 +69,7 @@ struct addTask: View {
                         self.newTaskPriority = 0
                         self.addingTask = false
                     }) {
-                        Image(systemName: "plus.square")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                        MainImage(name: "plus.square", color: .systemGray3)
                     }
                 }.padding(.horizontal, 25)
             }
@@ -96,15 +89,13 @@ struct addNote: View {
                     self.addingNote = true
                 }) {
                     HStack {
-                        Image(systemName: "plus.square")
-                            .smallImageStyle()
+                        MainImage(name: "plus.square", color: .systemGray3)
                         Spacer()
-                        Text("create a note")
-                            .smallImageStyle()
+                        BodyText(text: "create a note", color: .systemGray3, alignment: .center, strikethrough: false)
                         Spacer()
-                        Image(systemName: "plus.square")
-                            .smallImageStyle()
-                    }.padding(.horizontal, 25)
+                        MainImage(name: "plus.square", color: .systemGray3)
+                    }
+                        .padding(.horizontal, 25)
                 }
             } else {
                 HStack {
@@ -113,13 +104,10 @@ struct addNote: View {
                         self.newNoteText = ""
                         self.addingNote = false
                     }) {
-                        Image(systemName: "multiply.square")
-                            .smallImageStyle()
+                        MainImage(name: "multiply.square", color: .systemGray3)
                     }
                     Spacer()
-                    TextField("tap here", text: $newNoteText)
-                        .smallTextStyle()
-                        .autocapitalization(.none)
+                    EditingField(placeholder: "tap here", text: $newNoteText, alignment: .center, onEnd: { })
                     Spacer()
                     Button(action: {
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -131,9 +119,7 @@ struct addNote: View {
                         self.newNoteText = ""
                         self.addingNote = false
                     }) {
-                        Image(systemName: "plus.square")
-                            .font(.system(size: 20, weight: .light))
-                            .foregroundColor(Color.init(UIColor.systemGray))
+                        MainImage(name: "plus.square", color: .systemGray3)
                     }
                 }.padding(.horizontal, 25)
             }
