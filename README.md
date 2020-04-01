@@ -9,7 +9,7 @@ Welcome to **txtodo**. It manages immediate, short-term tasks to help you get th
 Download it on the App Store and give it a try! ~~not yet though I'm still working on it~~
 
 ## short term goals
-- [ ] launch alpha on TestFlight
+- [x] launch alpha on TestFlight
 - [ ] launch wider beta testing
 - [ ] submit to Apple for approval
 - [ ] go live on the App Store! :tada:
