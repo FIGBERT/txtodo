@@ -43,11 +43,8 @@ struct Onboarding: View {
                     .frame(height: 200)
                 Spacer()
                 Group {
-                    Text(titles[currentPage])
-                        .headerStyle()
-                    Text(captions[currentPage])
-                        .font(.system(size: 20, weight: .light))
-                        .foregroundColor(Color.init(UIColor.systemGray))
+                    Header(text: titles[currentPage], underline: false)
+                    BodyText(text: captions[currentPage], color: .systemGray, alignment: .leading, strikethrough: false)
                 }
                 HStack {
                     PageControl(numberOfPages: subviews.count, currentPageIndex: $currentPage)
@@ -176,14 +173,11 @@ struct AddTaskDemo: View {
                 }
                 if !addingTask {
                     HStack {
-                        Image(systemName: "plus.square")
-                            .smallImageStyle()
+                        MainImage(name: "plus.square", color: .systemGray)
                         Spacer()
-                        Text("create a task")
-                            .smallTextStyle()
+                        BodyText(text: "create a task", color: .systemGray, alignment: .center, strikethrough: false)
                         Spacer()
-                        Image(systemName: "plus.square")
-                            .smallImageStyle()
+                        MainImage(name: "plus.square", color: .systemGray)
                     }
                         .padding(.horizontal, 25)
                         .onTapGesture {
@@ -191,17 +185,14 @@ struct AddTaskDemo: View {
                         }
                 } else {
                     HStack {
-                        Image(systemName: "multiply.square")
-                            .smallImageStyle()
+                        MainImage(name: "multiply.square", color: .systemGray)
                             .onTapGesture {
                                 self.text = ""
                                 self.priority = 0
                                 self.addingTask = false
                             }
                         Spacer()
-                        TextField("tap here", text: $text)
-                            .smallTextStyle()
-                            .autocapitalization(.none)
+                        EditingField(placeholder: "tap here", text: $text, alignment: .center, onEnd: { })
                         Picker(
                             selection: $priority,
                             label: Text("task priority"),
@@ -212,8 +203,7 @@ struct AddTaskDemo: View {
                         })
                             .pickerStyle(SegmentedPickerStyle())
                         Spacer()
-                        Image(systemName: "plus.square")
-                            .smallImageStyle()
+                        MainImage(name: "plus.square", color: .systemGray)
                             .onTapGesture {
                                 if self.task.isEmpty == true {
                                     self.task.append(taskStruct(text: self.text, priority: self.priority))
@@ -242,23 +232,18 @@ struct AddTaskDemo: View {
         @State private var editing: Bool = false
         var body: some View {
             HStack {
-                Image(systemName: complete ? "checkmark.square" : "square")
-                    .mainImageStyle()
+                MainImage(name: complete ? "checkmark.square" : "square", color: .label)
                     .onTapGesture {
                         self.complete.toggle()
                     }
                 Spacer()
                 if !editing {
-                    Text(text)
-                        .mainTextStyle()
+                    BodyText(text: text, color: .label, alignment: .center, strikethrough: false)
                         .onTapGesture(count: 2) {
                             self.editing = true
                         }
                 } else {
-                    TextField("editing", text: $text) {
-                        self.editing = false
-                    }
-                        .smallTextStyle()
+                    EditingField(placeholder: "editing", text: $text, alignment: .center, onEnd: { self.editing = false })
                 }
                 Spacer()
                 if !editing {
@@ -302,23 +287,18 @@ struct TaskDemo: View {
             Color.init(UIColor.systemGray6)
                 .edgesIgnoringSafeArea(.all)
             HStack {
-                Image(systemName: complete ? "checkmark.square" : "square")
-                    .mainImageStyle()
+                MainImage(name: complete ? "checkmark.square" : "square", color: .label)
                     .onTapGesture {
                         self.complete.toggle()
                     }
                 Spacer()
                 if !editing {
-                    Text(text)
-                        .mainTextStyle()
+                    BodyText(text: text, color: .label, alignment: .center, strikethrough: false)
                         .onTapGesture(count: 2) {
                             self.editing = true
                         }
                 } else {
-                    TextField("editing", text: $text) {
-                        self.editing = false
-                    }
-                        .smallTextStyle()
+                    EditingField(placeholder: "editing", text: $text, alignment: .center, onEnd: { self.editing = false })
                 }
                 Spacer()
                 if !editing {
@@ -369,14 +349,11 @@ struct AddNoteDemo: View {
                         self.addingNote = true
                     }) {
                         HStack {
-                            Image(systemName: "plus.square")
-                                .smallImageStyle()
+                            MainImage(name: "plus.square", color: .systemGray)
                             Spacer()
-                            Text("create a note")
-                                .smallImageStyle()
+                            BodyText(text: "create a note", color: .systemGray, alignment: .center, strikethrough: false)
                             Spacer()
-                            Image(systemName: "plus.square")
-                                .smallImageStyle()
+                            MainImage(name: "plus.square", color: .systemGray)
                         }.padding(.horizontal, 25)
                     }
                 } else {
@@ -386,13 +363,10 @@ struct AddNoteDemo: View {
                             self.newNoteText = ""
                             self.addingNote = false
                         }) {
-                            Image(systemName: "multiply.square")
-                                .smallImageStyle()
+                            MainImage(name: "multiply.square", color: .systemGray)
                         }
                         Spacer()
-                        TextField("tap here", text: $newNoteText)
-                            .smallTextStyle()
-                            .autocapitalization(.none)
+                        EditingField(placeholder: "tap here", text: $newNoteText, alignment: .center, onEnd: { })
                         Spacer()
                         Button(action: {
                             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -404,9 +378,7 @@ struct AddNoteDemo: View {
                             self.newNoteText = ""
                             self.addingNote = false
                         }) {
-                            Image(systemName: "plus.square")
-                                .font(.system(size: 20, weight: .light))
-                                .foregroundColor(Color.init(UIColor.systemGray))
+                            MainImage(name: "plus.square", color: .systemGray)
                         }
                     }
                         .padding(.horizontal, 25)
@@ -419,13 +391,10 @@ struct AddNoteDemo: View {
         @State var note: String = "lorem ipsum dolor sit amet"
         var body: some View {
             HStack {
-                Image(systemName: "minus")
-                    .font(.system(size: 20, weight: .light))
-                    .foregroundColor(Color.init(UIColor.label))
+                MainImage(name: "minus", color: .label)
                     .padding(.trailing, 20)
                 if !editing {
-                    Text(note)
-                        .mainNoteStyle()
+                    BodyText(text: note, color: .label, alignment: .leading, strikethrough: false)
                         .onTapGesture(count: 2) {
                             self.editing = true
                         }
@@ -452,13 +421,10 @@ struct NoteDemo: View {
             Color.init(UIColor.systemGray6)
                 .edgesIgnoringSafeArea(.all)
             HStack {
-                Image(systemName: "minus")
-                    .font(.system(size: 20, weight: .light))
-                    .foregroundColor(Color.init(UIColor.label))
+                MainImage(name: "minus", color: .label)
                     .padding(.trailing, 20)
                 if !editing {
-                    Text(note)
-                        .mainNoteStyle()
+                    BodyText(text: note, color: .label, alignment: .leading, strikethrough: false)
                         .onTapGesture(count: 2) {
                             self.editing = true
                         }
@@ -512,10 +478,8 @@ struct ThankYou: View {
                 Text("txtodo")
                     .font(.system(size: 125, weight: .ultraLight, design: .rounded))
                     .foregroundColor(Color.init(UIColor.label))
-                Text("a minimalist open-source todo app")
-                    .mainTextStyle()
-                Text("made by FIGBERT")
-                    .smallTextStyle()
+                BodyText(text: "a minimalist open-source todo app", color: .label, alignment: .center, strikethrough: false)
+                BodyText(text: "made by FIGBERT", color: .systemGray, alignment: .center, strikethrough: false)
             }
         }
     }

@@ -14,10 +14,9 @@ struct HomeScreen: View {
     @FetchRequest(
         entity: NoteTask.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \NoteTask.completed, ascending: false),
+            NSSortDescriptor(keyPath: \NoteTask.completed, ascending: true),
             NSSortDescriptor(keyPath: \NoteTask.priority, ascending: false),
-            NSSortDescriptor(keyPath: \NoteTask.name, ascending: true),
-            NSSortDescriptor(keyPath: \NoteTask.creationDate, ascending: false)
+            NSSortDescriptor(keyPath: \NoteTask.name, ascending: true)
         ]
     ) var dailyTasks: FetchedResults<NoteTask>
     let currentDay = Calendar.current.component(.day, from: Date.init())
@@ -25,9 +24,7 @@ struct HomeScreen: View {
         ZStack(alignment: .bottomTrailing) {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    Text("today")
-                        .underline()
-                        .headerStyle()
+                    Header(text: "today", underline: true)
                     ForEach(self.dailyTasks, id: \.id) { task in
                         Group {
                             if Calendar.current.component(.day, from: task.creationDate) == self.currentDay {

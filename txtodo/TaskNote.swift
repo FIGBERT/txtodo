@@ -20,16 +20,12 @@ struct dailyTaskNote: View {
     @State var removed: Bool = false
     var body: some View {
         HStack {
-            Image(systemName: "minus")
-                .font(.system(size: 20, weight: .light))
-                .foregroundColor(Color.init(UIColor.label))
+            MainImage(name: "minus", color: .label)
                 .padding(.trailing, 20)
             if removed {
-                Text("error")
-                    .mainNoteStyle()
+                BodyText(text: "deleting...", color: .label, alignment: .leading, strikethrough: false)
             } else if !editing {
-                Text(note)
-                    .mainNoteStyle()
+                BodyText(text: note, color: .label, alignment: .leading, strikethrough: false)
                     .onTapGesture(count: 2) {
                         self.editing = true
                     }
@@ -37,15 +33,13 @@ struct dailyTaskNote: View {
                         self.confirmingDelete = true
                     }
             } else {
-                TextField("editing note", text: $note) {
+                EditingField(placeholder: "editing note", text: $note, alignment: .leading, onEnd: {
                     self.editing = false
                     self.managedObjectContext.performAndWait {
                         self.task.notes[self.index] = self.note
                         try? self.managedObjectContext.save()
                     }
-                }
-                    .editNoteStyle()
-                    .autocapitalization(.none)
+                })
             }
             Spacer()
         }
@@ -73,9 +67,7 @@ struct taskNotes: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
-                Text(task.name)
-                    .underline()
-                    .headerStyle()
+                Header(text: task.name, underline: true)
                 ForEach(Array(task.notes.enumerated()), id: \.element) { index, note in
                     dailyTaskNote(
                         task: self.task,

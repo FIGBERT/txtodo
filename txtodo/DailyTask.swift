@@ -30,24 +30,19 @@ struct dailyTaskView: View {
                     }
                 }) {
                     if task.completed {
-                        Image(systemName: "checkmark.square")
-                            .mainImageStyle()
+                        MainImage(name: "checkmark.square", color: .systemGray)
                     } else {
-                        Image(systemName: "square")
-                            .mainImageStyle()
+                        MainImage(name: "square", color: .label)
                     }
                 }
             } else {
-                Image(systemName: "square")
-                    .mainImageStyle()
+                MainImage(name: "square", color: .label)
             }
             Spacer()
             if deleted {
-                Text("deleting...")
-                    .mainTextStyle()
+                BodyText(text: "deleting...", color: .label, alignment: .center, strikethrough: false)
             } else if !editing {
-                Text(task.name)
-                    .mainTextStyle()
+                BodyText(text: task.name, color: completed ? .systemGray : .label, alignment: .center, strikethrough: completed)
                     .onTapGesture(count: 2) {
                         self.editing = true
                     }
@@ -61,16 +56,14 @@ struct dailyTaskView: View {
                         taskNotes(task: self.task).environment(\.managedObjectContext, self.managedObjectContext)
                     })
             } else {
-                TextField("edit task", text: $name) {
+                EditingField(placeholder: "edit task", text: $name, alignment: .center, onEnd: {
                     self.editing = false
                     self.managedObjectContext.performAndWait {
                         self.task.name = self.name
                         self.task.priority = Int16(self.priority)
                         try? self.managedObjectContext.save()
                     }
-                }
-                    .editMainTextStyle()
-                    .autocapitalization(.none)
+                })
             }
             Spacer()
             if deleted {
@@ -80,12 +73,15 @@ struct dailyTaskView: View {
                 if Int(task.priority) == 1 {
                     Text("  !  ")
                         .font(.system(size: 10, weight: .light))
+                        .foregroundColor(Color.init(completed ? UIColor.systemGray : UIColor.label))
                 } else if Int(task.priority) == 2 {
                     Text(" ! ! ")
                         .font(.system(size: 10, weight: .light))
+                        .foregroundColor(Color.init(completed ? UIColor.systemGray : UIColor.label))
                 } else {
                     Text("! ! !")
                         .font(.system(size: 10, weight: .light))
+                        .foregroundColor(Color.init(completed ? UIColor.systemGray : UIColor.label))
                 }
             } else {
                 Picker(
