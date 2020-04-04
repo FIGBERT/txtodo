@@ -47,7 +47,7 @@ struct dailyTaskNote: View {
             .alert(isPresented: $confirmingDelete) {
                 Alert(
                     title: Text("confirm delete"),
-                    message: Text("the note will be gone forever, with no option to restore"),
+                    message: Text("\"\(note)\" will be gone forever, with no option to restore"),
                     primaryButton: .destructive(Text("delete")) {
                         self.managedObjectContext.performAndWait {
                             self.task.notes.remove(at: self.index)
