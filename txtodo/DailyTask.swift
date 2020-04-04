@@ -99,7 +99,7 @@ struct dailyTaskView: View {
             .alert(isPresented: $confirmingDelete) {
                 Alert(
                     title: Text("confirm delete"), 
-                    message: Text("the task will be gone forever, with no option to restore"),
+                    message: Text("\"\(name)\" will be gone forever, with no option to restore"),
                     primaryButton: .destructive(Text("delete")) {
                         self.managedObjectContext.performAndWait {
                             self.managedObjectContext.delete(self.task)
