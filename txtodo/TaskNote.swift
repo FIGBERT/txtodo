@@ -68,6 +68,7 @@ struct taskNotes: View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack {
                 Header(text: task.name, underline: true)
+                    .padding(.horizontal)
                 ForEach(Array(task.notes.enumerated()), id: \.element) { index, note in
                     dailyTaskNote(
                         task: self.task,
