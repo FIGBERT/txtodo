@@ -16,7 +16,7 @@ class GlobalVars: ObservableObject {
             if !newValue {
                 UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             } else {
-                enableNotifications(onboarding: false)
+                enableNotifications()
             }
             UserDefaults.standard.set(newValue, forKey: "notifications")
         }
@@ -29,55 +29,49 @@ class GlobalVars: ObservableObject {
     @Published var notificationHour: Int = UserDefaults.standard.integer(forKey: "notificationHour") {
         willSet {
             UserDefaults.standard.set(newValue, forKey: "notificationHour")
-            enableNotifications(onboarding: false)
+            enableNotifications(timeChange: true)
         }
     }
     @Published var notificationMinute: Int = UserDefaults.standard.integer(forKey: "notificationMinute") {
         willSet {
             UserDefaults.standard.set(newValue, forKey: "notificationMinute")
-            enableNotifications(onboarding: false)
+            enableNotifications(timeChange: true)
         }
     }
-    func enableNotifications(onboarding: Bool) {
-        if self.notifications {
+    func enableNotifications(toggleSwitch: Bool = false, timeChange: Bool = false) {
+        if timeChange {
             UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         }
         UNUserNotificationCenter.current().requestAuthorization(
             options: [.alert, .badge, .sound]
         ) { success, error in
             if success {
-                if onboarding {
-                    DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    if toggleSwitch {
                         self.notifications = true
                     }
-                }
-                let content = UNMutableNotificationContent()
-                content.title = "open txtodo"
-                content.body = "take some time to plan your day"
-                content.sound = UNNotificationSound.default
-                var time = DateComponents()
-                time.hour = self.notificationHour
-                time.minute = self.notificationMinute
-                let trigger = UNCalendarNotificationTrigger(
-                    dateMatching: time,
-                    repeats: true
-                )
-                let id = UUID().uuidString
-                DispatchQueue.main.async {
+                    let content = UNMutableNotificationContent()
+                    content.title = "open txtodo"
+                    content.body = "take some time to plan your day"
+                    content.sound = UNNotificationSound.default
+                    var time = DateComponents()
+                    time.hour = self.notificationHour
+                    time.minute = self.notificationMinute
+                    let trigger = UNCalendarNotificationTrigger(
+                        dateMatching: time,
+                        repeats: true
+                    )
+                    let id = UUID().uuidString
                     self.notificationID = id
+                    let request = UNNotificationRequest(
+                        identifier: id,
+                        content: content,
+                        trigger: trigger
+                    )
+                    UNUserNotificationCenter.current().add(request)
                 }
-                let request = UNNotificationRequest(
-                    identifier: id,
-                    content: content,
-                    trigger: trigger
-                )
-                UNUserNotificationCenter.current().add(request)
             } else if let error = error {
                 print(error.localizedDescription)
-            } else {
-                DispatchQueue.main.async {
-                    self.notifications = false
-                }
             }
         }
     }

@@ -88,6 +88,7 @@ struct Settings: View {
                         }) {
                             Text("\(globalVars.notificationHour):\(globalVars.notificationMinute)")
                         }
+                            .disabled(!self.globalVars.notifications)
                             .sheet(isPresented: $changingTime, content: {
                                 VStack {
                                     Text("time scheduled")

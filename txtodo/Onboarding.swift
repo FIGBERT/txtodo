@@ -453,17 +453,19 @@ struct RequestNotifications: View {
                 Button(action: {
                     self.globalVars.notificationHour = 8
                     self.globalVars.notificationMinute = 30
-                    self.globalVars.enableNotifications(onboarding: true)
+                    self.globalVars.enableNotifications(toggleSwitch: true)
                 }) {
-                    Text("set notifications to 8:30am")
+                    Text(self.globalVars.notifications ? "notifications set for \(self.globalVars.notificationHour):\(self.globalVars.notificationMinute)am" : "set notifications to 8:30am")
                         .font(.system(size: 20, weight: .light, design: .rounded))
+                        .foregroundColor(self.globalVars.notifications ? Color.green : Color.blue)
                         .multilineTextAlignment(.center)
                         .padding(10)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color.init(UIColor.link), lineWidth: 1)
+                                .stroke(self.globalVars.notifications ? Color.green : Color.blue, lineWidth: 1)
                         )
                 }
+                    .disabled(self.globalVars.notifications)
             }
         }
     }
