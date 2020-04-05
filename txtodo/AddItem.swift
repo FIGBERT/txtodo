@@ -13,7 +13,7 @@ struct addTask: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @State var addingTask: Bool = false
     @State var newTaskText: String = ""
-    @State var newTaskPriority: Int = 0
+    @State var newTaskPriority: Int = 1
     var body: some View {
         Group {
             if !addingTask {
