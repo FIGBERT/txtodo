@@ -52,6 +52,7 @@ struct HomeScreen: View {
             }
                 .background(Color.init(UIColor.systemGray6)
                 .edgesIgnoringSafeArea(.all))
+                .modifier(AdaptsToSoftwareKeyboard())
             Menu()
                 .padding(25)
         }

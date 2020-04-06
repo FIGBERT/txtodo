@@ -14,6 +14,7 @@
 		3A658F9724288E25005C5513 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A658F9624288E25005C5513 /* Styles.swift */; };
 		3A6A4DAD2424391600013065 /* Menus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6A4DAC2424391600013065 /* Menus.swift */; };
 		3A830FC724215B7600DC4766 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A830FC624215B7600DC4766 /* HomeScreen.swift */; };
+		3A93349D243ACC700016A8E7 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A93349C243ACC700016A8E7 /* KeyboardResponder.swift */; };
 		3A96BE6A23F90F3A00E17400 /* DarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96BE6923F90F3A00E17400 /* DarkMode.swift */; };
 		3A9A4563240A36B500A77520 /* AddItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A4562240A36B500A77520 /* AddItem.swift */; };
 		3A9A4565240A37B000A77520 /* TaskNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A4564240A37B000A77520 /* TaskNote.swift */; };
@@ -35,6 +36,7 @@
 		3A658F9624288E25005C5513 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		3A6A4DAC2424391600013065 /* Menus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menus.swift; sourceTree = "<group>"; };
 		3A830FC624215B7600DC4766 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		3A93349C243ACC700016A8E7 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		3A96BE6923F90F3A00E17400 /* DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkMode.swift; sourceTree = "<group>"; };
 		3A9A4562240A36B500A77520 /* AddItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItem.swift; sourceTree = "<group>"; };
 		3A9A4564240A37B000A77520 /* TaskNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNote.swift; sourceTree = "<group>"; };
@@ -75,7 +77,6 @@
 			isa = PBXGroup;
 			children = (
 				3AE3ECBA23F8C8C900F80147 /* txtodo */,
-				3AE3ECB923F8C8C900F80147 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,6 +86,7 @@
 				3AE3ECB823F8C8C900F80147 /* txtodo.app */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3AE3ECBA23F8C8C900F80147 /* txtodo */ = {
@@ -101,7 +103,9 @@
 				3A6A4DAC2424391600013065 /* Menus.swift */,
 				3A658F9624288E25005C5513 /* Styles.swift */,
 				3A2FEF822422E4B00003EDBA /* GlobalVars.swift */,
+				3A93349C243ACC700016A8E7 /* KeyboardResponder.swift */,
 				3A96BE6923F90F3A00E17400 /* DarkMode.swift */,
+				3AE3ECB923F8C8C900F80147 /* Products */,
 				3AE3ECC423F8C8CA00F80147 /* Assets.xcassets */,
 				3AE3ECC923F8C8CA00F80147 /* LaunchScreen.storyboard */,
 				3AE3ECCC23F8C8CA00F80147 /* Info.plist */,
@@ -195,6 +199,7 @@
 				3A6A4DAD2424391600013065 /* Menus.swift in Sources */,
 				3A9A4565240A37B000A77520 /* TaskNote.swift in Sources */,
 				3A2FEF832422E4B00003EDBA /* GlobalVars.swift in Sources */,
+				3A93349D243ACC700016A8E7 /* KeyboardResponder.swift in Sources */,
 				3AE3ECBC23F8C8C900F80147 /* AppDelegate.swift in Sources */,
 				3A658F9724288E25005C5513 /* Styles.swift in Sources */,
 				3AE3ECC123F8C8C900F80147 /* txtodo.xcdatamodeld in Sources */,
