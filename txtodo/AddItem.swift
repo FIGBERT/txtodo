@@ -33,7 +33,7 @@ struct addTask: View {
                 HStack {
                     Button(action: {
                         self.newTaskText = ""
-                        self.newTaskPriority = 0
+                        self.newTaskPriority = 1
                         self.addingTask = false
                     }) {
                         MainImage(name: "multiply.square", color: .systemGray3)
@@ -66,7 +66,7 @@ struct addTask: View {
                             print(error.localizedDescription)
                         }
                         self.newTaskText = ""
-                        self.newTaskPriority = 0
+                        self.newTaskPriority = 1
                         self.addingTask = false
                     }) {
                         MainImage(name: "plus.square", color: .systemGray3)
