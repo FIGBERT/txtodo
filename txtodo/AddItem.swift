@@ -11,9 +11,9 @@ import SwiftUI
 
 struct addTask: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @State var addingTask: Bool = false
-    @State var newTaskText: String = ""
-    @State var newTaskPriority: Int = 1
+    @State private var addingTask: Bool = false
+    @State private var newTaskText: String = ""
+    @State private var newTaskPriority: Int = 1
     var body: some View {
         Group {
             if !addingTask {
@@ -79,9 +79,9 @@ struct addTask: View {
 
 struct addNote: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @State var addingNote: Bool = false
-    @State var newNoteText: String = ""
     @ObservedObject var task: NoteTask
+    @State private var addingNote: Bool = false
+    @State private var newNoteText: String = ""
     var body: some View {
         Group {
             if !addingNote {

@@ -39,9 +39,9 @@ struct Menu: View {
 
 struct MenuItem: View {
     @EnvironmentObject var globalVars: GlobalVars
+    @State private var viewing: Bool = false
     let img: String
     let txt: String
-    @State var viewing: Bool = false
     var body: some View {
         HStack {
             Image(systemName: img)
@@ -197,7 +197,6 @@ struct About: View {
 struct ActivityView: UIViewControllerRepresentable {
     let activityItems: [Any]
     let applicationActivities: [UIActivity]?
-    
     func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityView>) -> UIActivityViewController {
         return UIActivityViewController(
             activityItems: activityItems,
