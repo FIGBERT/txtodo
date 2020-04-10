@@ -13,7 +13,7 @@ import UserNotifications
 
 struct Onboarding: View {
     @EnvironmentObject var globalVars: GlobalVars
-    @State var currentPage = 0
+    @State private var currentPage = 0
     let subviews = [
         UIHostingController(rootView: Introduction()),
         UIHostingController(rootView: AddTaskDemo()),
@@ -226,9 +226,9 @@ struct AddTaskDemo: View {
         var priority: Int
     }
     struct taskView: View {
-        @State private var complete: Bool = false
         @State var text: String
         @State var priority: Int
+        @State private var complete: Bool = false
         @State private var editing: Bool = false
         var body: some View {
             HStack {

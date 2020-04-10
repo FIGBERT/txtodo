@@ -15,9 +15,9 @@ struct dailyTaskNote: View {
     @State var notes: [String]
     @State var note: String
     @State var index: Int
-    @State var editing: Bool = false
-    @State var confirmingDelete: Bool = false
-    @State var removed: Bool = false
+    @State private var editing: Bool = false
+    @State private var confirmingDelete: Bool = false
+    @State private var removed: Bool = false
     var body: some View {
         HStack {
             MainImage(name: "minus", color: .label)
