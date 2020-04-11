@@ -8,13 +8,13 @@ Welcome to **txtodo**. It manages immediate, short-term tasks to help you get th
 
 Download it on the App Store and give it a try! ~~not yet though I'm still working on it~~
 
-## short term goals
+## milestones
 - [x] launch alpha on TestFlight
 - [ ] launch wider beta testing
 - [ ] submit to Apple for approval
 - [ ] go live on the App Store! :tada:
 
-## mid term goals
+## short term goals
 - [ ] implement a "floating" task system for long term goals
 - [ ] add ability to view previous days' tasks without editing
 - [ ] add i18n
