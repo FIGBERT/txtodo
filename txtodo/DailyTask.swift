@@ -15,10 +15,10 @@ struct dailyTaskView: View {
     @State var completed: Bool
     @State var name: String
     @State var priority: Int
+    @State var deleted: Bool = false
     @State private var editing: Bool = false
     @State private var viewingNotes: Bool = false
     @State private var confirmingDelete: Bool = false
-    @State private var deleted: Bool = false
     var body: some View {
         HStack {
             if !deleted {
