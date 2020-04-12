@@ -16,7 +16,6 @@ Download it on the App Store and give it a try! ~~not yet though I'm still worki
 
 ## short term goals
 - [ ] implement a "floating" task system for long term goals
-- [ ] add ability to view previous days' tasks without editing
 - [ ] add i18n
 	- [ ] Hebrew
 	- [ ] Arabic
