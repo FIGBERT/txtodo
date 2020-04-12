@@ -36,12 +36,20 @@ struct HomeScreen: View {
                                 )
                                     .environment(\.managedObjectContext, self.managedObjectContext)
                             } else {
-                                EmptyView().onAppear(perform: {
-                                    self.managedObjectContext.performAndWait {
-                                        self.managedObjectContext.delete(task)
-                                        try? self.managedObjectContext.save()
-                                    }
-                                })
+                                dailyTaskView(
+                                    task: task,
+                                    completed: task.completed,
+                                    name: task.name,
+                                    priority: Int(task.priority),
+                                    deleted: true
+                                )
+                                    .environment(\.managedObjectContext, self.managedObjectContext)
+                                    .onAppear(perform: {
+                                        self.managedObjectContext.performAndWait {
+                                            self.managedObjectContext.delete(task)
+                                            try? self.managedObjectContext.save()
+                                        }
+                                    })
                             }
                         }
                     }
