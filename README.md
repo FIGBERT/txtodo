@@ -15,7 +15,7 @@ Download it on the App Store and give it a try! ~~not yet though I'm still worki
 - [ ] go live on the App Store! :tada:
 
 ## short term goals
-- [ ] implement a "floating" task system for long term goals
+- [x] implement a "floating" task system for long term goals
 - [ ] add i18n
 	- [ ] Hebrew
 	- [ ] Arabic
