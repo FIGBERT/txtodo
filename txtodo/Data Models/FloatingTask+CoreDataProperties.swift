@@ -1,8 +1,8 @@
 //
-//  NoteTask+CoreDataProperties.swift
+//  FloatingTask+CoreDataProperties.swift
 //  txtodo
 //
-//  Created by FIGBERT on 3/13/20.
+//  Created by FIGBERT on 4/14/20.
 //  Copyright © 2020 FIGBERT Industries. All rights reserved.
 //
 //
@@ -11,10 +11,10 @@ import Foundation
 import CoreData
 
 
-extension NoteTask {
+extension FloatingTask {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<NoteTask> {
-        return NSFetchRequest<NoteTask>(entityName: "NoteTask")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<FloatingTask> {
+        return NSFetchRequest<FloatingTask>(entityName: "FloatingTask")
     }
 
     @NSManaged public var completed: Bool
@@ -22,6 +22,5 @@ extension NoteTask {
     @NSManaged public var name: String
     @NSManaged public var notes: Array<String>
     @NSManaged public var id: UUID
-    @NSManaged public var creationDate: Date
 
 }
