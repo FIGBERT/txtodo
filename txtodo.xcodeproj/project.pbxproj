@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A167A2F241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A167A2D241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift */; };
-		3A167A30241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A167A2E241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift */; };
 		3A2FEF832422E4B00003EDBA /* GlobalVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A2FEF822422E4B00003EDBA /* GlobalVars.swift */; };
 		3A4C59F32420787E004A475C /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4C59F22420787E004A475C /* Onboarding.swift */; };
 		3A658F9724288E25005C5513 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A658F9624288E25005C5513 /* Styles.swift */; };
@@ -17,7 +15,11 @@
 		3A93349D243ACC700016A8E7 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A93349C243ACC700016A8E7 /* KeyboardResponder.swift */; };
 		3A96BE6A23F90F3A00E17400 /* DarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A96BE6923F90F3A00E17400 /* DarkMode.swift */; };
 		3A9A4563240A36B500A77520 /* AddItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A4562240A36B500A77520 /* AddItem.swift */; };
-		3A9A4565240A37B000A77520 /* TaskNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A4564240A37B000A77520 /* TaskNote.swift */; };
+		3A9A4565240A37B000A77520 /* TaskNoteViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9A4564240A37B000A77520 /* TaskNoteViews.swift */; };
+		3AB0427624465E3F00CE6380 /* DailyTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB0427224465E3F00CE6380 /* DailyTask+CoreDataClass.swift */; };
+		3AB0427724465E3F00CE6380 /* DailyTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB0427324465E3F00CE6380 /* DailyTask+CoreDataProperties.swift */; };
+		3AB0427824465E3F00CE6380 /* FloatingTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB0427424465E3F00CE6380 /* FloatingTask+CoreDataClass.swift */; };
+		3AB0427924465E3F00CE6380 /* FloatingTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB0427524465E3F00CE6380 /* FloatingTask+CoreDataProperties.swift */; };
 		3AE3ECBC23F8C8C900F80147 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE3ECBB23F8C8C900F80147 /* AppDelegate.swift */; };
 		3AE3ECBE23F8C8C900F80147 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE3ECBD23F8C8C900F80147 /* SceneDelegate.swift */; };
 		3AE3ECC123F8C8C900F80147 /* txtodo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3AE3ECBF23F8C8C900F80147 /* txtodo.xcdatamodeld */; };
@@ -25,12 +27,10 @@
 		3AE3ECC523F8C8CA00F80147 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE3ECC423F8C8CA00F80147 /* Assets.xcassets */; };
 		3AE3ECC823F8C8CA00F80147 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AE3ECC723F8C8CA00F80147 /* Preview Assets.xcassets */; };
 		3AE3ECCB23F8C8CA00F80147 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AE3ECC923F8C8CA00F80147 /* LaunchScreen.storyboard */; };
-		3AED886F240A110B008803AB /* DailyTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED886E240A110B008803AB /* DailyTask.swift */; };
+		3AED886F240A110B008803AB /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AED886E240A110B008803AB /* TaskView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3A167A2D241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteTask+CoreDataClass.swift"; sourceTree = "<group>"; };
-		3A167A2E241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3A2FEF822422E4B00003EDBA /* GlobalVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVars.swift; sourceTree = "<group>"; };
 		3A4C59F22420787E004A475C /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		3A658F9624288E25005C5513 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
@@ -39,7 +39,11 @@
 		3A93349C243ACC700016A8E7 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		3A96BE6923F90F3A00E17400 /* DarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkMode.swift; sourceTree = "<group>"; };
 		3A9A4562240A36B500A77520 /* AddItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItem.swift; sourceTree = "<group>"; };
-		3A9A4564240A37B000A77520 /* TaskNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNote.swift; sourceTree = "<group>"; };
+		3A9A4564240A37B000A77520 /* TaskNoteViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNoteViews.swift; sourceTree = "<group>"; };
+		3AB0427224465E3F00CE6380 /* DailyTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyTask+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3AB0427324465E3F00CE6380 /* DailyTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3AB0427424465E3F00CE6380 /* FloatingTask+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloatingTask+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3AB0427524465E3F00CE6380 /* FloatingTask+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloatingTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3AE3ECB823F8C8C900F80147 /* txtodo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = txtodo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AE3ECBB23F8C8C900F80147 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AE3ECBD23F8C8C900F80147 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,7 +53,7 @@
 		3AE3ECC723F8C8CA00F80147 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3AE3ECCA23F8C8CA00F80147 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3AE3ECCC23F8C8CA00F80147 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3AED886E240A110B008803AB /* DailyTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTask.swift; sourceTree = "<group>"; };
+		3AED886E240A110B008803AB /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,8 +71,10 @@
 			isa = PBXGroup;
 			children = (
 				3AE3ECBF23F8C8C900F80147 /* txtodo.xcdatamodeld */,
-				3A167A2D241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift */,
-				3A167A2E241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift */,
+				3AB0427224465E3F00CE6380 /* DailyTask+CoreDataClass.swift */,
+				3AB0427324465E3F00CE6380 /* DailyTask+CoreDataProperties.swift */,
+				3AB0427424465E3F00CE6380 /* FloatingTask+CoreDataClass.swift */,
+				3AB0427524465E3F00CE6380 /* FloatingTask+CoreDataProperties.swift */,
 			);
 			path = "Data Models";
 			sourceTree = "<group>";
@@ -96,8 +102,8 @@
 				3AE3ECBD23F8C8C900F80147 /* SceneDelegate.swift */,
 				3AE3ECC223F8C8C900F80147 /* ContentView.swift */,
 				3A830FC624215B7600DC4766 /* HomeScreen.swift */,
-				3AED886E240A110B008803AB /* DailyTask.swift */,
-				3A9A4564240A37B000A77520 /* TaskNote.swift */,
+				3AED886E240A110B008803AB /* TaskView.swift */,
+				3A9A4564240A37B000A77520 /* TaskNoteViews.swift */,
 				3A9A4562240A36B500A77520 /* AddItem.swift */,
 				3A4C59F22420787E004A475C /* Onboarding.swift */,
 				3A6A4DAC2424391600013065 /* Menus.swift */,
@@ -194,20 +200,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AB0427924465E3F00CE6380 /* FloatingTask+CoreDataProperties.swift in Sources */,
 				3A96BE6A23F90F3A00E17400 /* DarkMode.swift in Sources */,
-				3AED886F240A110B008803AB /* DailyTask.swift in Sources */,
+				3AED886F240A110B008803AB /* TaskView.swift in Sources */,
 				3A6A4DAD2424391600013065 /* Menus.swift in Sources */,
-				3A9A4565240A37B000A77520 /* TaskNote.swift in Sources */,
+				3A9A4565240A37B000A77520 /* TaskNoteViews.swift in Sources */,
 				3A2FEF832422E4B00003EDBA /* GlobalVars.swift in Sources */,
 				3A93349D243ACC700016A8E7 /* KeyboardResponder.swift in Sources */,
+				3AB0427724465E3F00CE6380 /* DailyTask+CoreDataProperties.swift in Sources */,
 				3AE3ECBC23F8C8C900F80147 /* AppDelegate.swift in Sources */,
+				3AB0427824465E3F00CE6380 /* FloatingTask+CoreDataClass.swift in Sources */,
 				3A658F9724288E25005C5513 /* Styles.swift in Sources */,
 				3AE3ECC123F8C8C900F80147 /* txtodo.xcdatamodeld in Sources */,
 				3A4C59F32420787E004A475C /* Onboarding.swift in Sources */,
-				3A167A30241C8DAF00E942D6 /* NoteTask+CoreDataProperties.swift in Sources */,
 				3A9A4563240A36B500A77520 /* AddItem.swift in Sources */,
+				3AB0427624465E3F00CE6380 /* DailyTask+CoreDataClass.swift in Sources */,
 				3A830FC724215B7600DC4766 /* HomeScreen.swift in Sources */,
-				3A167A2F241C8DAF00E942D6 /* NoteTask+CoreDataClass.swift in Sources */,
 				3AE3ECC323F8C8C900F80147 /* ContentView.swift in Sources */,
 				3AE3ECBE23F8C8C900F80147 /* SceneDelegate.swift in Sources */,
 			);

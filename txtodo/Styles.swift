@@ -20,6 +20,19 @@ struct Header: View {
     }
 }
 
+struct SectionLabel: View {
+    let text: String
+    var body: some View {
+        HStack {
+            Text(text)
+                .font(.system(size: 10, weight: .bold))
+                .foregroundColor(Color.init(.systemGray))
+                .multilineTextAlignment(.leading)
+            Spacer()
+        }
+    }
+}
+
 struct BodyText: View {
     let text: String
     let color: UIColor
