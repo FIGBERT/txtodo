@@ -18,16 +18,18 @@ struct Onboarding: View {
         UIHostingController(rootView: Introduction()),
         UIHostingController(rootView: AddTaskDemo()),
         UIHostingController(rootView: TaskDemo()),
+        UIHostingController(rootView: TaskTypes()),
         UIHostingController(rootView: AddNoteDemo()),
         UIHostingController(rootView: NoteDemo()),
         UIHostingController(rootView: RequestNotifications()),
         UIHostingController(rootView: ThankYou())
     ]
-    let titles = ["welcome to txtodo", "create a task", "edit a task", "create a note", "edit a note", "customize notifications", "thanks for downloading"]
+    let titles = ["welcome to txtodo", "create a task", "edit a task", "types of tasks", "create a note", "edit a note", "customize notifications", "thanks for downloading"]
     let captions = [
         "txtodo is a minimalist, open-source productivity app made by FIGBERT. It lists daily tasks that expire at midnight to help you get things done without overthinking them.",
         "tap on the button above to create a new task, and edit the text and priority. try out the live demo above.",
         "double tap a task to edit the task, and press return to confirm your changes. try out the live demo above.",
+        "there are two types of tasks in txtodo: daily and floating. unlike daily tasks, which disappear at midnight, floating tasks never expire – however, you can only have three at a time!",
         "tap on the button above to create a new note. notes provide extra details about tasks, and they're accessed by tapping once on a task. try out the live demo above.",
         "double tap a note to edit the text, and press return to confirm your changes. try out the live demo above.",
         "txtodo uses notifications to remind users to set the day's tasks in the morning, but they are not required. notifications are scheduled at 8:30am by default. notifications can be modified from the settings menu.",
@@ -328,6 +330,31 @@ struct TaskDemo: View {
                 }
             }
                 .padding(.horizontal, 25)
+        }
+    }
+}
+
+struct TaskTypes: View {
+    var body: some View {
+        ZStack {
+            Color.init(UIColor.systemGray6)
+                .edgesIgnoringSafeArea(.all)
+            HStack {
+                VStack {
+                    Image(systemName: "clock")
+                        .font(.system(size: 25, weight: .light, design: .rounded))
+                        .foregroundColor(Color.init(UIColor.label))
+                    BodyText(text: "daily", color: .label, alignment: .center, strikethrough: false)
+                }
+                    .padding(.horizontal, 50)
+                VStack {
+                    Image(systemName: "cloud")
+                        .font(.system(size: 25, weight: .light, design: .rounded))
+                        .foregroundColor(Color.init(UIColor.label))
+                    BodyText(text: "floating", color: .label, alignment: .center, strikethrough: false)
+                }
+                    .padding(.horizontal, 50)
+            }
         }
     }
 }
